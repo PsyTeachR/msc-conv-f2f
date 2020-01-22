@@ -105,7 +105,7 @@ The mean score for `delay` shows as `NA`. This is because R is trying to calcula
 
 * Run the below code. What is the mean score for the `delay` condition to 2 decimal places? `r fitb("13.57")`
 
-```{r na.rm3, echo=FALSE, eval=FALSE}
+```{r na.rm3, eval=FALSE}
 summarise(messy, 
           pre_mean = mean(pre),
           post_mean = mean(post),
