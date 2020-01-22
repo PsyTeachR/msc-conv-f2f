@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 11 Supplementary Analyses | MSc Conversion in Psychological Studies/Science</title>
   <meta name="description" content="This is the materials for the one-year MSc Conversion in Psychological Studies/Science." />
-  <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 11 Supplementary Analyses | MSc Conversion in Psychological Studies/Science" />
   <meta property="og:type" content="book" />
@@ -24,14 +24,14 @@
 <meta name="author" content="Emily Nordmann, Heather Cleland-Woods, Phil McAleer" />
 
 
-<meta name="date" content="2020-01-14" />
+<meta name="date" content="2020-01-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="dissertation-analysis-guide.html">
+<link rel="prev" href="dissertation-analysis-guide.html"/>
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -40,6 +40,9 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -50,26 +53,27 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -78,9 +82,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -600,20 +604,20 @@ You can go read up on the Monte Carlo approach if you like. It can however get q
 </li>
 <li>Try increasing <code>n</code> to 1000.</li>
 </ul>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rnorm</span>(<span class="dv">10</span>)</code></pre>
-<pre><code>##  [1] -0.65269242 -0.84018414  1.20931995  0.08167362 -0.74893367
-##  [6]  0.81567917 -1.02409358  0.22465782  0.87072689 -2.28167379</code></pre>
+<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="refsup.html#cb297-1"></a><span class="kw">rnorm</span>(<span class="dv">10</span>)</span></code></pre></div>
+<pre><code>##  [1]  0.43690003  1.59459706  1.26108659 -1.87249904  0.04876555
+##  [6]  0.94966976  0.90252922 -1.41693783 -0.09081812 -0.02927838</code></pre>
 <p><br>
 <span style="font-size: 22px; font-weight: bold; color: var(--green);">Quickfire Questions</span></p>
 <p>If you enter <code>rnorm(50)</code> again you will get different numbers. Why? <select class='solveme' data-answer='["The numbers are random"]'> <option></option> <option>I have made a mistake</option> <option>The numbers are random</option> <option>R has made a mistake</option> <option>Phil has made a mistake</option></select></p>
 <p>If you want to change the mean or sd, you would need to pass additional arguments to the function as shown below.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rnorm</span>(<span class="dt">n =</span> <span class="dv">10</span>, <span class="dt">mean =</span> <span class="dv">1</span>, <span class="dt">sd =</span> <span class="fl">.5</span>)</code></pre>
+<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="refsup.html#cb299-1"></a><span class="kw">rnorm</span>(<span class="dt">n =</span> <span class="dv">10</span>, <span class="dt">mean =</span> <span class="dv">1</span>, <span class="dt">sd =</span> <span class="fl">.5</span>)</span></code></pre></div>
 <ul>
 <li>Try changing the mean and sd values a couple of times and see what happens. You get different numbers again that will be around the mean you set! Set a mean of 10, then a mean of 100, to test this.</li>
 </ul>
 <p>Finally, for this Skill, you can concatenate (i.e. link) numbers together into a single vector using the <code>c()</code> function from base R. For instance, say you wanted to create a vector with two sets of 50 random numbers from two separate samples: one set of 50 with a mean of 75 and the other with a mean of 90, you would use:</p>
-<pre class="sourceCode r"><code class="sourceCode r">random_numbers &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rnorm</span>(<span class="dv">50</span>, <span class="dv">75</span>),
-                    <span class="kw">rnorm</span>(<span class="dv">50</span>, <span class="dv">90</span>))</code></pre>
+<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="refsup.html#cb300-1"></a>random_numbers &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rnorm</span>(<span class="dv">50</span>, <span class="dv">75</span>),</span>
+<span id="cb300-2"><a href="refsup.html#cb300-2"></a>                    <span class="kw">rnorm</span>(<span class="dv">50</span>, <span class="dv">90</span>))</span></code></pre></div>
 <p><span style="font-size: 22px; font-weight: bold; color: var(--green);">Quickfire Questions</span></p>
 <p>In the above example code, what is the standard deviation of the two samples you have created? <select class='solveme' data-answer='["1"]'> <option></option> <option>50</option> <option>75</option> <option>90</option> <option>1</option></select></p>
 <div class="solution">
@@ -631,7 +635,7 @@ Both populations would have an sd of 1, because that is the default, although yo
 </div>
 <p><br>
 It is always good to check that your new vector has the right number of data points in it - i.e. the total of the two samples; a sanity check if you will. The new vector <code>random_numbers</code> should have 100 elements. You could verify this using the <code>length()</code> function:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(random_numbers)</code></pre>
+<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb301-1"><a href="refsup.html#cb301-1"></a><span class="kw">length</span>(random_numbers)</span></code></pre></div>
 <pre><code>## [1] 100</code></pre>
 <p><br></p>
 </div>
@@ -675,16 +679,16 @@ The more values you have, the more permutations of the order you have. The numbe
 <ul>
 <li>Type <code>letters</code> into the console, as below, and press RETURN/ENTER. You will see it contains all the lowercase letters of the English alphabet. Now, I bet you are wondering what <code>LETTERS</code> does, right?</li>
 </ul>
-<pre class="sourceCode r"><code class="sourceCode r">letters</code></pre>
+<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="refsup.html#cb303-1"></a>letters</span></code></pre></div>
 <pre><code>##  [1] &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot; &quot;g&quot; &quot;h&quot; &quot;i&quot; &quot;j&quot; &quot;k&quot; &quot;l&quot; &quot;m&quot; &quot;n&quot; &quot;o&quot; &quot;p&quot; &quot;q&quot;
 ## [18] &quot;r&quot; &quot;s&quot; &quot;t&quot; &quot;u&quot; &quot;v&quot; &quot;w&quot; &quot;x&quot; &quot;y&quot; &quot;z&quot;</code></pre>
 <p>We can combine <code>base::sample()</code> with <code>letters</code> to put the letters into a random order:</p>
 <ul>
 <li>Run the below line. Run it again. And again. What do you notice? And why is our output different from yours? (The answer is below)</li>
 </ul>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sample</span>(letters)</code></pre>
-<pre><code>##  [1] &quot;e&quot; &quot;a&quot; &quot;z&quot; &quot;x&quot; &quot;q&quot; &quot;m&quot; &quot;y&quot; &quot;g&quot; &quot;k&quot; &quot;i&quot; &quot;u&quot; &quot;n&quot; &quot;h&quot; &quot;j&quot; &quot;r&quot; &quot;o&quot; &quot;w&quot;
-## [18] &quot;d&quot; &quot;v&quot; &quot;t&quot; &quot;c&quot; &quot;s&quot; &quot;b&quot; &quot;f&quot; &quot;l&quot; &quot;p&quot;</code></pre>
+<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb305-1"><a href="refsup.html#cb305-1"></a><span class="kw">sample</span>(letters)</span></code></pre></div>
+<pre><code>##  [1] &quot;g&quot; &quot;r&quot; &quot;o&quot; &quot;m&quot; &quot;y&quot; &quot;c&quot; &quot;s&quot; &quot;d&quot; &quot;k&quot; &quot;e&quot; &quot;v&quot; &quot;t&quot; &quot;j&quot; &quot;q&quot; &quot;w&quot; &quot;a&quot; &quot;f&quot;
+## [18] &quot;h&quot; &quot;z&quot; &quot;l&quot; &quot;n&quot; &quot;i&quot; &quot;p&quot; &quot;u&quot; &quot;x&quot; &quot;b&quot;</code></pre>
 <p><span style="font-size: 22px; font-weight: bold; color: var(--green);">Quickfire Questions</span></p>
 <p>If <code>month.name</code> contains the names of the twelve months of the year, how many possible permutations are there of <code>sample(month.name)</code>? <select class='solveme' data-answer='["479001600"]'> <option></option> <option>1</option> <option>12</option> <option>144</option> <option>479001600</option></select></p>
 <div class="solution">
@@ -711,54 +715,54 @@ Top Tip: Remember that you can scroll up through your command history in the con
 <div id="entering-data-into-a-tibble" class="section level4">
 <h4><span class="header-section-number">11.2.4.1</span> Entering Data into a Tibble</h4>
 <p>The <code>tibble()</code> function takes named arguments - this means that the name you give each argument within the tibble function, e.g. <code>Y = rnorm(10)</code> will be the name of the column that appears in the table, i.e. <code>Y</code>. It’s best to see how it works through an example.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tibble</span>(<span class="dt">Y =</span> <span class="kw">rnorm</span>(<span class="dv">10</span>))</code></pre>
+<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="refsup.html#cb307-1"></a><span class="kw">tibble</span>(<span class="dt">Y =</span> <span class="kw">rnorm</span>(<span class="dv">10</span>))</span></code></pre></div>
 <pre><code>## # A tibble: 10 x 1
 ##          Y
 ##      &lt;dbl&gt;
-##  1  0.592 
-##  2  2.70  
-##  3  1.23  
-##  4  0.995 
-##  5  0.577 
-##  6  0.456 
-##  7 -0.397 
-##  8  0.460 
-##  9 -0.167 
-## 10  0.0306</code></pre>
+##  1  0.222 
+##  2 -0.996 
+##  3  0.307 
+##  4  0.122 
+##  5 -0.203 
+##  6 -0.434 
+##  7  0.414 
+##  8 -0.262 
+##  9  0.0667
+## 10  0.255</code></pre>
 <p>The above command creates a new table with one column named <code>Y</code>, and the values in that column are the result of a call to <code>rnorm(10)</code>: 10 randomly sampled values from a standard normal distribution (mean = 0, sd = 1) - See Skill 1.</p>
 <p>If however we wanted to sample from two different populations for <code>Y</code>, we could combine two calls to <code>rnorm()</code> within the <code>c()</code> function. Again this was in Skill 1, here we are now just storing it in a tibble. See below:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tibble</span>(<span class="dt">Y =</span> <span class="kw">c</span>(<span class="kw">rnorm</span>(<span class="dv">5</span>, <span class="dt">mean =</span> <span class="dv">-10</span>), 
-             <span class="kw">rnorm</span>(<span class="dv">5</span>, <span class="dt">mean =</span>  <span class="dv">20</span>)))</code></pre>
+<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb309-1"><a href="refsup.html#cb309-1"></a><span class="kw">tibble</span>(<span class="dt">Y =</span> <span class="kw">c</span>(<span class="kw">rnorm</span>(<span class="dv">5</span>, <span class="dt">mean =</span> <span class="dv">-10</span>), </span>
+<span id="cb309-2"><a href="refsup.html#cb309-2"></a>             <span class="kw">rnorm</span>(<span class="dv">5</span>, <span class="dt">mean =</span>  <span class="dv">20</span>)))</span></code></pre></div>
 <pre><code>## # A tibble: 10 x 1
 ##         Y
 ##     &lt;dbl&gt;
-##  1 -10.7 
-##  2  -8.99
-##  3  -8.50
-##  4 -10.2 
-##  5  -9.17
-##  6  21.4 
-##  7  20.5 
-##  8  20.7 
-##  9  20.3 
-## 10  18.6</code></pre>
+##  1 -11.0 
+##  2  -9.45
+##  3  -9.36
+##  4  -9.09
+##  5  -9.58
+##  6  20.6 
+##  7  21.1 
+##  8  22.2 
+##  9  17.6 
+## 10  18.5</code></pre>
 <p>Now we have sampled a total of 10 observations - the first 5 come from a group with a mean of -10, and the second 5 come from a group with a mean of 20. Try changing the values in the above example to get an idea of how this works. Maybe even add a third group!</p>
 <p>But, of course, it would be good to know which population each data point refers to and so we should add some group names. We can do this with some additional trickery using the <code>rep()</code> function.</p>
 </div>
 <div id="repeating-values-to-save-typing" class="section level4">
 <h4><span class="header-section-number">11.2.4.2</span> Repeating Values to Save Typing</h4>
 <p>Before finalising our table let’s learn a little about the base R function, <code>rep()</code>. This is most useful for automatically repeating values in order to save typing. For instance, if we wanted 20 letter “A”s in a row, we would type:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rep</span>(<span class="st">&quot;A&quot;</span>, <span class="dv">20</span>)</code></pre>
+<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb311-1"><a href="refsup.html#cb311-1"></a><span class="kw">rep</span>(<span class="st">&quot;A&quot;</span>, <span class="dv">20</span>)</span></code></pre></div>
 <pre><code>##  [1] &quot;A&quot; &quot;A&quot; &quot;A&quot; &quot;A&quot; &quot;A&quot; &quot;A&quot; &quot;A&quot; &quot;A&quot; &quot;A&quot; &quot;A&quot; &quot;A&quot; &quot;A&quot; &quot;A&quot; &quot;A&quot; &quot;A&quot; &quot;A&quot; &quot;A&quot;
 ## [18] &quot;A&quot; &quot;A&quot; &quot;A&quot;</code></pre>
 <p>The first argument to <code>rep()</code> is the vector containing the information you want repeated, <strong>A</strong>, and the second argument, <code>times</code>, is the number of times to repeat it; in this case <strong>20</strong>.</p>
 <p>If you wanted to add more information, e.g. if the first argument has more than one element, say “A” and “B”, it will repeat the entire vector that number of times; A B, A B, A B, … . Note that we enclose “A” and “B” in the <code>c()</code> function so that it is seen as a single argument.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>), <span class="dv">20</span>)</code></pre>
+<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb313-1"><a href="refsup.html#cb313-1"></a><span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>), <span class="dv">20</span>)</span></code></pre></div>
 <pre><code>##  [1] &quot;A&quot; &quot;B&quot; &quot;A&quot; &quot;B&quot; &quot;A&quot; &quot;B&quot; &quot;A&quot; &quot;B&quot; &quot;A&quot; &quot;B&quot; &quot;A&quot; &quot;B&quot; &quot;A&quot; &quot;B&quot; &quot;A&quot; &quot;B&quot; &quot;A&quot;
 ## [18] &quot;B&quot; &quot;A&quot; &quot;B&quot; &quot;A&quot; &quot;B&quot; &quot;A&quot; &quot;B&quot; &quot;A&quot; &quot;B&quot; &quot;A&quot; &quot;B&quot; &quot;A&quot; &quot;B&quot; &quot;A&quot; &quot;B&quot; &quot;A&quot; &quot;B&quot;
 ## [35] &quot;A&quot; &quot;B&quot; &quot;A&quot; &quot;B&quot; &quot;A&quot; &quot;B&quot;</code></pre>
 <p>But sometimes we want a specific number of As followed by a specific number of Bs; A A A B B B. If the <code>times</code> argument has the same number of elements as the vector given for the first argument, it will repeat each element of the first vector as many times as given by the corresponding element in the <code>times</code> vector. In other words, for example, <code>times = c(2, 4)</code> for vector <code>c("A", "B")</code> will give you 2 As followed by 4 Bs.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>), <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>))</code></pre>
+<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="refsup.html#cb315-1"></a><span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>), <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>))</span></code></pre></div>
 <pre><code>## [1] &quot;A&quot; &quot;A&quot; &quot;B&quot; &quot;B&quot; &quot;B&quot; &quot;B&quot;</code></pre>
 <p>The best way to learn about this function is to play around with it in the console and see what happens. From the dropdown menus, the correct output of the following function would be:</p>
 <ol style="list-style-type: decimal">
@@ -772,19 +776,19 @@ Top Tip: Remember that you can scroll up through your command history in the con
 <pre><code>## # A tibble: 10 x 2
 ##    group      Y
 ##    &lt;chr&gt;  &lt;dbl&gt;
-##  1 A      -8.90
-##  2 A     -10.3 
-##  3 A     -13.3 
-##  4 A     -11.1 
-##  5 A      -9.85
-##  6 B      20.5 
-##  7 B      22.5 
-##  8 B      21.8 
-##  9 B      18.7 
-## 10 B      18.3</code></pre>
+##  1 A     -10.6 
+##  2 A     -10.8 
+##  3 A      -9.18
+##  4 A      -9.69
+##  5 A     -10.9 
+##  6 B      19.9 
+##  7 B      19.6 
+##  8 B      21.4 
+##  9 B      19.7 
+## 10 B      22.1</code></pre>
 <p>You now know how to create this table. Have a look at the code below and make sure you understand it. We have one column called <code>group</code> where we create <strong>A</strong>s and <strong>B</strong>s through <code>rep()</code>, and one column called <strong>Y</strong>, our data, all in our <code>tibble()</code>:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tibble</span>(<span class="dt">group =</span> <span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>), <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">5</span>)),
-       <span class="dt">Y =</span> <span class="kw">c</span>(<span class="kw">rnorm</span>(<span class="dv">5</span>, <span class="dt">mean =</span> <span class="dv">-10</span>), <span class="kw">rnorm</span>(<span class="dv">5</span>, <span class="dt">mean =</span>  <span class="dv">20</span>)))</code></pre>
+<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb318-1"><a href="refsup.html#cb318-1"></a><span class="kw">tibble</span>(<span class="dt">group =</span> <span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>), <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">5</span>)),</span>
+<span id="cb318-2"><a href="refsup.html#cb318-2"></a>       <span class="dt">Y =</span> <span class="kw">c</span>(<span class="kw">rnorm</span>(<span class="dv">5</span>, <span class="dt">mean =</span> <span class="dv">-10</span>), <span class="kw">rnorm</span>(<span class="dv">5</span>, <span class="dt">mean =</span>  <span class="dv">20</span>)))</span></code></pre></div>
 <p>Be sure to play around with the code chunk to get used to it. Try adding a third group or even a third column? Perhaps you want to give every participant a random age with a mean of 18, and a sd of 1; or even a participant number.</p>
 <div class="solution">
 <button>
@@ -798,10 +802,10 @@ Try <code>row_number()</code> to create participant numbers.
 </div>
 <p><br>
 Don’t forget, if you wanted to store your tibble, you would just assign it to a name, such as <code>my_data</code>:</p>
-<pre class="sourceCode r"><code class="sourceCode r">my_data &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">ID =</span> <span class="kw">row_number</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>), 
-                    <span class="dt">group =</span> <span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>), <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">5</span>)),
-                    <span class="dt">Y =</span> <span class="kw">c</span>(<span class="kw">rnorm</span>(<span class="dv">5</span>, <span class="dt">mean =</span> <span class="dv">-10</span>), <span class="kw">rnorm</span>(<span class="dv">5</span>, <span class="dt">mean =</span>  <span class="dv">20</span>)),
-                    <span class="dt">Age =</span> <span class="kw">rnorm</span>(<span class="dv">10</span>, <span class="dv">18</span>, <span class="dv">1</span>))</code></pre>
+<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="refsup.html#cb319-1"></a>my_data &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">ID =</span> <span class="kw">row_number</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>), </span>
+<span id="cb319-2"><a href="refsup.html#cb319-2"></a>                    <span class="dt">group =</span> <span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>), <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">5</span>)),</span>
+<span id="cb319-3"><a href="refsup.html#cb319-3"></a>                    <span class="dt">Y =</span> <span class="kw">c</span>(<span class="kw">rnorm</span>(<span class="dv">5</span>, <span class="dt">mean =</span> <span class="dv">-10</span>), <span class="kw">rnorm</span>(<span class="dv">5</span>, <span class="dt">mean =</span>  <span class="dv">20</span>)),</span>
+<span id="cb319-4"><a href="refsup.html#cb319-4"></a>                    <span class="dt">Age =</span> <span class="kw">rnorm</span>(<span class="dv">10</span>, <span class="dv">18</span>, <span class="dv">1</span>))</span></code></pre></div>
 <p><br>
 <span style="font-size: 18px; font-weight: bold; color: var(--blue);">Skill 3 out of 6 Complete!</span></p>
 </div>
@@ -809,61 +813,61 @@ Don’t forget, if you wanted to store your tibble, you would just assign it to 
 <div id="skill-4-computing-differences-in-group-means" class="section level3">
 <h3><span class="header-section-number">11.2.5</span> Skill 4: Computing Differences in Group Means</h3>
 <p>You have already learned how to calculate group means using <code>group_by()</code> and <code>summarise()</code>. For example, you might want to calculate sample means for a randomly generated dataset like so:</p>
-<pre class="sourceCode r"><code class="sourceCode r">my_data &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">group =</span> <span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>), <span class="kw">c</span>(<span class="dv">20</span>, <span class="dv">20</span>)),
-                  <span class="dt">Y =</span> <span class="kw">c</span>(<span class="kw">rnorm</span>(<span class="dv">20</span>,  <span class="dv">20</span>, <span class="dv">5</span>), <span class="kw">rnorm</span>(<span class="dv">20</span>, <span class="dv">-20</span>, <span class="dv">5</span>)))
-
-my_data_means &lt;-<span class="st"> </span>my_data <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">group_by</span>(group) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">m =</span> <span class="kw">mean</span>(Y))
-
-my_data_means</code></pre>
+<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="refsup.html#cb320-1"></a>my_data &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">group =</span> <span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>), <span class="kw">c</span>(<span class="dv">20</span>, <span class="dv">20</span>)),</span>
+<span id="cb320-2"><a href="refsup.html#cb320-2"></a>                  <span class="dt">Y =</span> <span class="kw">c</span>(<span class="kw">rnorm</span>(<span class="dv">20</span>,  <span class="dv">20</span>, <span class="dv">5</span>), <span class="kw">rnorm</span>(<span class="dv">20</span>, <span class="dv">-20</span>, <span class="dv">5</span>)))</span>
+<span id="cb320-3"><a href="refsup.html#cb320-3"></a></span>
+<span id="cb320-4"><a href="refsup.html#cb320-4"></a>my_data_means &lt;-<span class="st"> </span>my_data <span class="op">%&gt;%</span></span>
+<span id="cb320-5"><a href="refsup.html#cb320-5"></a><span class="st">  </span><span class="kw">group_by</span>(group) <span class="op">%&gt;%</span></span>
+<span id="cb320-6"><a href="refsup.html#cb320-6"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">m =</span> <span class="kw">mean</span>(Y))</span>
+<span id="cb320-7"><a href="refsup.html#cb320-7"></a></span>
+<span id="cb320-8"><a href="refsup.html#cb320-8"></a>my_data_means</span></code></pre></div>
 <pre><code>## # A tibble: 2 x 2
 ##   group     m
 ##   &lt;chr&gt; &lt;dbl&gt;
-## 1 A      21.1
-## 2 B     -19.5</code></pre>
-<p>Sometimes what we want though is to calculate <strong>the differences between means</strong> rather than just the means; so we’d like to subtract the second group mean -19.5 from the first group mean of 21.1, to get a single value, the difference: 40.6.</p>
+## 1 A      20.3
+## 2 B     -20.5</code></pre>
+<p>Sometimes what we want though is to calculate <strong>the differences between means</strong> rather than just the means; so we’d like to subtract the second group mean -20.5 from the first group mean of 20.3, to get a single value, the difference: 40.8.</p>
 <p>We can do this using the <code>dplyr::pull()</code> and <code>purrr::pluck()</code> functions. <code>pull()</code> will extract a single column from a dataframe and turn it into a vector. <code>pluck()</code> then allows you to pull out an element (i.e. a value or values) from within that vector.</p>
-<pre class="sourceCode r"><code class="sourceCode r">vec &lt;-<span class="st"> </span>my_data_means <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">pull</span>(m)
-
-vec</code></pre>
-<pre><code>## [1]  21.07909 -19.48067</code></pre>
+<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb322-1"><a href="refsup.html#cb322-1"></a>vec &lt;-<span class="st"> </span>my_data_means <span class="op">%&gt;%</span></span>
+<span id="cb322-2"><a href="refsup.html#cb322-2"></a><span class="st">  </span><span class="kw">pull</span>(m)</span>
+<span id="cb322-3"><a href="refsup.html#cb322-3"></a></span>
+<span id="cb322-4"><a href="refsup.html#cb322-4"></a>vec</span></code></pre></div>
+<pre><code>## [1]  20.25808 -20.50845</code></pre>
 <p>We have now created <code>vec</code> which is a vector containing only the group means; the rest of the information in the table has been discarded. Now that we have <code>vec</code>, we can calculate the mean difference as below, where <code>vec</code> is our vector of the two means and <code>[1]</code> and <code>[2]</code> refer to the two means:</p>
-<pre class="sourceCode r"><code class="sourceCode r">vec[<span class="dv">1</span>] <span class="op">-</span><span class="st"> </span>vec[<span class="dv">2</span>]</code></pre>
-<pre><code>## [1] 40.55976</code></pre>
+<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb324-1"><a href="refsup.html#cb324-1"></a>vec[<span class="dv">1</span>] <span class="op">-</span><span class="st"> </span>vec[<span class="dv">2</span>]</span></code></pre></div>
+<pre><code>## [1] 40.76653</code></pre>
 <p>But <code>pluck()</code> is also useful, and can be written as so:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pluck</span>(vec, <span class="dv">1</span>) <span class="op">-</span><span class="st"> </span><span class="kw">pluck</span>(vec, <span class="dv">2</span>)</code></pre>
-<pre><code>## [1] 40.55976</code></pre>
+<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb326-1"><a href="refsup.html#cb326-1"></a><span class="kw">pluck</span>(vec, <span class="dv">1</span>) <span class="op">-</span><span class="st"> </span><span class="kw">pluck</span>(vec, <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## [1] 40.76653</code></pre>
 <p>It can also be incorporated into a pipeline as below where we still <code>pull()</code> the means column, <code>m</code>, and then <code>pluck()</code> each value in turn and subtract them from each other.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co">## whole thing in a pipeline</span>
-my_data_means <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pull</span>(m) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pluck</span>(<span class="dv">1</span>) <span class="op">-</span>
-<span class="st">  </span>my_data_means <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pull</span>(m) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pluck</span>(<span class="dv">2</span>)</code></pre>
-<pre><code>## [1] 40.55976</code></pre>
+<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb328-1"><a href="refsup.html#cb328-1"></a><span class="co">## whole thing in a pipeline</span></span>
+<span id="cb328-2"><a href="refsup.html#cb328-2"></a>my_data_means <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pull</span>(m) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pluck</span>(<span class="dv">1</span>) <span class="op">-</span></span>
+<span id="cb328-3"><a href="refsup.html#cb328-3"></a><span class="st">  </span>my_data_means <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pull</span>(m) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pluck</span>(<span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## [1] 40.76653</code></pre>
 <p>However, there is an alternative way to extract the difference between means which may make more intuitive sense. You already know how to calculate a difference between values in the same row of a table using <code>dplyr::mutate()</code>, e.g. <code>mutate(new_column = column1 minus column2)</code>. So if you can get the observations in <code>my_data_means</code> into the same row, different columns, you could then use <code>mutate()</code> to calculate the difference. Previously you learned <code>gather()</code> to bring columns together. Well the opposite of gather is the <code>tidyr::spread()</code> function to split columns apart - as below.</p>
-<pre class="sourceCode r"><code class="sourceCode r">my_data_means <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">spread</span>(group, m)</code></pre>
+<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb330-1"><a href="refsup.html#cb330-1"></a>my_data_means <span class="op">%&gt;%</span></span>
+<span id="cb330-2"><a href="refsup.html#cb330-2"></a><span class="st">  </span><span class="kw">spread</span>(group, m)</span></code></pre></div>
 <pre><code>## # A tibble: 1 x 2
 ##       A     B
 ##   &lt;dbl&gt; &lt;dbl&gt;
-## 1  21.1 -19.5</code></pre>
+## 1  20.3 -20.5</code></pre>
 <p>The spread function (<code>?spread</code>) splits the data in column <code>m</code> by the information, i.e. labels, in column <code>group</code> and puts the data into separate columns. A call to <code>spread()</code> followed by a <code>mutate()</code> can be used to calculate the difference in means - see below:</p>
-<pre class="sourceCode r"><code class="sourceCode r">my_data_means <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">spread</span>(group, m) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">diff =</span> A <span class="op">-</span><span class="st"> </span>B) </code></pre>
+<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb332-1"><a href="refsup.html#cb332-1"></a>my_data_means <span class="op">%&gt;%</span></span>
+<span id="cb332-2"><a href="refsup.html#cb332-2"></a><span class="st">  </span><span class="kw">spread</span>(group, m) <span class="op">%&gt;%</span></span>
+<span id="cb332-3"><a href="refsup.html#cb332-3"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">diff =</span> A <span class="op">-</span><span class="st"> </span>B) </span></code></pre></div>
 <pre><code>## # A tibble: 1 x 3
 ##       A     B  diff
 ##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1  21.1 -19.5  40.6</code></pre>
+## 1  20.3 -20.5  40.8</code></pre>
 <ul>
 <li>What is the name of the column containing the differences between the means of A and B? <select class='solveme' data-answer='["diff"]'> <option></option> <option>means</option> <option>group</option> <option>m</option> <option>diff</option></select></li>
 </ul>
 <p>Finally, if you then wanted to just get <code>diff</code> and throw away everything else in the table:</p>
-<pre class="sourceCode r"><code class="sourceCode r">my_data_means <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">spread</span>(group, m) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">diff =</span> A <span class="op">-</span><span class="st"> </span>B) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">pull</span>(diff)</code></pre>
-<pre><code>## [1] 40.55976</code></pre>
+<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="refsup.html#cb334-1"></a>my_data_means <span class="op">%&gt;%</span></span>
+<span id="cb334-2"><a href="refsup.html#cb334-2"></a><span class="st">  </span><span class="kw">spread</span>(group, m) <span class="op">%&gt;%</span></span>
+<span id="cb334-3"><a href="refsup.html#cb334-3"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">diff =</span> A <span class="op">-</span><span class="st"> </span>B) <span class="op">%&gt;%</span></span>
+<span id="cb334-4"><a href="refsup.html#cb334-4"></a><span class="st">  </span><span class="kw">pull</span>(diff)</span></code></pre></div>
+<pre><code>## [1] 40.76653</code></pre>
 <div class="solution">
 <button>
 Portfolio Point - Reading pipes and verbalising tasks
@@ -883,24 +887,24 @@ Often step 1 of writing code or understanding code is knowing what it is you wan
 <h3><span class="header-section-number">11.2.6</span> Skill 5: Creating Your Own Functions</h3>
 <p>In Skills 1 to 4, we have looked at creating and sampling data, storing it in a tibble, and extracting information from that tibble. Now say we wanted to do this over and over again. For instance, we might want to generate 100 random datasets just like the one in Skill 4. It would be a pain to have to type out the <code>tibble()</code> function 100 times or even to copy and paste it 100 times. We’d likely make an error somewhere and it would be hard to read. To help us, we can create a custom function that performs the action you want; in our case, creating a tibble of random data.</p>
 <p>Remember, a function is just a procedure that takes an input and gives you the same output each time - like a toaster! A function has the following format:</p>
-<pre class="sourceCode r"><code class="sourceCode r">name_of_function &lt;-<span class="st"> </span><span class="cf">function</span>(arg1, arg2, arg3) {
-  <span class="co">## body of function goes between these curly brackets; i.e. what the function does for you.</span>
-  <span class="co">## Note that the last value calculated will be returned if you call the function.</span>
-}</code></pre>
+<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb336-1"><a href="refsup.html#cb336-1"></a>name_of_function &lt;-<span class="st"> </span><span class="cf">function</span>(arg1, arg2, arg3) {</span>
+<span id="cb336-2"><a href="refsup.html#cb336-2"></a>  <span class="co">## body of function goes between these curly brackets; i.e. what the function does for you.</span></span>
+<span id="cb336-3"><a href="refsup.html#cb336-3"></a>  <span class="co">## Note that the last value calculated will be returned if you call the function.</span></span>
+<span id="cb336-4"><a href="refsup.html#cb336-4"></a>}</span></code></pre></div>
 <p>First you define your own function name (e.g. <code>name_of_function</code>) and define the names of the arguments it will take (<code>arg1</code>, <code>arg2</code>, …) - an argument is the information that you feed into your function, e.g. data. Finally, you state the calculations or actions of the function in the body of the function (the portion that appears between the curly braces).</p>
 <p>One of the most basic possible functions is one that takes no arguments and just prints a message. Here is an example:</p>
-<pre class="sourceCode r"><code class="sourceCode r">hello &lt;-<span class="st"> </span><span class="cf">function</span>() {
-  <span class="kw">print</span>(<span class="st">&quot;Hello World!&quot;</span>)
-}</code></pre>
+<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="refsup.html#cb337-1"></a>hello &lt;-<span class="st"> </span><span class="cf">function</span>() {</span>
+<span id="cb337-2"><a href="refsup.html#cb337-2"></a>  <span class="kw">print</span>(<span class="st">&quot;Hello World!&quot;</span>)</span>
+<span id="cb337-3"><a href="refsup.html#cb337-3"></a>}</span></code></pre></div>
 <p>So this function is called <code>hello</code>. It can be run by typing <code>hello()</code> in your console and it will give the output of <code>Hello World!</code> every single time you run it; it has no other actions or information. Test this in the console now by typing:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hello</span>()</code></pre>
+<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb338-1"><a href="refsup.html#cb338-1"></a><span class="kw">hello</span>()</span></code></pre></div>
 <pre><code>## [1] &quot;Hello World!&quot;</code></pre>
 <p>Awesome right? Ok, so not very exciting. Let’s make it better by adding an argument, <code>name</code>, and have it say Hello to <code>name</code>.</p>
-<pre class="sourceCode r"><code class="sourceCode r">hello &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">name =</span> <span class="st">&quot;World!&quot;</span>) {
-  <span class="kw">paste</span>(<span class="st">&quot;Hello&quot;</span>, name)
-}</code></pre>
+<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="refsup.html#cb340-1"></a>hello &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">name =</span> <span class="st">&quot;World!&quot;</span>) {</span>
+<span id="cb340-2"><a href="refsup.html#cb340-2"></a>  <span class="kw">paste</span>(<span class="st">&quot;Hello&quot;</span>, name)</span>
+<span id="cb340-3"><a href="refsup.html#cb340-3"></a>}</span></code></pre></div>
 <p>This new function is again called <code>hello()</code> and replaces the one you previously created. This time however you are supplying what is called a default argument, `name = “World!”, but it still has the same action as the previous function of putting “Hello” and “World!” together. So if you run it you get “Hello World!”. Try it yourself!</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hello</span>()</code></pre>
+<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="refsup.html#cb341-1"></a><span class="kw">hello</span>()</span></code></pre></div>
 <pre><code>## [1] &quot;Hello World!&quot;</code></pre>
 <p>The difference this time however is that because you have added an argument to the input, you can change the information you give the argument and therefore change the output of the function. More flexible. More exciting.</p>
 <p><span style="font-size: 22px; font-weight: bold; color: var(--green);">Quickfire Questions</span></p>
@@ -911,16 +915,16 @@ Often step 1 of writing code or understanding code is knowing what it is you wan
 <li><p>What argument would you type to get “Hello Dolly!” as the output: <select class='solveme' data-answer='["Dolly!"]'> <option></option> <option>Dolly</option> <option>Molly</option> <option>Holly</option> <option>Dolly!</option></select></p></li>
 </ul>
 <p>Most of the time however we want to create a function that computes a value or constructs a table. For instance, let’s create a function that returns randomly generated data from two samples, as we learned in the previous skills - see below. All we are doing is taking the tibble we created in Skill 4 and putting it in the body (between the curly brackets) of the function.</p>
-<pre class="sourceCode r"><code class="sourceCode r">gen_data &lt;-<span class="st"> </span><span class="cf">function</span>() {
-  <span class="kw">tibble</span>(<span class="dt">group =</span> <span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>), <span class="kw">c</span>(<span class="dv">20</span>, <span class="dv">20</span>)),
-                  <span class="dt">Y =</span> <span class="kw">c</span>(<span class="kw">rnorm</span>(<span class="dv">20</span>,  <span class="dv">20</span>, <span class="dv">5</span>), <span class="kw">rnorm</span>(<span class="dv">20</span>, <span class="dv">-20</span>, <span class="dv">5</span>)))
-}</code></pre>
+<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="refsup.html#cb343-1"></a>gen_data &lt;-<span class="st"> </span><span class="cf">function</span>() {</span>
+<span id="cb343-2"><a href="refsup.html#cb343-2"></a>  <span class="kw">tibble</span>(<span class="dt">group =</span> <span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>), <span class="kw">c</span>(<span class="dv">20</span>, <span class="dv">20</span>)),</span>
+<span id="cb343-3"><a href="refsup.html#cb343-3"></a>                  <span class="dt">Y =</span> <span class="kw">c</span>(<span class="kw">rnorm</span>(<span class="dv">20</span>,  <span class="dv">20</span>, <span class="dv">5</span>), <span class="kw">rnorm</span>(<span class="dv">20</span>, <span class="dv">-20</span>, <span class="dv">5</span>)))</span>
+<span id="cb343-4"><a href="refsup.html#cb343-4"></a>}</span></code></pre></div>
 <p>This function is called <code>gen_data()</code> and when we run it we get a randomly generated table of two groups, each with 20 people, one with M = 20, SD = 5, the other with M = -20, sd = 5. Try running this <code>gen_data()</code> function in the console a few times; remember that as the data is random, the numbers will be different each time you run it.</p>
 <p>But say we want to modify the function to allow us to get a table with smaller or larger numbers of observations per group. We can add an argument <code>n</code> and modify the code as follows. Create this function and run it a couple of times through <code>gen_data()</code>. The way to think about this is that every place that <code>n</code> appears in the body of the function (between the curly brackets) it will have the value of whatever you gave it in the arguments, i.e. in this case, 20.</p>
-<pre class="sourceCode r"><code class="sourceCode r">gen_data &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">n =</span> <span class="dv">20</span>) {
-  <span class="kw">tibble</span>(<span class="dt">group =</span> <span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>), <span class="kw">c</span>(n, n)),
-                  <span class="dt">Y =</span> <span class="kw">c</span>(<span class="kw">rnorm</span>(n,  <span class="dv">20</span>, <span class="dv">5</span>), <span class="kw">rnorm</span>(n, <span class="dv">-20</span>, <span class="dv">5</span>)))
-}</code></pre>
+<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="refsup.html#cb344-1"></a>gen_data &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">n =</span> <span class="dv">20</span>) {</span>
+<span id="cb344-2"><a href="refsup.html#cb344-2"></a>  <span class="kw">tibble</span>(<span class="dt">group =</span> <span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>), <span class="kw">c</span>(n, n)),</span>
+<span id="cb344-3"><a href="refsup.html#cb344-3"></a>                  <span class="dt">Y =</span> <span class="kw">c</span>(<span class="kw">rnorm</span>(n,  <span class="dv">20</span>, <span class="dv">5</span>), <span class="kw">rnorm</span>(n, <span class="dv">-20</span>, <span class="dv">5</span>)))</span>
+<span id="cb344-4"><a href="refsup.html#cb344-4"></a>}</span></code></pre></div>
 <ul>
 <li><p>How many total participants would there be if you ran <code>gen_data(2)</code>? <select class='solveme' data-answer='["4"]'> <option></option> <option>2</option> <option>4</option> <option>20</option> <option>40</option></select></p></li>
 <li><p>What would you type to get 100 participants per group? <select class='solveme' data-answer='["gen_data(100)"]'> <option></option> <option>gen_data(50)</option> <option>gen_data(10)</option> <option>gen_dota(100)</option> <option>gen_data(100)</option></select></p></li>
@@ -931,23 +935,23 @@ Often step 1 of writing code or understanding code is knowing what it is you wan
 <button>
 Solution To Challenge Question
 </button>
-<pre class="sourceCode r"><code class="sourceCode r">gen_data &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">n =</span> <span class="dv">20</span>, <span class="dt">m1 =</span> <span class="dv">20</span>, <span class="dt">m2 =</span> <span class="dv">-20</span>) {
-  <span class="kw">tibble</span>(<span class="dt">group =</span> <span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>), <span class="kw">c</span>(n, n)),
-                  <span class="dt">Y =</span> <span class="kw">c</span>(<span class="kw">rnorm</span>(n,  m1, <span class="dv">5</span>), <span class="kw">rnorm</span>(n, m2, <span class="dv">5</span>)))
-}
-
-<span class="co"># m1 is the mean of group A, </span>
-<span class="co"># m2 is mean of group B and would look like:</span>
-
-<span class="co"># The function would be called by: gen_data(20, 20, -20)</span>
-<span class="co"># Giving 20 participants in each group, </span>
-<span class="co"># The first group having a mean of 20, </span>
-<span class="co"># The second group having a mean of -20. </span>
-
-<span class="co"># Likewise, a call of: gen_data(4, 10, 5)</span>
-<span class="co"># Would give two groups of 4, </span>
-<span class="co"># The first having a mean of 10, </span>
-<span class="co"># The second having a mean of 5.</span></code></pre>
+<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="refsup.html#cb345-1"></a>gen_data &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">n =</span> <span class="dv">20</span>, <span class="dt">m1 =</span> <span class="dv">20</span>, <span class="dt">m2 =</span> <span class="dv">-20</span>) {</span>
+<span id="cb345-2"><a href="refsup.html#cb345-2"></a>  <span class="kw">tibble</span>(<span class="dt">group =</span> <span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>), <span class="kw">c</span>(n, n)),</span>
+<span id="cb345-3"><a href="refsup.html#cb345-3"></a>                  <span class="dt">Y =</span> <span class="kw">c</span>(<span class="kw">rnorm</span>(n,  m1, <span class="dv">5</span>), <span class="kw">rnorm</span>(n, m2, <span class="dv">5</span>)))</span>
+<span id="cb345-4"><a href="refsup.html#cb345-4"></a>}</span>
+<span id="cb345-5"><a href="refsup.html#cb345-5"></a></span>
+<span id="cb345-6"><a href="refsup.html#cb345-6"></a><span class="co"># m1 is the mean of group A, </span></span>
+<span id="cb345-7"><a href="refsup.html#cb345-7"></a><span class="co"># m2 is mean of group B and would look like:</span></span>
+<span id="cb345-8"><a href="refsup.html#cb345-8"></a></span>
+<span id="cb345-9"><a href="refsup.html#cb345-9"></a><span class="co"># The function would be called by: gen_data(20, 20, -20)</span></span>
+<span id="cb345-10"><a href="refsup.html#cb345-10"></a><span class="co"># Giving 20 participants in each group, </span></span>
+<span id="cb345-11"><a href="refsup.html#cb345-11"></a><span class="co"># The first group having a mean of 20, </span></span>
+<span id="cb345-12"><a href="refsup.html#cb345-12"></a><span class="co"># The second group having a mean of -20. </span></span>
+<span id="cb345-13"><a href="refsup.html#cb345-13"></a></span>
+<span id="cb345-14"><a href="refsup.html#cb345-14"></a><span class="co"># Likewise, a call of: gen_data(4, 10, 5)</span></span>
+<span id="cb345-15"><a href="refsup.html#cb345-15"></a><span class="co"># Would give two groups of 4, </span></span>
+<span id="cb345-16"><a href="refsup.html#cb345-16"></a><span class="co"># The first having a mean of 10, </span></span>
+<span id="cb345-17"><a href="refsup.html#cb345-17"></a><span class="co"># The second having a mean of 5.</span></span></code></pre></div>
 </div>
 <div class="solution">
 <button>
@@ -976,23 +980,23 @@ Here are two important things to understand about functions.
 <div id="skill-6-replicating-operations" class="section level3">
 <h3><span class="header-section-number">11.2.7</span> Skill 6: Replicating Operations</h3>
 <p>The last skill you will need for the upcoming lab is knowing how to repeat an action (or expression) multiple times. You saw this in Lab 4 so we will only briefly recap here. Here, we use the base function <code>replicate()</code>. For instance, say you wanted to calculate the mean from <code>rnorm(100)</code> ten times, you could write it like this:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co">## bad way</span>
-<span class="kw">rnorm</span>(<span class="dv">100</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mean</span>()
-<span class="kw">rnorm</span>(<span class="dv">100</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mean</span>()
-<span class="kw">rnorm</span>(<span class="dv">100</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mean</span>()
-<span class="kw">rnorm</span>(<span class="dv">100</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mean</span>()
-<span class="kw">rnorm</span>(<span class="dv">100</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mean</span>()
-<span class="kw">rnorm</span>(<span class="dv">100</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mean</span>()
-<span class="kw">rnorm</span>(<span class="dv">100</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mean</span>()
-<span class="kw">rnorm</span>(<span class="dv">100</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mean</span>()
-<span class="kw">rnorm</span>(<span class="dv">100</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mean</span>()</code></pre>
+<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb346-1"><a href="refsup.html#cb346-1"></a><span class="co">## bad way</span></span>
+<span id="cb346-2"><a href="refsup.html#cb346-2"></a><span class="kw">rnorm</span>(<span class="dv">100</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mean</span>()</span>
+<span id="cb346-3"><a href="refsup.html#cb346-3"></a><span class="kw">rnorm</span>(<span class="dv">100</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mean</span>()</span>
+<span id="cb346-4"><a href="refsup.html#cb346-4"></a><span class="kw">rnorm</span>(<span class="dv">100</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mean</span>()</span>
+<span id="cb346-5"><a href="refsup.html#cb346-5"></a><span class="kw">rnorm</span>(<span class="dv">100</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mean</span>()</span>
+<span id="cb346-6"><a href="refsup.html#cb346-6"></a><span class="kw">rnorm</span>(<span class="dv">100</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mean</span>()</span>
+<span id="cb346-7"><a href="refsup.html#cb346-7"></a><span class="kw">rnorm</span>(<span class="dv">100</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mean</span>()</span>
+<span id="cb346-8"><a href="refsup.html#cb346-8"></a><span class="kw">rnorm</span>(<span class="dv">100</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mean</span>()</span>
+<span id="cb346-9"><a href="refsup.html#cb346-9"></a><span class="kw">rnorm</span>(<span class="dv">100</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mean</span>()</span>
+<span id="cb346-10"><a href="refsup.html#cb346-10"></a><span class="kw">rnorm</span>(<span class="dv">100</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mean</span>()</span></code></pre></div>
 <p>But it’s far easier and more readable to wrap the expression in <code>replicate()</code> function where the first argument is the number of times you want to repeat the expression stated as the second argument, i.e. <code>replicate(times, expression)</code>. Here below we replicate the mean of 100 randomly generated numbers from the normal distribution, and we do this 10 times:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">replicate</span>(<span class="dv">10</span>, <span class="kw">rnorm</span>(<span class="dv">100</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mean</span>())</code></pre>
+<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="refsup.html#cb347-1"></a><span class="kw">replicate</span>(<span class="dv">10</span>, <span class="kw">rnorm</span>(<span class="dv">100</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mean</span>())</span></code></pre></div>
 <p>Also you’ll probably want to store the results in a variable, for example, <code>ten_samples</code>:</p>
-<pre class="sourceCode r"><code class="sourceCode r">ten_samples &lt;-<span class="st"> </span><span class="kw">replicate</span>(<span class="dv">10</span>, <span class="kw">rnorm</span>(<span class="dv">100</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mean</span>())
-ten_samples</code></pre>
-<pre><code>##  [1]  0.0009234552 -0.0334915358  0.2166883217 -0.0783989560  0.2505318747
-##  [6] -0.1019999268  0.1405634278 -0.0730892840 -0.0789334945  0.2938234694</code></pre>
+<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb348-1"><a href="refsup.html#cb348-1"></a>ten_samples &lt;-<span class="st"> </span><span class="kw">replicate</span>(<span class="dv">10</span>, <span class="kw">rnorm</span>(<span class="dv">100</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mean</span>())</span>
+<span id="cb348-2"><a href="refsup.html#cb348-2"></a>ten_samples</span></code></pre></div>
+<pre><code>##  [1] -0.011389074  0.083197558  0.059820424 -0.069946608 -0.215266413
+##  [6]  0.059673827 -0.001766004 -0.267156273 -0.116871582  0.154752918</code></pre>
 <p>Each element (value) of the vector within <code>ten_samples</code> is the result of a single call to <code>rnorm(100) %&gt;% mean()</code>.</p>
 <ul>
 <li>Assuming that your <code>hello()</code> function from Skill 5 still exists, and it takes the argument <code>name = Goodbye</code>, what would happen in the console if you wrote, <code>replicate(1000, hello("Goodbye"))</code>? <select class='solveme' data-answer='["Hello Goodbye would appear a thousand times"]'> <option></option> <option>Hello World would appear a thousand times</option> <option>hello Goodbye would appear a thousand times</option> <option>Hello Goodbye would appear a thousand times</option></select> - Try it and see if it works!</li>
@@ -1001,13 +1005,13 @@ ten_samples</code></pre>
 <button>
 Solution To Quickfire Question
 </button>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># the function would be:</span>
-hello &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">name =</span> <span class="st">&quot;World!&quot;</span>){
-  <span class="kw">paste</span>(<span class="st">&quot;Hello&quot;</span>, name)
-}
-
-<span class="co"># and would be called by:</span>
-<span class="kw">replicate</span>(<span class="dv">1000</span>, <span class="kw">hello</span>(<span class="st">&quot;Goodbye&quot;</span>))</code></pre>
+<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb350-1"><a href="refsup.html#cb350-1"></a><span class="co"># the function would be:</span></span>
+<span id="cb350-2"><a href="refsup.html#cb350-2"></a>hello &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">name =</span> <span class="st">&quot;World!&quot;</span>){</span>
+<span id="cb350-3"><a href="refsup.html#cb350-3"></a>  <span class="kw">paste</span>(<span class="st">&quot;Hello&quot;</span>, name)</span>
+<span id="cb350-4"><a href="refsup.html#cb350-4"></a>}</span>
+<span id="cb350-5"><a href="refsup.html#cb350-5"></a></span>
+<span id="cb350-6"><a href="refsup.html#cb350-6"></a><span class="co"># and would be called by:</span></span>
+<span id="cb350-7"><a href="refsup.html#cb350-7"></a><span class="kw">replicate</span>(<span class="dv">1000</span>, <span class="kw">hello</span>(<span class="st">&quot;Goodbye&quot;</span>))</span></code></pre></div>
 </div>
 <p><br></p>
 <div id="finished-12" class="section level4">
@@ -1146,44 +1150,44 @@ Helpful Hint
 </ul>
 <p>The above steps have created a pipeline of five functions to get one value. Nice! We now need to turn this into a function because we are going to be permuting the data set (specifically the grouping labels) and re-calculating the difference many, many times.</p>
 <p>2.2. Wrap your pipeline in a function called <code>calc_diff</code> but swap <code>dat</code> for <code>x</code>. This function will take a single argument named <code>x</code>, where <code>x</code> is the tibble that you want to calculate group means from. As in the previous step, the function will return a single value which is the difference between the group means. The start will look like this below:</p>
-<pre class="sourceCode r"><code class="sourceCode r">calc_diff &lt;-<span class="st"> </span><span class="cf">function</span>(x){
-  x <span class="op">%&gt;%</span>.....
-}</code></pre>
+<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="refsup.html#cb351-1"></a>calc_diff &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
+<span id="cb351-2"><a href="refsup.html#cb351-2"></a>  x <span class="op">%&gt;%</span>.....</span>
+<span id="cb351-3"><a href="refsup.html#cb351-3"></a>}</span></code></pre></div>
 <div class="solution">
 <button>
 Helpful Hint
 </button>
-<pre class="sourceCode r"><code class="sourceCode r">calc_diff &lt;-<span class="st"> </span><span class="cf">function</span>(x) {
-  x <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">group_by</span>(group) <span class="op">%&gt;%</span>
-<span class="st">    </span>the_rest_of_your_pipe...
-}</code></pre>
+<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="refsup.html#cb352-1"></a>calc_diff &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</span>
+<span id="cb352-2"><a href="refsup.html#cb352-2"></a>  x <span class="op">%&gt;%</span></span>
+<span id="cb352-3"><a href="refsup.html#cb352-3"></a><span class="st">    </span><span class="kw">group_by</span>(group) <span class="op">%&gt;%</span></span>
+<span id="cb352-4"><a href="refsup.html#cb352-4"></a><span class="st">    </span>the_rest_of_your_pipe...</span>
+<span id="cb352-5"><a href="refsup.html#cb352-5"></a>}</span></code></pre></div>
 </div>
 <p>2.3. Now call your new function where <code>x</code> = <code>dat</code> as the argument and store the result in a new variable called <code>d_orig</code>. Make sure that your function returns the same value as you got above and that your function returns a single value rather than a tibble. You can test this: <code>is.tibble(d_orig)</code> should give you <code>FALSE</code> and <code>is.numeric(d_orig)</code> should give you <code>TRUE</code>.</p>
 <div class="solution">
 <button>
 Helpful Hint
 </button>
-<pre class="sourceCode r"><code class="sourceCode r">d_orig &lt;-<span class="st"> </span><span class="kw">function_name</span>(<span class="dt">x =</span> data_name) 
-<span class="co"># or</span>
-d_orig &lt;-<span class="st"> </span><span class="kw">function_name</span>(data_name)
-
-<span class="co"># Then type the following in the Console and look at answer:</span>
-
-<span class="kw">is.tibble</span>(d_orig)
-<span class="co"># True (is a tibble) or False (is not a tibble)</span>
-
-<span class="kw">is.numeric</span>(d_orig)
-<span class="co"># True (is numeric) or False (is not numeric; it is a character or integer instead.)</span></code></pre>
+<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="refsup.html#cb353-1"></a>d_orig &lt;-<span class="st"> </span><span class="kw">function_name</span>(<span class="dt">x =</span> data_name) </span>
+<span id="cb353-2"><a href="refsup.html#cb353-2"></a><span class="co"># or</span></span>
+<span id="cb353-3"><a href="refsup.html#cb353-3"></a>d_orig &lt;-<span class="st"> </span><span class="kw">function_name</span>(data_name)</span>
+<span id="cb353-4"><a href="refsup.html#cb353-4"></a></span>
+<span id="cb353-5"><a href="refsup.html#cb353-5"></a><span class="co"># Then type the following in the Console and look at answer:</span></span>
+<span id="cb353-6"><a href="refsup.html#cb353-6"></a></span>
+<span id="cb353-7"><a href="refsup.html#cb353-7"></a><span class="kw">is.tibble</span>(d_orig)</span>
+<span id="cb353-8"><a href="refsup.html#cb353-8"></a><span class="co"># True (is a tibble) or False (is not a tibble)</span></span>
+<span id="cb353-9"><a href="refsup.html#cb353-9"></a></span>
+<span id="cb353-10"><a href="refsup.html#cb353-10"></a><span class="kw">is.numeric</span>(d_orig)</span>
+<span id="cb353-11"><a href="refsup.html#cb353-11"></a><span class="co"># True (is numeric) or False (is not numeric; it is a character or integer instead.)</span></span></code></pre></div>
 </div>
 <p>So we now have the original difference between the groups stored in <code>d_orig</code>. Next we need to create a distribution of all possible differences to see where our original difference lies in this distribution. But first we need to shuffle the <code>group</code> letters (A or B) in our dataset and find the difference…a few hundred times!</p>
 </div>
 <div id="Ch5InClassQueT3" class="section level3">
 <h3><span class="header-section-number">11.2.11</span> Step 3: Permute the Group Labels</h3>
 <p>3.1. Create a new function called <code>permute()</code> that takes as input a dataset <code>x</code> and returns the same dataset transformed such that the group labels (the values in the column <code>group</code>) are shuffled: started below for you. This will require using the <code>sample()</code> function within a <code>mutate()</code>. You have used <code>mutate()</code> twice already today and you saw how to <code>sample()</code> <strong>letters</strong> in the PreClass.</p>
-<pre class="sourceCode r"><code class="sourceCode r">permute &lt;-<span class="st"> </span><span class="cf">function</span>(x){
-  x <span class="op">%&gt;%</span>.....
-}</code></pre>
+<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb354-1"><a href="refsup.html#cb354-1"></a>permute &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
+<span id="cb354-2"><a href="refsup.html#cb354-2"></a>  x <span class="op">%&gt;%</span>.....</span>
+<span id="cb354-3"><a href="refsup.html#cb354-3"></a>}</span></code></pre></div>
 <div class="solution">
 <button>
 Helpful Hint
@@ -1246,12 +1250,12 @@ The functions you have created do these steps. You just have to put them in orde
 <button>
 Helpful Hint
 </button>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># replace expression with the pipeline you created in 4.1</span>
-nhd &lt;-<span class="st"> </span><span class="kw">replicate</span>(times, expression)</code></pre>
+<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="refsup.html#cb355-1"></a><span class="co"># replace expression with the pipeline you created in 4.1</span></span>
+<span id="cb355-2"><a href="refsup.html#cb355-2"></a>nhd &lt;-<span class="st"> </span><span class="kw">replicate</span>(times, expression)</span></code></pre></div>
 </div>
 <p>You now have 1000 possible values of the difference between the permuted groups A and B - your permuted distribution.</p>
 <p>4.3 Let’s visualise this distribution through a frequency histogram of the values in <code>nhd</code>. This shows us the likelihood of various mean differences under <span class="math inline">\(H_0\)</span>. One thing to note however is that <code>nhd</code> is not a <code>tibble</code> and <code>ggplot</code> needs it to be a <code>tibble</code>. You need to convert it. You might start by do something like:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">tibble</span>(<span class="dt">x =</span> <span class="ot">NULL</span>), <span class="kw">aes</span>(x)) <span class="op">+</span><span class="st"> </span><span class="ot">NULL</span></code></pre>
+<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="refsup.html#cb356-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">tibble</span>(<span class="dt">x =</span> <span class="ot">NULL</span>), <span class="kw">aes</span>(x)) <span class="op">+</span><span class="st"> </span><span class="ot">NULL</span></span></code></pre></div>
 <div class="solution">
 <button>
 Helpful Hint
@@ -1274,7 +1278,7 @@ Remember that <code>ggplot</code> works as: <code>ggplot(data, aes(x)) + geom…
 <p>So the question we must ask is, if the null hypothesis was true, what would be the probability of getting a difference in means as extreme as the one we observed in the original data? We will label this probability <code>p</code>.</p>
 <p>Take a few moments to see if you can figure out how you might compute <code>p</code> from the data before we show you how. We will then show you the process in the next few, final, steps.</p>
 <p>5.1. Replace the NULLS in the code below to create a logical vector which states TRUE for all values of <code>nhd</code> greater than or equal to <code>d_orig</code> regardless of sign. <strong>Note:</strong> A logical vector is one that returns TRUE when the expression is true and FALSE when the expression is false.</p>
-<pre class="sourceCode r"><code class="sourceCode r">lvec &lt;-<span class="st"> </span><span class="kw">abs</span>(<span class="ot">NULL</span>) <span class="op">&gt;=</span><span class="st"> </span><span class="kw">abs</span>(<span class="ot">NULL</span>)</code></pre>
+<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb357-1"><a href="refsup.html#cb357-1"></a>lvec &lt;-<span class="st"> </span><span class="kw">abs</span>(<span class="ot">NULL</span>) <span class="op">&gt;=</span><span class="st"> </span><span class="kw">abs</span>(<span class="ot">NULL</span>)</span></code></pre></div>
 <div class="solution">
 <button>
 Portfolio Point - abs and the case of one or two tails
@@ -1289,9 +1293,9 @@ The answer relates to whether you are testing in one or two tails of your distri
 </div>
 </div>
 <p>5.2. Replace the NULL in the code below to <code>sum()</code> the <code>lvec</code> vector to get the total number of values equal to or greater than our original difference, <code>d_orig</code>. Fortunately R is fine with summing TRUEs and FALSEs so you do not have to convert the data at all.</p>
-<pre class="sourceCode r"><code class="sourceCode r">n_exceeding_orig &lt;-<span class="st"> </span><span class="ot">NULL</span></code></pre>
+<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="refsup.html#cb358-1"></a>n_exceeding_orig &lt;-<span class="st"> </span><span class="ot">NULL</span></span></code></pre></div>
 <p>5.3. Replace the NULL in the code below to calculate the probability of finding a value of <code>d_orig</code> in our <code>nhd</code> distribution by dividing <code>n_exceeding_orig</code>, the number of values greater than or equal to your original value, by the <code>length()</code> of your whole distribution <code>nhd</code>. <strong>Note: the length of <code>nhd</code> is the same as the number of replications we ran. Using code reduces the chance of human error</strong></p>
-<pre class="sourceCode r"><code class="sourceCode r">p &lt;-<span class="st"> </span><span class="ot">NULL</span></code></pre>
+<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb359-1"><a href="refsup.html#cb359-1"></a>p &lt;-<span class="st"> </span><span class="ot">NULL</span></span></code></pre></div>
 <p>5.4. Finally, complete the sentence below determining if the original value was extreme or not in regards to the distribution. Use inline coding, shown in Lab 1, to replace the <code>XXX</code>s. For example, when formatted without the space before the first r, <code>r length(nhd)</code> would present as 1000.</p>
 <p><strong>" The difference between Group A and Group B (M = <code>XXX</code>) was found to be have a probability of p = <code>XXX</code>. This means that the original mean difference was …… and the null hypothesis is ….." </strong></p>
 <div id="finished-13" class="section level4">
@@ -1312,41 +1316,41 @@ The answer relates to whether you are testing in one or two tails of your distri
 <h3><span class="header-section-number">11.5.1</span> Packages</h3>
 <p>In order to run these analyses you will need <code>tidyverse</code> for data wrangling,<code>rtweet</code> for getting the twitter data, <code>tidytext</code> for working with text, <code>knitr</code> for tidy tables, and <code>igraph</code> and <code>ggraph</code> for making pretty network plots.</p>
 <p>In order to get data from Twitter you will need to have a twitter account and gain access to Twitter’s API. There are instructions <a href="https://rtweet.info/">for doing so here</a>.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
-<span class="kw">library</span>(knitr)
-<span class="kw">library</span>(tidytext)
-<span class="kw">library</span>(rtweet)
-<span class="kw">library</span>(igraph)
-<span class="kw">library</span>(ggraph)</code></pre>
+<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="refsup.html#cb360-1"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb360-2"><a href="refsup.html#cb360-2"></a><span class="kw">library</span>(knitr)</span>
+<span id="cb360-3"><a href="refsup.html#cb360-3"></a><span class="kw">library</span>(tidytext)</span>
+<span id="cb360-4"><a href="refsup.html#cb360-4"></a><span class="kw">library</span>(rtweet)</span>
+<span id="cb360-5"><a href="refsup.html#cb360-5"></a><span class="kw">library</span>(igraph)</span>
+<span id="cb360-6"><a href="refsup.html#cb360-6"></a><span class="kw">library</span>(ggraph)</span></code></pre></div>
 </div>
 <div id="hashtag-search" class="section level3">
 <h3><span class="header-section-number">11.5.2</span> Hashtag search</h3>
 <p>We can use rtweet to search for all tweets containing particular words or hashtags. It will return the last 18,000 tweets and only from the last 6-9 days. Be careful, there is a 15 minute time-out which means you can only retrieve 18,000 tweets every 15 minutes (there are various limits on what Twitter allows you to do with the data).</p>
 <p>First, let’s search for all tweets that contain #GoT and #ForTheThrone.</p>
 <p>There are various arguments to the <code>search_tweets</code> function, you can specify how many tweets you want to retrive with <code>n</code>, whether retweets should be included in the search results with <code>include_rts</code> and you can also specify the language of the user’s account with <code>lang</code>. Note that this doesn’t tell you what language the tweets are written in, only that the account language is set to e.g., English, so it’s not perfect. For additional options, see the help documentation.</p>
-<pre class="sourceCode r"><code class="sourceCode r">tweets &lt;-<span class="st"> </span><span class="kw">search_tweets</span>(<span class="dt">q =</span> <span class="st">&quot;#GoT OR #ForTheThrone&quot;</span>, <span class="dt">n =</span> <span class="dv">18000</span>, <span class="dt">include_rts =</span> <span class="ot">FALSE</span>, <span class="dt">lang =</span> <span class="st">&quot;en&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb361-1"><a href="refsup.html#cb361-1"></a>tweets &lt;-<span class="st"> </span><span class="kw">search_tweets</span>(<span class="dt">q =</span> <span class="st">&quot;#GoT OR #ForTheThrone&quot;</span>, <span class="dt">n =</span> <span class="dv">18000</span>, <span class="dt">include_rts =</span> <span class="ot">FALSE</span>, <span class="dt">lang =</span> <span class="st">&quot;en&quot;</span>)</span></code></pre></div>
 </div>
 <div id="data-wrangling" class="section level3">
 <h3><span class="header-section-number">11.5.3</span> Data wrangling</h3>
 <p>The output of <code>search_tweets()</code> is a list which makes it difficult to share. We need to do a little bit of tidying to turn it into a tibble, and additionally there’s a lot of data and we don’t need it all. I’m also going to add a tweet counter which will help when we move between wide and long-form. <code>rtweet</code> provides a huge amount of data, more than we’re going to use in this example so have a look through to see what you have access to - there are some great examples of how this data can be used <a href="https://mkearney.github.io/nicar_tworkshop/">here</a> and <a href="https://rud.is/books/21-recipes/index.html">here</a> .</p>
 <p>In the following code, I have added an identifier column <code>tweet_number</code> and then selected <code>text</code> (the actual text of the tweets), <code>created_at</code> (the timestamp of the tweet), <code>source</code> (iphone/android etc), <code>followers_count</code> (how many followers the accounts the tweets came from have), and <code>country</code> (like <code>lang</code>, the is the country specified on the account, not necessarily the country the tweeter is in).</p>
-<pre class="sourceCode r"><code class="sourceCode r">dat &lt;-<span class="st"> </span>tweets <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">tweet_number =</span> <span class="kw">row_number</span>())<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>(tweet_number, text, created_at, source, followers_count, country)<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">as_tibble</span>()</code></pre>
+<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="refsup.html#cb362-1"></a>dat &lt;-<span class="st"> </span>tweets <span class="op">%&gt;%</span></span>
+<span id="cb362-2"><a href="refsup.html#cb362-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">tweet_number =</span> <span class="kw">row_number</span>())<span class="op">%&gt;%</span></span>
+<span id="cb362-3"><a href="refsup.html#cb362-3"></a><span class="st">  </span><span class="kw">select</span>(tweet_number, text, created_at, source, followers_count, country)<span class="op">%&gt;%</span></span>
+<span id="cb362-4"><a href="refsup.html#cb362-4"></a><span class="st">  </span><span class="kw">as_tibble</span>()</span></code></pre></div>
 <p>You can <a href="all_data.zip" download>download this file here</a> so that you can reproduce my exact analyses (or you can use your own, but the results will look a bit different).</p>
 <p>The first thing we need to do is tidy up the text by getting rid of punctuation, numbers, and links that aren’t of any interest to us. We can also remove the hashtags because we don’t want those to be included in any analysis. This code uses <strong>regular expressions</strong> which quite frankly make very little sense to me, I have copied and pasted this code from the Tidy Text book.</p>
-<pre class="sourceCode r"><code class="sourceCode r">dat &lt;-<span class="st"> </span>dat <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">text =</span> <span class="kw">str_replace_all</span>(text, <span class="st">&quot;[^</span><span class="ch">\x01</span><span class="st">-</span><span class="ch">\x7F</span><span class="st">]&quot;</span>, <span class="st">&quot;&quot;</span>),
-         <span class="dt">text =</span> <span class="kw">str_replace_all</span>(text, <span class="st">&quot;#GoT&quot;</span>, <span class="st">&quot;&quot;</span>),
-         <span class="dt">text =</span> <span class="kw">str_replace_all</span>(text, <span class="st">&quot;#ForTheThrone&quot;</span>, <span class="st">&quot;&quot;</span>),
-         <span class="dt">text =</span> <span class="kw">str_replace_all</span>(text, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">.|[[:digit:]]+&quot;</span>, <span class="st">&quot;&quot;</span>),
-         <span class="dt">text =</span> <span class="kw">str_replace_all</span>(text, <span class="st">&quot;https|amp|t.co&quot;</span>, <span class="st">&quot;&quot;</span>))</code></pre>
+<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb363-1"><a href="refsup.html#cb363-1"></a>dat &lt;-<span class="st"> </span>dat <span class="op">%&gt;%</span></span>
+<span id="cb363-2"><a href="refsup.html#cb363-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">text =</span> <span class="kw">str_replace_all</span>(text, <span class="st">&quot;[^</span><span class="ch">\x01</span><span class="st">-</span><span class="ch">\x7F</span><span class="st">]&quot;</span>, <span class="st">&quot;&quot;</span>),</span>
+<span id="cb363-3"><a href="refsup.html#cb363-3"></a>         <span class="dt">text =</span> <span class="kw">str_replace_all</span>(text, <span class="st">&quot;#GoT&quot;</span>, <span class="st">&quot;&quot;</span>),</span>
+<span id="cb363-4"><a href="refsup.html#cb363-4"></a>         <span class="dt">text =</span> <span class="kw">str_replace_all</span>(text, <span class="st">&quot;#ForTheThrone&quot;</span>, <span class="st">&quot;&quot;</span>),</span>
+<span id="cb363-5"><a href="refsup.html#cb363-5"></a>         <span class="dt">text =</span> <span class="kw">str_replace_all</span>(text, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">.|[[:digit:]]+&quot;</span>, <span class="st">&quot;&quot;</span>),</span>
+<span id="cb363-6"><a href="refsup.html#cb363-6"></a>         <span class="dt">text =</span> <span class="kw">str_replace_all</span>(text, <span class="st">&quot;https|amp|t.co&quot;</span>, <span class="st">&quot;&quot;</span>))</span></code></pre></div>
 </div>
 <div id="time-series" class="section level3">
 <h3><span class="header-section-number">11.5.4</span> Time series</h3>
 <p>We can plot when the tweets were sent. This is somewhat uninteresting because it’s no longer airing, but it’s worth highlighting this as a feature. If you were watching live, you could use this to see the spikes in tweets when people are watching each episode live (different timezones will muddle this a little, you could filter by <code>country</code> perhaps).</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ts_plot</span>(tweets, <span class="dt">by =</span> <span class="st">&quot;1 hours&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="refsup.html#cb364-1"></a><span class="kw">ts_plot</span>(tweets, <span class="dt">by =</span> <span class="st">&quot;1 hours&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-22"></span>
 <img src="11-supplementary_files/figure-html/unnamed-chunk-22-1.png" alt="Time series plot by hour" width="100%" />
 <p class="caption">
@@ -1354,9 +1358,9 @@ Figure 11.1: Time series plot by hour
 </p>
 </div>
 <p>You can change the time interval with the <code>by</code> argument and you can also change the time zone. <code>ts_plot</code> creates a <code>ggplot</code> object so you can also add the usual ggplot layers to customise apperance.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ts_plot</span>(tweets, <span class="dt">by =</span> <span class="st">&quot;10 mins&quot;</span>, <span class="dt">tz =</span> <span class="st">&quot;GMT&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme_minimal</span>()<span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Number of tweets&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb365-1"><a href="refsup.html#cb365-1"></a><span class="kw">ts_plot</span>(tweets, <span class="dt">by =</span> <span class="st">&quot;10 mins&quot;</span>, <span class="dt">tz =</span> <span class="st">&quot;GMT&quot;</span>) <span class="op">+</span></span>
+<span id="cb365-2"><a href="refsup.html#cb365-2"></a><span class="st">  </span><span class="kw">theme_minimal</span>()<span class="op">+</span></span>
+<span id="cb365-3"><a href="refsup.html#cb365-3"></a><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Number of tweets&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-23"></span>
 <img src="11-supplementary_files/figure-html/unnamed-chunk-23-1.png" alt="Time series plot by 10 minute intervals" width="100%" />
 <p class="caption">
@@ -1368,19 +1372,19 @@ Figure 11.2: Time series plot by 10 minute intervals
 <h3><span class="header-section-number">11.5.5</span> Tidy text and word frequencies</h3>
 <p>First, we can produce frequency plots for words used in all tweets to see which words are used most often in #GoT and #ForTheThrone tweets. To do this, we have to create a tidy dataset, just like we do when working with numerical data. We’re going to use the <code>unnest_tokens</code> function from <code>tidytext</code> which will separate each word on to a new line, something similar to like using <code>gather</code> (or <code>pivot_longer</code> as it will soon be known). Helpfully, this function will also convert all of our words to lower case which makes them a bit easier to work with.</p>
 <p>The second part of the code removes all the stop words. Stop words are words that are commonly used but are of not real interest, for example function words like “the”, “a”, “it”. You can make your own list but <code>tidytext</code> helpfully comes with several databases. Look at the help documentation if you want to know more about these or change the defaults.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create tidy text</span>
-dat_token &lt;-<span class="st"> </span>dat <span class="op">%&gt;%</span><span class="st">  </span>
-<span class="st">  </span><span class="kw">unnest_tokens</span>(word, text) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">anti_join</span>(stop_words, <span class="dt">by =</span> <span class="st">&quot;word&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="refsup.html#cb366-1"></a><span class="co"># create tidy text</span></span>
+<span id="cb366-2"><a href="refsup.html#cb366-2"></a>dat_token &lt;-<span class="st"> </span>dat <span class="op">%&gt;%</span><span class="st">  </span></span>
+<span id="cb366-3"><a href="refsup.html#cb366-3"></a><span class="st">  </span><span class="kw">unnest_tokens</span>(word, text) <span class="op">%&gt;%</span></span>
+<span id="cb366-4"><a href="refsup.html#cb366-4"></a><span class="st">  </span><span class="kw">anti_join</span>(stop_words, <span class="dt">by =</span> <span class="st">&quot;word&quot;</span>)</span></code></pre></div>
 <p>We can plot the 20 most frequent words used in all the tweets.</p>
-<pre class="sourceCode r"><code class="sourceCode r">dat_token<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">na.omit</span>()<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">count</span>(word, <span class="dt">sort =</span> <span class="ot">TRUE</span>)<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">head</span>(<span class="dv">20</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">word =</span> <span class="kw">reorder</span>(word, n))<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> word, <span class="dt">y =</span> n))<span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_col</span>()<span class="op">+</span>
-<span class="st">  </span><span class="kw">coord_flip</span>()</code></pre>
+<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="refsup.html#cb367-1"></a>dat_token<span class="op">%&gt;%</span></span>
+<span id="cb367-2"><a href="refsup.html#cb367-2"></a><span class="st">  </span><span class="kw">na.omit</span>()<span class="op">%&gt;%</span></span>
+<span id="cb367-3"><a href="refsup.html#cb367-3"></a><span class="st">  </span><span class="kw">count</span>(word, <span class="dt">sort =</span> <span class="ot">TRUE</span>)<span class="op">%&gt;%</span></span>
+<span id="cb367-4"><a href="refsup.html#cb367-4"></a><span class="st">  </span><span class="kw">head</span>(<span class="dv">20</span>) <span class="op">%&gt;%</span></span>
+<span id="cb367-5"><a href="refsup.html#cb367-5"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">word =</span> <span class="kw">reorder</span>(word, n))<span class="op">%&gt;%</span></span>
+<span id="cb367-6"><a href="refsup.html#cb367-6"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> word, <span class="dt">y =</span> n))<span class="op">+</span></span>
+<span id="cb367-7"><a href="refsup.html#cb367-7"></a><span class="st">  </span><span class="kw">geom_col</span>()<span class="op">+</span></span>
+<span id="cb367-8"><a href="refsup.html#cb367-8"></a><span class="st">  </span><span class="kw">coord_flip</span>()</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-25"></span>
 <img src="11-supplementary_files/figure-html/unnamed-chunk-25-1.png" alt="Most frequent words" width="100%" />
 <p class="caption">
@@ -1388,20 +1392,20 @@ Figure 11.3: Most frequent words
 </p>
 </div>
 <p>There’s quite a few words here that aren’t that helpful to us so it might be best to get rid of them (essentially we’re building our own list of stop words).</p>
-<pre class="sourceCode r"><code class="sourceCode r">custom_stop &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;gameofthrones&quot;</span>, <span class="st">&quot;hbo&quot;</span>, <span class="st">&quot;season&quot;</span>, <span class="st">&quot;game&quot;</span>, <span class="st">&quot;thrones&quot;</span>, <span class="st">&quot;lol&quot;</span>, <span class="st">&quot;tco&quot;</span>, <span class="st">&quot;https&quot;</span>, <span class="st">&quot;watch&quot;</span>, <span class="st">&quot;watching&quot;</span>, <span class="st">&quot;im&quot;</span>, <span class="st">&quot;amp&quot;</span>)
-
-dat_token &lt;-<span class="st"> </span>dat_token <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span>word <span class="op">%in%</span><span class="st"> </span>custom_stop)</code></pre>
+<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="refsup.html#cb368-1"></a>custom_stop &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;gameofthrones&quot;</span>, <span class="st">&quot;hbo&quot;</span>, <span class="st">&quot;season&quot;</span>, <span class="st">&quot;game&quot;</span>, <span class="st">&quot;thrones&quot;</span>, <span class="st">&quot;lol&quot;</span>, <span class="st">&quot;tco&quot;</span>, <span class="st">&quot;https&quot;</span>, <span class="st">&quot;watch&quot;</span>, <span class="st">&quot;watching&quot;</span>, <span class="st">&quot;im&quot;</span>, <span class="st">&quot;amp&quot;</span>)</span>
+<span id="cb368-2"><a href="refsup.html#cb368-2"></a></span>
+<span id="cb368-3"><a href="refsup.html#cb368-3"></a>dat_token &lt;-<span class="st"> </span>dat_token <span class="op">%&gt;%</span></span>
+<span id="cb368-4"><a href="refsup.html#cb368-4"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span>word <span class="op">%in%</span><span class="st"> </span>custom_stop)</span></code></pre></div>
 <p>Now we can try plotting the words again and make them pretty.</p>
-<pre class="sourceCode r"><code class="sourceCode r">dat_token<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">na.omit</span>()<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">count</span>(word, <span class="dt">sort =</span> <span class="ot">TRUE</span>)<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">head</span>(<span class="dv">20</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">word =</span> <span class="kw">reorder</span>(word, n))<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> word, <span class="dt">y =</span> n, <span class="dt">fill =</span> word))<span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_col</span>(<span class="dt">show.legend =</span> <span class="ot">FALSE</span>)<span class="op">+</span>
-<span class="st">  </span><span class="kw">coord_flip</span>()<span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_fill_viridis</span>(<span class="dt">discrete =</span> <span class="ot">TRUE</span>)</code></pre>
+<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb369-1"><a href="refsup.html#cb369-1"></a>dat_token<span class="op">%&gt;%</span></span>
+<span id="cb369-2"><a href="refsup.html#cb369-2"></a><span class="st">  </span><span class="kw">na.omit</span>()<span class="op">%&gt;%</span></span>
+<span id="cb369-3"><a href="refsup.html#cb369-3"></a><span class="st">  </span><span class="kw">count</span>(word, <span class="dt">sort =</span> <span class="ot">TRUE</span>)<span class="op">%&gt;%</span></span>
+<span id="cb369-4"><a href="refsup.html#cb369-4"></a><span class="st">  </span><span class="kw">head</span>(<span class="dv">20</span>) <span class="op">%&gt;%</span></span>
+<span id="cb369-5"><a href="refsup.html#cb369-5"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">word =</span> <span class="kw">reorder</span>(word, n))<span class="op">%&gt;%</span></span>
+<span id="cb369-6"><a href="refsup.html#cb369-6"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> word, <span class="dt">y =</span> n, <span class="dt">fill =</span> word))<span class="op">+</span></span>
+<span id="cb369-7"><a href="refsup.html#cb369-7"></a><span class="st">  </span><span class="kw">geom_col</span>(<span class="dt">show.legend =</span> <span class="ot">FALSE</span>)<span class="op">+</span></span>
+<span id="cb369-8"><a href="refsup.html#cb369-8"></a><span class="st">  </span><span class="kw">coord_flip</span>()<span class="op">+</span></span>
+<span id="cb369-9"><a href="refsup.html#cb369-9"></a><span class="st">  </span><span class="kw">scale_fill_viridis</span>(<span class="dt">discrete =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-27"></span>
 <img src="11-supplementary_files/figure-html/unnamed-chunk-27-1.png" alt="Most frequent words (edited)" width="100%" />
 <p class="caption">
@@ -1410,24 +1414,24 @@ Figure 11.4: Most frequent words (edited)
 </div>
 <p>To be honest, this isn’t that interesting because it’s so general, it might be more interesting to see how often each of the main characters are being mentioned.</p>
 <p>One problem is that people on the internet are terrible at spelling and we need to have the exact spellings which means that for Daenerys, Jon, and Jaime, the chances that people will have spelled their names wrong is quite high (as my level 2 students who watched me live code the first version of this will attest) so first we’re going to correct those.</p>
-<pre class="sourceCode r"><code class="sourceCode r">dat_token2 &lt;-<span class="st"> </span>dat_token <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">word =</span> <span class="kw">recode</span>(word, <span class="st">&quot;khaleesi&quot;</span> =<span class="st"> &quot;daenerys&quot;</span>,
-                       <span class="st">&quot;dany&quot;</span> =<span class="st"> &quot;daenerys&quot;</span>,
-                       <span class="st">&quot;jamie&quot;</span> =<span class="st"> &quot;jaime&quot;</span>,
-                       <span class="st">&quot;john&quot;</span> =<span class="st"> &quot;jon&quot;</span>))
-
-characters &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;jon&quot;</span>, <span class="st">&quot;daenerys&quot;</span>, <span class="st">&quot;bran&quot;</span>, <span class="st">&quot;arya&quot;</span>, <span class="st">&quot;sansa&quot;</span>, <span class="st">&quot;tyrion&quot;</span>, <span class="st">&quot;cersei&quot;</span>, <span class="st">&quot;jaime&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb370-1"><a href="refsup.html#cb370-1"></a>dat_token2 &lt;-<span class="st"> </span>dat_token <span class="op">%&gt;%</span></span>
+<span id="cb370-2"><a href="refsup.html#cb370-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">word =</span> <span class="kw">recode</span>(word, <span class="st">&quot;khaleesi&quot;</span> =<span class="st"> &quot;daenerys&quot;</span>,</span>
+<span id="cb370-3"><a href="refsup.html#cb370-3"></a>                       <span class="st">&quot;dany&quot;</span> =<span class="st"> &quot;daenerys&quot;</span>,</span>
+<span id="cb370-4"><a href="refsup.html#cb370-4"></a>                       <span class="st">&quot;jamie&quot;</span> =<span class="st"> &quot;jaime&quot;</span>,</span>
+<span id="cb370-5"><a href="refsup.html#cb370-5"></a>                       <span class="st">&quot;john&quot;</span> =<span class="st"> &quot;jon&quot;</span>))</span>
+<span id="cb370-6"><a href="refsup.html#cb370-6"></a></span>
+<span id="cb370-7"><a href="refsup.html#cb370-7"></a>characters &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;jon&quot;</span>, <span class="st">&quot;daenerys&quot;</span>, <span class="st">&quot;bran&quot;</span>, <span class="st">&quot;arya&quot;</span>, <span class="st">&quot;sansa&quot;</span>, <span class="st">&quot;tyrion&quot;</span>, <span class="st">&quot;cersei&quot;</span>, <span class="st">&quot;jaime&quot;</span>)</span></code></pre></div>
 <p>Now we can plot a count of how many times each name has been mentioned.</p>
-<pre class="sourceCode r"><code class="sourceCode r">dat_token2 <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(word <span class="op">%in%</span><span class="st"> </span>characters)<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">count</span>(word, <span class="dt">sort =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">word =</span> <span class="kw">reorder</span>(word, n))<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> word, <span class="dt">y =</span> n, <span class="dt">fill =</span> word)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_col</span>(<span class="dt">show.legend =</span> <span class="ot">FALSE</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">coord_flip</span>()<span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Number of mentions&quot;</span>)<span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_x_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;Character&quot;</span>)<span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_fill_viridis</span>(<span class="dt">discrete =</span> <span class="ot">TRUE</span>)</code></pre>
+<div class="sourceCode" id="cb371"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb371-1"><a href="refsup.html#cb371-1"></a>dat_token2 <span class="op">%&gt;%</span></span>
+<span id="cb371-2"><a href="refsup.html#cb371-2"></a><span class="st">  </span><span class="kw">filter</span>(word <span class="op">%in%</span><span class="st"> </span>characters)<span class="op">%&gt;%</span></span>
+<span id="cb371-3"><a href="refsup.html#cb371-3"></a><span class="st">  </span><span class="kw">count</span>(word, <span class="dt">sort =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></span>
+<span id="cb371-4"><a href="refsup.html#cb371-4"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">word =</span> <span class="kw">reorder</span>(word, n))<span class="op">%&gt;%</span></span>
+<span id="cb371-5"><a href="refsup.html#cb371-5"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> word, <span class="dt">y =</span> n, <span class="dt">fill =</span> word)) <span class="op">+</span></span>
+<span id="cb371-6"><a href="refsup.html#cb371-6"></a><span class="st">  </span><span class="kw">geom_col</span>(<span class="dt">show.legend =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
+<span id="cb371-7"><a href="refsup.html#cb371-7"></a><span class="st">  </span><span class="kw">coord_flip</span>()<span class="op">+</span></span>
+<span id="cb371-8"><a href="refsup.html#cb371-8"></a><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Number of mentions&quot;</span>)<span class="op">+</span></span>
+<span id="cb371-9"><a href="refsup.html#cb371-9"></a><span class="st">  </span><span class="kw">scale_x_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;Character&quot;</span>)<span class="op">+</span></span>
+<span id="cb371-10"><a href="refsup.html#cb371-10"></a><span class="st">  </span><span class="kw">scale_fill_viridis</span>(<span class="dt">discrete =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-29"></span>
 <img src="11-supplementary_files/figure-html/unnamed-chunk-29-1.png" alt="Frequecy of mentions for each character" width="100%" />
 <p class="caption">
@@ -1438,15 +1442,15 @@ Figure 11.5: Frequecy of mentions for each character
 <div id="bigram-analysis" class="section level3">
 <h3><span class="header-section-number">11.5.6</span> Bigram analysis</h3>
 <p>Rather than looking at individual words we can look at what words tend to co-occur. We want to use the data set where we’ve corrected the spelling so this is going to require us to transform from long to wide and then back to long because the night is dark and full of terror. DID YOU SEE WHAT I DID THERE.</p>
-<pre class="sourceCode r"><code class="sourceCode r">dat_bigram &lt;-<span class="st"> </span>dat_token2 <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">group_by</span>(tweet_number) <span class="op">%&gt;%</span><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">text =</span> <span class="kw">str_c</span>(word, <span class="dt">collapse =</span> <span class="st">&quot; &quot;</span>))<span class="op">%&gt;%</span><span class="st"> </span><span class="co"># this puts it back into wide-form</span>
-<span class="st">  </span><span class="kw">unnest_tokens</span>(bigram, text, <span class="dt">token =</span> <span class="st">&quot;ngrams&quot;</span>, <span class="dt">n =</span> <span class="dv">2</span>, <span class="dt">collapse =</span> <span class="ot">FALSE</span>)<span class="op">%&gt;%</span><span class="st"> </span><span class="co"># and then this turns it into bigrams in a tidy format</span>
-<span class="st">  </span><span class="kw">na.omit</span>()
-
-dat_bigram <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">count</span>(bigram, <span class="dt">sort =</span> <span class="ot">TRUE</span>)<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">head</span>(<span class="dv">10</span>)<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">kable</span>(<span class="dt">align =</span> <span class="st">&quot;c&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb372-1"><a href="refsup.html#cb372-1"></a>dat_bigram &lt;-<span class="st"> </span>dat_token2 <span class="op">%&gt;%</span></span>
+<span id="cb372-2"><a href="refsup.html#cb372-2"></a><span class="st">  </span><span class="kw">group_by</span>(tweet_number) <span class="op">%&gt;%</span><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">text =</span> <span class="kw">str_c</span>(word, <span class="dt">collapse =</span> <span class="st">&quot; &quot;</span>))<span class="op">%&gt;%</span><span class="st"> </span><span class="co"># this puts it back into wide-form</span></span>
+<span id="cb372-3"><a href="refsup.html#cb372-3"></a><span class="st">  </span><span class="kw">unnest_tokens</span>(bigram, text, <span class="dt">token =</span> <span class="st">&quot;ngrams&quot;</span>, <span class="dt">n =</span> <span class="dv">2</span>, <span class="dt">collapse =</span> <span class="ot">FALSE</span>)<span class="op">%&gt;%</span><span class="st"> </span><span class="co"># and then this turns it into bigrams in a tidy format</span></span>
+<span id="cb372-4"><a href="refsup.html#cb372-4"></a><span class="st">  </span><span class="kw">na.omit</span>()</span>
+<span id="cb372-5"><a href="refsup.html#cb372-5"></a></span>
+<span id="cb372-6"><a href="refsup.html#cb372-6"></a>dat_bigram <span class="op">%&gt;%</span></span>
+<span id="cb372-7"><a href="refsup.html#cb372-7"></a><span class="st">  </span><span class="kw">count</span>(bigram, <span class="dt">sort =</span> <span class="ot">TRUE</span>)<span class="op">%&gt;%</span></span>
+<span id="cb372-8"><a href="refsup.html#cb372-8"></a><span class="st">  </span><span class="kw">head</span>(<span class="dv">10</span>)<span class="op">%&gt;%</span></span>
+<span id="cb372-9"><a href="refsup.html#cb372-9"></a><span class="st">  </span><span class="kw">kable</span>(<span class="dt">align =</span> <span class="st">&quot;c&quot;</span>)</span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -1498,27 +1502,27 @@ dat_bigram <span class="op">%&gt;%</span>
 </tbody>
 </table>
 <p>Again there’s a bit of nonsense here and it’s a bit uninteresting but it’s worth highlighting this is something you can do. Now that we’ve got our bigrams we can plot these to see the connections between the different words. First, we’re going to use <code>separate</code> to put the two words into different columns, then we’ll count them up and plot them. If you want more information about this see the <a href="https://www.tidytextmining.com/ngrams.html">tidytext book online</a> as I am entirely cribbing this from that book. The plot requires the packages <code>igraph</code> and <code>ggraph</code>.</p>
-<pre class="sourceCode r"><code class="sourceCode r">bigrams_separated &lt;-<span class="st"> </span>dat_bigram <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">separate</span>(bigram, <span class="kw">c</span>(<span class="st">&quot;word1&quot;</span>, <span class="st">&quot;word2&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot; &quot;</span>)
-
-<span class="co"># new bigram counts:</span>
-bigram_counts &lt;-<span class="st"> </span>bigrams_separated <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">count</span>(word1, word2, <span class="dt">sort =</span> <span class="ot">TRUE</span>)
-
-bigram_counts
-
-<span class="co"># filter for only relatively common combinations (more than 20 occurances)</span>
-bigram_graph &lt;-<span class="st"> </span>bigram_counts <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(n <span class="op">&gt;</span><span class="st"> </span><span class="dv">20</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">graph_from_data_frame</span>()
-
-<span class="co"># make a pretty network plot</span>
-
-<span class="kw">ggraph</span>(bigram_graph, <span class="dt">layout =</span> <span class="st">&quot;fr&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_edge_link</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_node_point</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_node_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> name), <span class="dt">vjust =</span> <span class="dv">1</span>, <span class="dt">hjust =</span> <span class="dv">1</span>)<span class="op">+</span>
-<span class="st">  </span><span class="kw">theme_void</span>()</code></pre>
+<div class="sourceCode" id="cb373"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb373-1"><a href="refsup.html#cb373-1"></a>bigrams_separated &lt;-<span class="st"> </span>dat_bigram <span class="op">%&gt;%</span></span>
+<span id="cb373-2"><a href="refsup.html#cb373-2"></a><span class="st">  </span><span class="kw">separate</span>(bigram, <span class="kw">c</span>(<span class="st">&quot;word1&quot;</span>, <span class="st">&quot;word2&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot; &quot;</span>)</span>
+<span id="cb373-3"><a href="refsup.html#cb373-3"></a></span>
+<span id="cb373-4"><a href="refsup.html#cb373-4"></a><span class="co"># new bigram counts:</span></span>
+<span id="cb373-5"><a href="refsup.html#cb373-5"></a>bigram_counts &lt;-<span class="st"> </span>bigrams_separated <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb373-6"><a href="refsup.html#cb373-6"></a><span class="st">  </span><span class="kw">count</span>(word1, word2, <span class="dt">sort =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb373-7"><a href="refsup.html#cb373-7"></a></span>
+<span id="cb373-8"><a href="refsup.html#cb373-8"></a>bigram_counts</span>
+<span id="cb373-9"><a href="refsup.html#cb373-9"></a></span>
+<span id="cb373-10"><a href="refsup.html#cb373-10"></a><span class="co"># filter for only relatively common combinations (more than 20 occurances)</span></span>
+<span id="cb373-11"><a href="refsup.html#cb373-11"></a>bigram_graph &lt;-<span class="st"> </span>bigram_counts <span class="op">%&gt;%</span></span>
+<span id="cb373-12"><a href="refsup.html#cb373-12"></a><span class="st">  </span><span class="kw">filter</span>(n <span class="op">&gt;</span><span class="st"> </span><span class="dv">20</span>) <span class="op">%&gt;%</span></span>
+<span id="cb373-13"><a href="refsup.html#cb373-13"></a><span class="st">  </span><span class="kw">graph_from_data_frame</span>()</span>
+<span id="cb373-14"><a href="refsup.html#cb373-14"></a></span>
+<span id="cb373-15"><a href="refsup.html#cb373-15"></a><span class="co"># make a pretty network plot</span></span>
+<span id="cb373-16"><a href="refsup.html#cb373-16"></a></span>
+<span id="cb373-17"><a href="refsup.html#cb373-17"></a><span class="kw">ggraph</span>(bigram_graph, <span class="dt">layout =</span> <span class="st">&quot;fr&quot;</span>) <span class="op">+</span></span>
+<span id="cb373-18"><a href="refsup.html#cb373-18"></a><span class="st">  </span><span class="kw">geom_edge_link</span>() <span class="op">+</span></span>
+<span id="cb373-19"><a href="refsup.html#cb373-19"></a><span class="st">  </span><span class="kw">geom_node_point</span>() <span class="op">+</span></span>
+<span id="cb373-20"><a href="refsup.html#cb373-20"></a><span class="st">  </span><span class="kw">geom_node_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> name), <span class="dt">vjust =</span> <span class="dv">1</span>, <span class="dt">hjust =</span> <span class="dv">1</span>)<span class="op">+</span></span>
+<span id="cb373-21"><a href="refsup.html#cb373-21"></a><span class="st">  </span><span class="kw">theme_void</span>()</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-31"></span>
 <img src="11-supplementary_files/figure-html/unnamed-chunk-31-1.png" alt="Network graph of bigrams" width="100%" />
 <p class="caption">
@@ -1545,98 +1549,98 @@ Figure 11.6: Network graph of bigrams
 <h3><span class="header-section-number">11.5.7</span> Sentiment analysis</h3>
 <p>Sentiment analyses look at whether the expressed opinion in a bit of text is positive, negative, or neutral, using information from databases about the valance of different words. We can perform a sentiment analysis on the tweets that contain each character’s name to see whether e.g., Jon is mentioned in tweets that are largely positive or if Jaime is mentioned in tweets that are largely negative.</p>
 <p>To do this, we first need to do a bit of wrangling. We’re going to transform it back to wide-form, then we’re going to add in in a column that says whether each character was mentioned in the tweet, then we’re going to transform it back to long-form.</p>
-<pre class="sourceCode r"><code class="sourceCode r">dat_mentions &lt;-<span class="st"> </span>dat_token2 <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">group_by</span>(tweet_number) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">text =</span> <span class="kw">str_c</span>(word, <span class="dt">collapse =</span> <span class="st">&quot; &quot;</span>))<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">jon =</span> <span class="kw">case_when</span>(<span class="kw">str_detect</span>(text, <span class="st">&quot;.jon&quot;</span>) <span class="op">~</span><span class="st"> </span><span class="ot">TRUE</span>, <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> </span><span class="ot">FALSE</span>),
-         <span class="dt">daenerys =</span> <span class="kw">case_when</span>(<span class="kw">str_detect</span>(text, <span class="st">&quot;.daenerys&quot;</span>) <span class="op">~</span><span class="st"> </span><span class="ot">TRUE</span>, <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> </span><span class="ot">FALSE</span>),
-         <span class="dt">bran =</span> <span class="kw">case_when</span>(<span class="kw">str_detect</span>(text, <span class="st">&quot;.bran&quot;</span>) <span class="op">~</span><span class="st"> </span><span class="ot">TRUE</span>, <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> </span><span class="ot">FALSE</span>),
-         <span class="dt">arya =</span> <span class="kw">case_when</span>(<span class="kw">str_detect</span>(text, <span class="st">&quot;.arya&quot;</span>) <span class="op">~</span><span class="st"> </span><span class="ot">TRUE</span>, <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> </span><span class="ot">FALSE</span>),
-         <span class="dt">sansa =</span> <span class="kw">case_when</span>(<span class="kw">str_detect</span>(text, <span class="st">&quot;.sansa&quot;</span>) <span class="op">~</span><span class="st"> </span><span class="ot">TRUE</span>, <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> </span><span class="ot">FALSE</span>),
-         <span class="dt">tyrion =</span> <span class="kw">case_when</span>(<span class="kw">str_detect</span>(text, <span class="st">&quot;.tyrion&quot;</span>) <span class="op">~</span><span class="st"> </span><span class="ot">TRUE</span>, <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> </span><span class="ot">FALSE</span>),
-         <span class="dt">cersei =</span> <span class="kw">case_when</span>(<span class="kw">str_detect</span>(text, <span class="st">&quot;.cersei&quot;</span>) <span class="op">~</span><span class="st"> </span><span class="ot">TRUE</span>, <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> </span><span class="ot">FALSE</span>),
-         <span class="dt">jaime =</span> <span class="kw">case_when</span>(<span class="kw">str_detect</span>(text, <span class="st">&quot;.jaime&quot;</span>) <span class="op">~</span><span class="st"> </span><span class="ot">TRUE</span>, <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> </span><span class="ot">FALSE</span>))<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">unnest_tokens</span>(word, text) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">anti_join</span>(stop_words, <span class="dt">by =</span> <span class="st">&quot;word&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb375-1"><a href="refsup.html#cb375-1"></a>dat_mentions &lt;-<span class="st"> </span>dat_token2 <span class="op">%&gt;%</span></span>
+<span id="cb375-2"><a href="refsup.html#cb375-2"></a><span class="st">  </span><span class="kw">group_by</span>(tweet_number) <span class="op">%&gt;%</span></span>
+<span id="cb375-3"><a href="refsup.html#cb375-3"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">text =</span> <span class="kw">str_c</span>(word, <span class="dt">collapse =</span> <span class="st">&quot; &quot;</span>))<span class="op">%&gt;%</span></span>
+<span id="cb375-4"><a href="refsup.html#cb375-4"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">jon =</span> <span class="kw">case_when</span>(<span class="kw">str_detect</span>(text, <span class="st">&quot;.jon&quot;</span>) <span class="op">~</span><span class="st"> </span><span class="ot">TRUE</span>, <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> </span><span class="ot">FALSE</span>),</span>
+<span id="cb375-5"><a href="refsup.html#cb375-5"></a>         <span class="dt">daenerys =</span> <span class="kw">case_when</span>(<span class="kw">str_detect</span>(text, <span class="st">&quot;.daenerys&quot;</span>) <span class="op">~</span><span class="st"> </span><span class="ot">TRUE</span>, <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> </span><span class="ot">FALSE</span>),</span>
+<span id="cb375-6"><a href="refsup.html#cb375-6"></a>         <span class="dt">bran =</span> <span class="kw">case_when</span>(<span class="kw">str_detect</span>(text, <span class="st">&quot;.bran&quot;</span>) <span class="op">~</span><span class="st"> </span><span class="ot">TRUE</span>, <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> </span><span class="ot">FALSE</span>),</span>
+<span id="cb375-7"><a href="refsup.html#cb375-7"></a>         <span class="dt">arya =</span> <span class="kw">case_when</span>(<span class="kw">str_detect</span>(text, <span class="st">&quot;.arya&quot;</span>) <span class="op">~</span><span class="st"> </span><span class="ot">TRUE</span>, <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> </span><span class="ot">FALSE</span>),</span>
+<span id="cb375-8"><a href="refsup.html#cb375-8"></a>         <span class="dt">sansa =</span> <span class="kw">case_when</span>(<span class="kw">str_detect</span>(text, <span class="st">&quot;.sansa&quot;</span>) <span class="op">~</span><span class="st"> </span><span class="ot">TRUE</span>, <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> </span><span class="ot">FALSE</span>),</span>
+<span id="cb375-9"><a href="refsup.html#cb375-9"></a>         <span class="dt">tyrion =</span> <span class="kw">case_when</span>(<span class="kw">str_detect</span>(text, <span class="st">&quot;.tyrion&quot;</span>) <span class="op">~</span><span class="st"> </span><span class="ot">TRUE</span>, <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> </span><span class="ot">FALSE</span>),</span>
+<span id="cb375-10"><a href="refsup.html#cb375-10"></a>         <span class="dt">cersei =</span> <span class="kw">case_when</span>(<span class="kw">str_detect</span>(text, <span class="st">&quot;.cersei&quot;</span>) <span class="op">~</span><span class="st"> </span><span class="ot">TRUE</span>, <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> </span><span class="ot">FALSE</span>),</span>
+<span id="cb375-11"><a href="refsup.html#cb375-11"></a>         <span class="dt">jaime =</span> <span class="kw">case_when</span>(<span class="kw">str_detect</span>(text, <span class="st">&quot;.jaime&quot;</span>) <span class="op">~</span><span class="st"> </span><span class="ot">TRUE</span>, <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> </span><span class="ot">FALSE</span>))<span class="op">%&gt;%</span></span>
+<span id="cb375-12"><a href="refsup.html#cb375-12"></a><span class="st">  </span><span class="kw">unnest_tokens</span>(word, text) <span class="op">%&gt;%</span></span>
+<span id="cb375-13"><a href="refsup.html#cb375-13"></a><span class="st">  </span><span class="kw">anti_join</span>(stop_words, <span class="dt">by =</span> <span class="st">&quot;word&quot;</span>)</span></code></pre></div>
 <p>Once we’ve done this, we can then run a sentiment analysis on the tweets for each character. I still haven’t quite cracked iteration so this code is a bit repetitive, if you can give me the better way of doing this that’s less prone to copy and paste errors, please do.</p>
-<pre class="sourceCode r"><code class="sourceCode r">jon &lt;-<span class="st"> </span>dat_mentions <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(jon)<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">inner_join</span>(<span class="kw">get_sentiments</span>(<span class="st">&quot;bing&quot;</span>))<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">count</span>(<span class="dt">index =</span> tweet_number, sentiment) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">spread</span>(sentiment, n, <span class="dt">fill =</span> <span class="dv">0</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">sentiment =</span> positive <span class="op">-</span><span class="st"> </span>negative)<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">character =</span> <span class="st">&quot;jon&quot;</span>)
-
-daenerys &lt;-<span class="st"> </span>dat_mentions <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(daenerys <span class="op">==</span><span class="st"> &quot;TRUE&quot;</span>)<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">inner_join</span>(<span class="kw">get_sentiments</span>(<span class="st">&quot;bing&quot;</span>))<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">count</span>(<span class="dt">index =</span> tweet_number, sentiment) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">spread</span>(sentiment, n, <span class="dt">fill =</span> <span class="dv">0</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">sentiment =</span> positive <span class="op">-</span><span class="st"> </span>negative)<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">character =</span> <span class="st">&quot;daenerys&quot;</span>)
-
-
-bran &lt;-<span class="st"> </span>dat_mentions <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(bran <span class="op">==</span><span class="st"> &quot;TRUE&quot;</span>)<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">inner_join</span>(<span class="kw">get_sentiments</span>(<span class="st">&quot;bing&quot;</span>))<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">count</span>(<span class="dt">index =</span> tweet_number, sentiment) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">spread</span>(sentiment, n, <span class="dt">fill =</span> <span class="dv">0</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">sentiment =</span> positive <span class="op">-</span><span class="st"> </span>negative)<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">character =</span> <span class="st">&quot;bran&quot;</span>)
-
-arya &lt;-<span class="st"> </span>dat_mentions <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(arya <span class="op">==</span><span class="st"> &quot;TRUE&quot;</span>)<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">inner_join</span>(<span class="kw">get_sentiments</span>(<span class="st">&quot;bing&quot;</span>))<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">count</span>(<span class="dt">index =</span> tweet_number, sentiment) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">spread</span>(sentiment, n, <span class="dt">fill =</span> <span class="dv">0</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">sentiment =</span> positive <span class="op">-</span><span class="st"> </span>negative)<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">character =</span> <span class="st">&quot;arya&quot;</span>)
-
-sansa &lt;-<span class="st"> </span>dat_mentions <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(sansa <span class="op">==</span><span class="st"> &quot;TRUE&quot;</span>)<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">inner_join</span>(<span class="kw">get_sentiments</span>(<span class="st">&quot;bing&quot;</span>))<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">count</span>(<span class="dt">index =</span> tweet_number, sentiment) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">spread</span>(sentiment, n, <span class="dt">fill =</span> <span class="dv">0</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">sentiment =</span> positive <span class="op">-</span><span class="st"> </span>negative)<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">character =</span> <span class="st">&quot;sansa&quot;</span>)
-
-tyrion &lt;-<span class="st"> </span>dat_mentions <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(tyrion <span class="op">==</span><span class="st"> &quot;TRUE&quot;</span>)<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">inner_join</span>(<span class="kw">get_sentiments</span>(<span class="st">&quot;bing&quot;</span>))<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">count</span>(<span class="dt">index =</span> tweet_number, sentiment) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">spread</span>(sentiment, n, <span class="dt">fill =</span> <span class="dv">0</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">sentiment =</span> positive <span class="op">-</span><span class="st"> </span>negative)<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">character =</span> <span class="st">&quot;tyrion&quot;</span>)
-
-cersei &lt;-<span class="st"> </span>dat_mentions <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(cersei <span class="op">==</span><span class="st"> &quot;TRUE&quot;</span>)<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">inner_join</span>(<span class="kw">get_sentiments</span>(<span class="st">&quot;bing&quot;</span>))<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">count</span>(<span class="dt">index =</span> tweet_number, sentiment) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">spread</span>(sentiment, n, <span class="dt">fill =</span> <span class="dv">0</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">sentiment =</span> positive <span class="op">-</span><span class="st"> </span>negative)<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">character =</span> <span class="st">&quot;cersei&quot;</span>)
-
-jaime &lt;-<span class="st"> </span>dat_mentions <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(jaime <span class="op">==</span><span class="st"> &quot;TRUE&quot;</span>)<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">inner_join</span>(<span class="kw">get_sentiments</span>(<span class="st">&quot;bing&quot;</span>))<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">count</span>(<span class="dt">index =</span> tweet_number, sentiment) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">spread</span>(sentiment, n, <span class="dt">fill =</span> <span class="dv">0</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">sentiment =</span> positive <span class="op">-</span><span class="st"> </span>negative)<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">character =</span> <span class="st">&quot;jaime&quot;</span>)
-
-
-dat_sentiment &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(jon,daenerys,bran,arya,sansa,tyrion,cersei,jaime) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">group_by</span>(character) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">positive =</span> <span class="kw">sum</span>(positive),
-            <span class="dt">negative =</span> <span class="kw">sum</span>(negative),
-            <span class="dt">overall =</span> <span class="kw">sum</span>(sentiment))<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">gather</span>(positive<span class="op">:</span>overall, <span class="dt">key =</span> type, <span class="dt">value =</span> score)<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">type =</span> <span class="kw">factor</span>(type, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;positive&quot;</span>, <span class="st">&quot;negative&quot;</span>, <span class="st">&quot;overall&quot;</span>)))</code></pre>
+<div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb376-1"><a href="refsup.html#cb376-1"></a>jon &lt;-<span class="st"> </span>dat_mentions <span class="op">%&gt;%</span></span>
+<span id="cb376-2"><a href="refsup.html#cb376-2"></a><span class="st">  </span><span class="kw">filter</span>(jon)<span class="op">%&gt;%</span></span>
+<span id="cb376-3"><a href="refsup.html#cb376-3"></a><span class="st">  </span><span class="kw">inner_join</span>(<span class="kw">get_sentiments</span>(<span class="st">&quot;bing&quot;</span>))<span class="op">%&gt;%</span></span>
+<span id="cb376-4"><a href="refsup.html#cb376-4"></a><span class="st">  </span><span class="kw">count</span>(<span class="dt">index =</span> tweet_number, sentiment) <span class="op">%&gt;%</span></span>
+<span id="cb376-5"><a href="refsup.html#cb376-5"></a><span class="st">  </span><span class="kw">spread</span>(sentiment, n, <span class="dt">fill =</span> <span class="dv">0</span>) <span class="op">%&gt;%</span></span>
+<span id="cb376-6"><a href="refsup.html#cb376-6"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">sentiment =</span> positive <span class="op">-</span><span class="st"> </span>negative)<span class="op">%&gt;%</span></span>
+<span id="cb376-7"><a href="refsup.html#cb376-7"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">character =</span> <span class="st">&quot;jon&quot;</span>)</span>
+<span id="cb376-8"><a href="refsup.html#cb376-8"></a></span>
+<span id="cb376-9"><a href="refsup.html#cb376-9"></a>daenerys &lt;-<span class="st"> </span>dat_mentions <span class="op">%&gt;%</span></span>
+<span id="cb376-10"><a href="refsup.html#cb376-10"></a><span class="st">  </span><span class="kw">filter</span>(daenerys <span class="op">==</span><span class="st"> &quot;TRUE&quot;</span>)<span class="op">%&gt;%</span></span>
+<span id="cb376-11"><a href="refsup.html#cb376-11"></a><span class="st">  </span><span class="kw">inner_join</span>(<span class="kw">get_sentiments</span>(<span class="st">&quot;bing&quot;</span>))<span class="op">%&gt;%</span></span>
+<span id="cb376-12"><a href="refsup.html#cb376-12"></a><span class="st">  </span><span class="kw">count</span>(<span class="dt">index =</span> tweet_number, sentiment) <span class="op">%&gt;%</span></span>
+<span id="cb376-13"><a href="refsup.html#cb376-13"></a><span class="st">  </span><span class="kw">spread</span>(sentiment, n, <span class="dt">fill =</span> <span class="dv">0</span>) <span class="op">%&gt;%</span></span>
+<span id="cb376-14"><a href="refsup.html#cb376-14"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">sentiment =</span> positive <span class="op">-</span><span class="st"> </span>negative)<span class="op">%&gt;%</span></span>
+<span id="cb376-15"><a href="refsup.html#cb376-15"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">character =</span> <span class="st">&quot;daenerys&quot;</span>)</span>
+<span id="cb376-16"><a href="refsup.html#cb376-16"></a></span>
+<span id="cb376-17"><a href="refsup.html#cb376-17"></a></span>
+<span id="cb376-18"><a href="refsup.html#cb376-18"></a>bran &lt;-<span class="st"> </span>dat_mentions <span class="op">%&gt;%</span></span>
+<span id="cb376-19"><a href="refsup.html#cb376-19"></a><span class="st">  </span><span class="kw">filter</span>(bran <span class="op">==</span><span class="st"> &quot;TRUE&quot;</span>)<span class="op">%&gt;%</span></span>
+<span id="cb376-20"><a href="refsup.html#cb376-20"></a><span class="st">  </span><span class="kw">inner_join</span>(<span class="kw">get_sentiments</span>(<span class="st">&quot;bing&quot;</span>))<span class="op">%&gt;%</span></span>
+<span id="cb376-21"><a href="refsup.html#cb376-21"></a><span class="st">  </span><span class="kw">count</span>(<span class="dt">index =</span> tweet_number, sentiment) <span class="op">%&gt;%</span></span>
+<span id="cb376-22"><a href="refsup.html#cb376-22"></a><span class="st">  </span><span class="kw">spread</span>(sentiment, n, <span class="dt">fill =</span> <span class="dv">0</span>) <span class="op">%&gt;%</span></span>
+<span id="cb376-23"><a href="refsup.html#cb376-23"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">sentiment =</span> positive <span class="op">-</span><span class="st"> </span>negative)<span class="op">%&gt;%</span></span>
+<span id="cb376-24"><a href="refsup.html#cb376-24"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">character =</span> <span class="st">&quot;bran&quot;</span>)</span>
+<span id="cb376-25"><a href="refsup.html#cb376-25"></a></span>
+<span id="cb376-26"><a href="refsup.html#cb376-26"></a>arya &lt;-<span class="st"> </span>dat_mentions <span class="op">%&gt;%</span></span>
+<span id="cb376-27"><a href="refsup.html#cb376-27"></a><span class="st">  </span><span class="kw">filter</span>(arya <span class="op">==</span><span class="st"> &quot;TRUE&quot;</span>)<span class="op">%&gt;%</span></span>
+<span id="cb376-28"><a href="refsup.html#cb376-28"></a><span class="st">  </span><span class="kw">inner_join</span>(<span class="kw">get_sentiments</span>(<span class="st">&quot;bing&quot;</span>))<span class="op">%&gt;%</span></span>
+<span id="cb376-29"><a href="refsup.html#cb376-29"></a><span class="st">  </span><span class="kw">count</span>(<span class="dt">index =</span> tweet_number, sentiment) <span class="op">%&gt;%</span></span>
+<span id="cb376-30"><a href="refsup.html#cb376-30"></a><span class="st">  </span><span class="kw">spread</span>(sentiment, n, <span class="dt">fill =</span> <span class="dv">0</span>) <span class="op">%&gt;%</span></span>
+<span id="cb376-31"><a href="refsup.html#cb376-31"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">sentiment =</span> positive <span class="op">-</span><span class="st"> </span>negative)<span class="op">%&gt;%</span></span>
+<span id="cb376-32"><a href="refsup.html#cb376-32"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">character =</span> <span class="st">&quot;arya&quot;</span>)</span>
+<span id="cb376-33"><a href="refsup.html#cb376-33"></a></span>
+<span id="cb376-34"><a href="refsup.html#cb376-34"></a>sansa &lt;-<span class="st"> </span>dat_mentions <span class="op">%&gt;%</span></span>
+<span id="cb376-35"><a href="refsup.html#cb376-35"></a><span class="st">  </span><span class="kw">filter</span>(sansa <span class="op">==</span><span class="st"> &quot;TRUE&quot;</span>)<span class="op">%&gt;%</span></span>
+<span id="cb376-36"><a href="refsup.html#cb376-36"></a><span class="st">  </span><span class="kw">inner_join</span>(<span class="kw">get_sentiments</span>(<span class="st">&quot;bing&quot;</span>))<span class="op">%&gt;%</span></span>
+<span id="cb376-37"><a href="refsup.html#cb376-37"></a><span class="st">  </span><span class="kw">count</span>(<span class="dt">index =</span> tweet_number, sentiment) <span class="op">%&gt;%</span></span>
+<span id="cb376-38"><a href="refsup.html#cb376-38"></a><span class="st">  </span><span class="kw">spread</span>(sentiment, n, <span class="dt">fill =</span> <span class="dv">0</span>) <span class="op">%&gt;%</span></span>
+<span id="cb376-39"><a href="refsup.html#cb376-39"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">sentiment =</span> positive <span class="op">-</span><span class="st"> </span>negative)<span class="op">%&gt;%</span></span>
+<span id="cb376-40"><a href="refsup.html#cb376-40"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">character =</span> <span class="st">&quot;sansa&quot;</span>)</span>
+<span id="cb376-41"><a href="refsup.html#cb376-41"></a></span>
+<span id="cb376-42"><a href="refsup.html#cb376-42"></a>tyrion &lt;-<span class="st"> </span>dat_mentions <span class="op">%&gt;%</span></span>
+<span id="cb376-43"><a href="refsup.html#cb376-43"></a><span class="st">  </span><span class="kw">filter</span>(tyrion <span class="op">==</span><span class="st"> &quot;TRUE&quot;</span>)<span class="op">%&gt;%</span></span>
+<span id="cb376-44"><a href="refsup.html#cb376-44"></a><span class="st">  </span><span class="kw">inner_join</span>(<span class="kw">get_sentiments</span>(<span class="st">&quot;bing&quot;</span>))<span class="op">%&gt;%</span></span>
+<span id="cb376-45"><a href="refsup.html#cb376-45"></a><span class="st">  </span><span class="kw">count</span>(<span class="dt">index =</span> tweet_number, sentiment) <span class="op">%&gt;%</span></span>
+<span id="cb376-46"><a href="refsup.html#cb376-46"></a><span class="st">  </span><span class="kw">spread</span>(sentiment, n, <span class="dt">fill =</span> <span class="dv">0</span>) <span class="op">%&gt;%</span></span>
+<span id="cb376-47"><a href="refsup.html#cb376-47"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">sentiment =</span> positive <span class="op">-</span><span class="st"> </span>negative)<span class="op">%&gt;%</span></span>
+<span id="cb376-48"><a href="refsup.html#cb376-48"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">character =</span> <span class="st">&quot;tyrion&quot;</span>)</span>
+<span id="cb376-49"><a href="refsup.html#cb376-49"></a></span>
+<span id="cb376-50"><a href="refsup.html#cb376-50"></a>cersei &lt;-<span class="st"> </span>dat_mentions <span class="op">%&gt;%</span></span>
+<span id="cb376-51"><a href="refsup.html#cb376-51"></a><span class="st">  </span><span class="kw">filter</span>(cersei <span class="op">==</span><span class="st"> &quot;TRUE&quot;</span>)<span class="op">%&gt;%</span></span>
+<span id="cb376-52"><a href="refsup.html#cb376-52"></a><span class="st">  </span><span class="kw">inner_join</span>(<span class="kw">get_sentiments</span>(<span class="st">&quot;bing&quot;</span>))<span class="op">%&gt;%</span></span>
+<span id="cb376-53"><a href="refsup.html#cb376-53"></a><span class="st">  </span><span class="kw">count</span>(<span class="dt">index =</span> tweet_number, sentiment) <span class="op">%&gt;%</span></span>
+<span id="cb376-54"><a href="refsup.html#cb376-54"></a><span class="st">  </span><span class="kw">spread</span>(sentiment, n, <span class="dt">fill =</span> <span class="dv">0</span>) <span class="op">%&gt;%</span></span>
+<span id="cb376-55"><a href="refsup.html#cb376-55"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">sentiment =</span> positive <span class="op">-</span><span class="st"> </span>negative)<span class="op">%&gt;%</span></span>
+<span id="cb376-56"><a href="refsup.html#cb376-56"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">character =</span> <span class="st">&quot;cersei&quot;</span>)</span>
+<span id="cb376-57"><a href="refsup.html#cb376-57"></a></span>
+<span id="cb376-58"><a href="refsup.html#cb376-58"></a>jaime &lt;-<span class="st"> </span>dat_mentions <span class="op">%&gt;%</span></span>
+<span id="cb376-59"><a href="refsup.html#cb376-59"></a><span class="st">  </span><span class="kw">filter</span>(jaime <span class="op">==</span><span class="st"> &quot;TRUE&quot;</span>)<span class="op">%&gt;%</span></span>
+<span id="cb376-60"><a href="refsup.html#cb376-60"></a><span class="st">  </span><span class="kw">inner_join</span>(<span class="kw">get_sentiments</span>(<span class="st">&quot;bing&quot;</span>))<span class="op">%&gt;%</span></span>
+<span id="cb376-61"><a href="refsup.html#cb376-61"></a><span class="st">  </span><span class="kw">count</span>(<span class="dt">index =</span> tweet_number, sentiment) <span class="op">%&gt;%</span></span>
+<span id="cb376-62"><a href="refsup.html#cb376-62"></a><span class="st">  </span><span class="kw">spread</span>(sentiment, n, <span class="dt">fill =</span> <span class="dv">0</span>) <span class="op">%&gt;%</span></span>
+<span id="cb376-63"><a href="refsup.html#cb376-63"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">sentiment =</span> positive <span class="op">-</span><span class="st"> </span>negative)<span class="op">%&gt;%</span></span>
+<span id="cb376-64"><a href="refsup.html#cb376-64"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">character =</span> <span class="st">&quot;jaime&quot;</span>)</span>
+<span id="cb376-65"><a href="refsup.html#cb376-65"></a></span>
+<span id="cb376-66"><a href="refsup.html#cb376-66"></a></span>
+<span id="cb376-67"><a href="refsup.html#cb376-67"></a>dat_sentiment &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(jon,daenerys,bran,arya,sansa,tyrion,cersei,jaime) <span class="op">%&gt;%</span></span>
+<span id="cb376-68"><a href="refsup.html#cb376-68"></a><span class="st">  </span><span class="kw">group_by</span>(character) <span class="op">%&gt;%</span></span>
+<span id="cb376-69"><a href="refsup.html#cb376-69"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">positive =</span> <span class="kw">sum</span>(positive),</span>
+<span id="cb376-70"><a href="refsup.html#cb376-70"></a>            <span class="dt">negative =</span> <span class="kw">sum</span>(negative),</span>
+<span id="cb376-71"><a href="refsup.html#cb376-71"></a>            <span class="dt">overall =</span> <span class="kw">sum</span>(sentiment))<span class="op">%&gt;%</span></span>
+<span id="cb376-72"><a href="refsup.html#cb376-72"></a><span class="st">  </span><span class="kw">gather</span>(positive<span class="op">:</span>overall, <span class="dt">key =</span> type, <span class="dt">value =</span> score)<span class="op">%&gt;%</span></span>
+<span id="cb376-73"><a href="refsup.html#cb376-73"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">type =</span> <span class="kw">factor</span>(type, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;positive&quot;</span>, <span class="st">&quot;negative&quot;</span>, <span class="st">&quot;overall&quot;</span>)))</span></code></pre></div>
 <p>Now that we’ve done all that we can display a table of positive, negative and overall sentiment scores. Bear in mind that not all words have an associated sentiment score, particularly if they’re a non-standard usage of English (as an aside, this makes RuPaul’s Drag Race very difficult to analyse because tidytext will think a sickening death drop is a bad thing).</p>
-<pre class="sourceCode r"><code class="sourceCode r">dat_sentiment <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">spread</span>(type, score)<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(overall))<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">kable</span>(<span class="dt">align =</span> <span class="st">&quot;c&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb377"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb377-1"><a href="refsup.html#cb377-1"></a>dat_sentiment <span class="op">%&gt;%</span></span>
+<span id="cb377-2"><a href="refsup.html#cb377-2"></a><span class="st">  </span><span class="kw">spread</span>(type, score)<span class="op">%&gt;%</span></span>
+<span id="cb377-3"><a href="refsup.html#cb377-3"></a><span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(overall))<span class="op">%&gt;%</span></span>
+<span id="cb377-4"><a href="refsup.html#cb377-4"></a><span class="st">  </span><span class="kw">kable</span>(<span class="dt">align =</span> <span class="st">&quot;c&quot;</span>)</span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -1698,16 +1702,16 @@ dat_sentiment &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(jo
 </tbody>
 </table>
 <p>Because there’s diferent numbers of tweets for each character, it might be more helpful to convert it to percentages to make it easier to compare.</p>
-<pre class="sourceCode r"><code class="sourceCode r">dat_sentiment <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">spread</span>(type, score)<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">group_by</span>(character)<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">total =</span> positive <span class="op">+</span><span class="st"> </span>negative)<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">positive_percent =</span> positive<span class="op">/</span>total<span class="op">*</span><span class="dv">100</span>,
-         <span class="dt">negative_percent =</span> negative<span class="op">/</span>total<span class="op">*</span><span class="dv">100</span>,
-         <span class="dt">sentiment =</span> positive_percent <span class="op">-</span><span class="st"> </span>negative_percent)<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>(character, positive_percent, negative_percent, sentiment)<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(sentiment))<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">kable</span>(<span class="dt">align =</span> <span class="st">&quot;c&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb378"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb378-1"><a href="refsup.html#cb378-1"></a>dat_sentiment <span class="op">%&gt;%</span></span>
+<span id="cb378-2"><a href="refsup.html#cb378-2"></a><span class="st">  </span><span class="kw">spread</span>(type, score)<span class="op">%&gt;%</span></span>
+<span id="cb378-3"><a href="refsup.html#cb378-3"></a><span class="st">  </span><span class="kw">group_by</span>(character)<span class="op">%&gt;%</span></span>
+<span id="cb378-4"><a href="refsup.html#cb378-4"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">total =</span> positive <span class="op">+</span><span class="st"> </span>negative)<span class="op">%&gt;%</span></span>
+<span id="cb378-5"><a href="refsup.html#cb378-5"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">positive_percent =</span> positive<span class="op">/</span>total<span class="op">*</span><span class="dv">100</span>,</span>
+<span id="cb378-6"><a href="refsup.html#cb378-6"></a>         <span class="dt">negative_percent =</span> negative<span class="op">/</span>total<span class="op">*</span><span class="dv">100</span>,</span>
+<span id="cb378-7"><a href="refsup.html#cb378-7"></a>         <span class="dt">sentiment =</span> positive_percent <span class="op">-</span><span class="st"> </span>negative_percent)<span class="op">%&gt;%</span></span>
+<span id="cb378-8"><a href="refsup.html#cb378-8"></a><span class="st">  </span><span class="kw">select</span>(character, positive_percent, negative_percent, sentiment)<span class="op">%&gt;%</span></span>
+<span id="cb378-9"><a href="refsup.html#cb378-9"></a><span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(sentiment))<span class="op">%&gt;%</span></span>
+<span id="cb378-10"><a href="refsup.html#cb378-10"></a><span class="st">  </span><span class="kw">kable</span>(<span class="dt">align =</span> <span class="st">&quot;c&quot;</span>)</span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -1770,19 +1774,19 @@ dat_sentiment &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(jo
 </table>
 <p>They’re all quite negative because there’s no pleasing some people but there’s some face validity to the analysis given the order of the rankings. If you’d been watching this live you could have repeated this each episode to see how the reactions to the characters changes.</p>
 <p>Let’s make that into a graph cause graphs are great.</p>
-<pre class="sourceCode r"><code class="sourceCode r">dat_sentiment <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">spread</span>(type, score)<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">group_by</span>(character)<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">total =</span> positive <span class="op">+</span><span class="st"> </span>negative)<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">positive_percent =</span> positive<span class="op">/</span>total<span class="op">*</span><span class="dv">100</span>,
-         <span class="dt">negative_percent =</span> negative<span class="op">/</span>total<span class="op">*</span><span class="dv">100</span>,
-         <span class="dt">sentiment =</span> positive_percent <span class="op">-</span><span class="st"> </span>negative_percent)<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>(character, positive_percent, negative_percent, sentiment)<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(sentiment))<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">reorder</span>(character,sentiment), <span class="dt">y =</span> sentiment)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_col</span>(<span class="dt">show.legend =</span> <span class="ot">FALSE</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Overall sentiment (percent)&quot;</span>)<span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_x_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;Character&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb379-1"><a href="refsup.html#cb379-1"></a>dat_sentiment <span class="op">%&gt;%</span></span>
+<span id="cb379-2"><a href="refsup.html#cb379-2"></a><span class="st">  </span><span class="kw">spread</span>(type, score)<span class="op">%&gt;%</span></span>
+<span id="cb379-3"><a href="refsup.html#cb379-3"></a><span class="st">  </span><span class="kw">group_by</span>(character)<span class="op">%&gt;%</span></span>
+<span id="cb379-4"><a href="refsup.html#cb379-4"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">total =</span> positive <span class="op">+</span><span class="st"> </span>negative)<span class="op">%&gt;%</span></span>
+<span id="cb379-5"><a href="refsup.html#cb379-5"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">positive_percent =</span> positive<span class="op">/</span>total<span class="op">*</span><span class="dv">100</span>,</span>
+<span id="cb379-6"><a href="refsup.html#cb379-6"></a>         <span class="dt">negative_percent =</span> negative<span class="op">/</span>total<span class="op">*</span><span class="dv">100</span>,</span>
+<span id="cb379-7"><a href="refsup.html#cb379-7"></a>         <span class="dt">sentiment =</span> positive_percent <span class="op">-</span><span class="st"> </span>negative_percent)<span class="op">%&gt;%</span></span>
+<span id="cb379-8"><a href="refsup.html#cb379-8"></a><span class="st">  </span><span class="kw">select</span>(character, positive_percent, negative_percent, sentiment)<span class="op">%&gt;%</span></span>
+<span id="cb379-9"><a href="refsup.html#cb379-9"></a><span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(sentiment))<span class="op">%&gt;%</span></span>
+<span id="cb379-10"><a href="refsup.html#cb379-10"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">reorder</span>(character,sentiment), <span class="dt">y =</span> sentiment)) <span class="op">+</span></span>
+<span id="cb379-11"><a href="refsup.html#cb379-11"></a><span class="st">  </span><span class="kw">geom_col</span>(<span class="dt">show.legend =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
+<span id="cb379-12"><a href="refsup.html#cb379-12"></a><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Overall sentiment (percent)&quot;</span>)<span class="op">+</span></span>
+<span id="cb379-13"><a href="refsup.html#cb379-13"></a><span class="st">  </span><span class="kw">scale_x_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;Character&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-36"></span>
 <img src="11-supplementary_files/figure-html/unnamed-chunk-36-1.png" alt="Sentiment scores for each character" width="100%" />
 <p class="caption">
@@ -1914,11 +1918,13 @@ window.onload = function() {
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -1926,12 +1932,12 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"],
+"google": false
 },
 "fontsettings": {
 "theme": "white",
@@ -1943,6 +1949,10 @@ gitbook.start({
 "text": null
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
@@ -1962,8 +1972,9 @@ gitbook.start({
     script.type = "text/javascript";
     var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
