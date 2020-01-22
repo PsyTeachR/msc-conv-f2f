@@ -1,5 +1,5 @@
 
-# Programming Basics {#ref3}
+# Programming Basics {#ref3}   
 
 ## Notes for instructors
 
@@ -218,7 +218,7 @@ mean(data)
 
 ```
 ## [1] 43
-## Time difference of 2 days
+## Time difference of -21 days
 ## [1] 17.66644
 ```
 

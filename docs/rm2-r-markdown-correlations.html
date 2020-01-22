@@ -24,7 +24,7 @@
 <meta name="author" content="Emily Nordmann, Heather Cleland-Woods, Phil McAleer" />
 
 
-<meta name="date" content="2019-12-30" />
+<meta name="date" content="2020-01-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -538,7 +538,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Including the R code directly lets others see how you did your analysis - this is a good thing for science! It is both reproducible and open!</p></li>
 <li><p>You write your report in normal text so it’s not necessary that you learn any new coding such as HTML.</p></li>
 </ol>
-<p>If at any point you are unsure about how to do something remember to think about where you can get help. There is an <strong>R Markdown Cheatsheet</strong> on the top menu under <code>Help &gt;&gt; Cheatsheets</code> or do what we do, Google it. For example, if I forget how to put words in bold, I could simply go to Google and type “<strong>rmarkdown bold</strong>” and no doubt get a lot of useful hints. You can also refer to Chapter @ref(ref2.</p>
+<p>If at any point you are unsure about how to do something remember to think about where you can get help. There is an <strong>R Markdown Cheatsheet</strong> on the top menu under <code>Help &gt;&gt; Cheatsheets</code> or do what we do, Google it. For example, if I forget how to put words in bold, I could simply go to Google and type “<strong>rmarkdown bold</strong>” and no doubt get a lot of useful hints. You can also refer to Chapter <a href="rm1-intro-to-r.html#ref2">2.2</a>.</p>
 </div>
 <div id="activity-2-create-a-new-markdown-document" class="section level3">
 <h3><span class="header-section-number">5.1.4</span> Activity 2: Create a new Markdown document</h3>
@@ -941,12 +941,12 @@ Explain these answers
 <li>the column name of Variable 1</li>
 <li>the column name of Variable 2</li>
 <li>the type of correlation you want to run: e.g. <code>pearson</code>, <code>spearman</code></li>
-<li>the type of NHST tail you want to run: e.g. <code>one.sided</code>, <code>two.sided</code></li>
+<li>the type of correlation you want to run: e.g. <code>two.sided</code> (non-directional), <code>greater</code> (positive correlation), or <code>lesser</code> (negative correlation).</li>
 </ul>
 <p>For example, if your data is stored in <code>dat</code> and you want to do a two-sided pearson correlation of the variables (columns) <code>X</code> and <code>Y</code>, then you would do:</p>
 <div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="rm2-r-markdown-correlations.html#cb112-1"></a><span class="kw">cor.test</span>(dat<span class="op">$</span>X, dat<span class="op">$</span>Y, <span class="dt">method =</span> <span class="st">&quot;pearson&quot;</span>, <span class="dt">alternative =</span> <span class="st">&quot;two.sided&quot;</span>)</span></code></pre></div>
 <ul>
-<li>Based on your answers to the assumption tests, spend a couple of minutes deciding with your group which correlation method to use (e.g. pearson or spearman) and the type of NHST tail to set (e.g. two.sided or one.sided).</li>
+<li>Based on your answers to the assumption tests, spend a couple of minutes deciding with your group which correlation method to use (e.g. pearson or spearman) and the type of correlation to run (e.g. two.sided, positive or negative).</li>
 <li>Run the correlation between IQ and Ability and save it in an object called <code>results</code>.</li>
 <li>View the output by typing <code>results</code> in the console</li>
 </ul>
