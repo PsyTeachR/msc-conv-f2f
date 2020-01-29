@@ -1,9 +1,8 @@
-
 # RM2 Missing Data & T-Tests
 
 ## Pre-class activities 
 
-In this pre-lab we're going to focus on how to deal with missing data and to reinforce the concept of tidy data. So far, we've given you complete datasets to work with, however, you will find that real data is often much messier than this, for example, participants may not answer some items in your questionnaire or may not turn up for repeated testing sessions. 
+In this pre-lab we're going to focus on how to deal with missing data and to reinforce the concept of tidy data. So far, we've given you complete datasets to work with, however, you will find that real data is often much messier than this. For example, participants may not answer some items in your questionnaire or may not turn up for repeated testing sessions. 
 
 ### Activity 1: Set-up
 
@@ -16,7 +15,7 @@ Do the following. If you need help, consult Chapter \@ref(ref3) and Chapter \@re
 
 ```{r echo = FALSE, message=FALSE, warning=FALSE}
 library("tidyverse")
-messy <- read_csv("messy.csv")
+messy <- read_csv("messy.csv") 
 ```
 
 ### Activity 2: Look at the data
@@ -78,7 +77,7 @@ mess_corr <- as.data.frame(messy %>% select(pre:delay))
 correlate(mess_corr, test = TRUE)
 ```
 
-### Activity 3: `na.rm = TRUE`
+### Activity 4: `na.rm = TRUE`
 
 When running inferential tests like correlations and t-tests, R will usually know when to ignore missing values. However, if you're calculating descriptive statistics or if you want to calculate the average score of a number of different items, you need to explicitly tell R to ignore the missing values.
 
@@ -105,7 +104,7 @@ The mean score for `delay` shows as `NA`. This is because R is trying to calcula
 
 * Run the below code. What is the mean score for the `delay` condition to 2 decimal places? `r fitb("13.57")`
 
-```{r na.rm3, eval=FALSE}
+```{r na.rm3, echo=FALSE, eval=FALSE}
 summarise(messy, 
           pre_mean = mean(pre),
           post_mean = mean(post),
@@ -115,7 +114,7 @@ summarise(messy,
 
 There are other options, for example, some researchers will replace missing values with a particular score (e.g., the mean) using `replace_na()` or you might have a cut-off such as participants need to answer at least 80% of all questionnaire items to be included. If you're doing a quantitative dissertation, these are things to discuss with your supervisor. The key thing is to know your data.
 
-### Activity 4: Tidy data  
+### Activity 5: Tidy data  
 
 For the rest of this pre-lab we're going to focus on tidy data. You already covered this in Chapter \@ref(gather) when we introduced `gather()` but this is a very common task so it's worth repeating. 
 
@@ -151,7 +150,7 @@ head(tidy) %>%
 
 ```
 
-### Activity 5: Questionnaire data
+### Activity 6: Questionnaire data
 
 One very common type of data you are likely to work with is questionnaire data.
 
@@ -192,7 +191,7 @@ Your data should look like this:
 head(qdat_tidy) %>% knitr::kable(digits = 2)
 ```
 
-### Activity 6: Calculating scale scores
+### Activity 7: Calculating scale scores
 
 Commonly with questionnaire data you will need to calculate the average response for a scale or a sub-scale for each participant. You can do this using `group_by()` and `summarise()` that you should now be familiar with.
 
@@ -213,7 +212,7 @@ ggplot(qdat_scores, aes(scale, mean_score)) +
   geom_boxplot()
 ```
 
-### Activity 7: `spread()` back to wide-form
+### Activity 8: `spread()` back to wide-form
 
 You may also want to transform the dataset back to wide-form if, for example, you wanted to run correlations between the variables. You can do this using `spread()` a function we haven't used but essentially works like the reverse of `gather()`.
 
@@ -283,20 +282,20 @@ One of the really confusing things about research design is that there are many 
 
 * Independent and between-subjects design typically mean the same thing - different participants in different conditions
 * Within-subjects, dependent, paired samples, and repeated-measures tend to mean the same participants in all conditions
-* Matched pairs design means different people in different conditions but you have matched participants across the conditions so that they are effectively the same person (e.g. age, IQ, Social Economic Status, etc)
+* Matched pairs design means different people in different conditions but you have matched participants across the conditions (e.g. matched on age, IQ, Social Economic Status, etc.)
 * Mixed design is when there is a combination of within-subjects and between-subjects designs in the one experiment. For example, say you are looking at attractiveness and dominance of male and female faces. Everyone might see both male and female faces (within) but half of the participants do ratings of attractiveness and half do ratings of trustworthiness (between).
 ```
 
 
 For the independent t-test we will be using data from Schroeder and Epley (2015). You can take a look at the Psychological Science article here:
 
-[Schroeder, J. and Epley, N. (2015). The sound of intellect: Speech reveals a thoughtful mind, increasing a job candidate's appeal. Psychological Science, 26, 277--891.](https://doi.org/10.1177/0956797615572906)
+[Schroeder, J. and Epley, N. (2015). The sound of intellect: Speech reveals a thoughtful mind, increasing a job candidate's appeal. Psychological Science, 26, 277--891.](https://doi.org/10.1177/0956797615572906).
 
-The abstract from this article explains more about the different experiments conducted (we will be specifically looking at the dataset from Experiment 4, courtesy of the [Open Stats Lab](https://sites.trinity.edu/osl/data-sets-and-activities/t-test-activities):
+We will be looking at the dataset from Experiment 4, courtesy of the [Open Stats Lab](https://sites.trinity.edu/osl/data-sets-and-activities/t-test-activities).
 
-> A person's mental capacities, such as intellect, cannot be observed directly and so are instead inferred from indirect cues. We predicted that a person's intellect would be conveyed most strongly through a cue closely tied to actual thinking: his or her voice. Hypothetical employers (Experiments 1-3b) and professional recruiters (Experiment 4) watched, listened to, or read job candidates' pitches about why they should be hired. These evaluators (the employers) rated a candidate as more competent, thoughtful, and intelligent when they heard a pitch rather than read it and, as a result, had a more favourable impression of the candidate and were more interested in hiring the candidate. Adding voice to written pitches, by having trained actors (Experiment 3a) or untrained adults (Experiment 3b) read them, produced the same results. Adding visual cues to audio pitches did not alter evaluations of the candidates. For conveying one's intellect, it is important that one's voice, quite literally, be heard.
+>The purpose of this study was to find out whether a person's mental capacities can be inferred from their voice. Professional recruiters either listened to, or read job candidates pitches about why they should be hired, and rated the candidates on intelligence and general impressions. 
 
-To summarise, 39 professional recruiters from Fortune 500 companies evaluated job pitches of M.B.A. candidates from the University of Chicago Booth School of Business. The methods and results appear on pages 887--889 of the article if you want to look at them specifically for more details. The original data, in **wide** format, can be found at the [Open Stats Lab](https://drive.google.com/open?id=0Bz-rhZ21ShvOei1MM24xNndnQ00) website for later self-directed learning. Today however, we will be working with a modified version in "tidy" format which can be downloaded from Moodle. 
+The methods and results appear on pages 887--889 of the article if you want more details. The original data, in **wide** format, can be found at the [Open Stats Lab](https://drive.google.com/open?id=0Bz-rhZ21ShvOei1MM24xNndnQ00) website. Today, we will be working with a modified version in "tidy" format which can be downloaded from Moodle. 
 
 ### Activity 1: Set-up
 
@@ -317,13 +316,20 @@ evaluators <- read_csv("evaluators.csv")
 
 ### Activity 2: Explore the dataset
 
-There are a few things we should do to explore the dataset and make working with it a bit easier. You have done all of these tasks before, use the book search function if you can't remember how to do them. As always the solutions are at the bottom but you will learn faster if you can solve the problem yourself.
+There are a few things we should do to explore the dataset and make working with it a bit easier. You have done all of these tasks before, use the book search function if you can't remember how to do them. If you feel confident, do the following data wrangling steps yourself, or run the code below. 
 
-* Use `mutate()` and `recode()` to recode `sex` into a new variable `sex_labels` so that `1` = `male` and `2` = `female`. Be careful - there are multiple functions in different packages called recode, make sure to specify `dplyr::recode()` to get the right one.
-* Use `mutate()` and `as.factor()` to overwrite `sex_labels` and `condition` as factors.  
-* Use `summary()` to get an overview of the missing data points in each variable.
+1. Use `mutate()` and `recode()` to recode `sex` into a new variable `sex_labels` so that `1` = `male` and `2` = `female`. Be careful - there are multiple functions in different packages called recode, make sure to specify `dplyr::recode()` to get the right one.
+2. Use `mutate()` and `as.factor()` to overwrite `sex_labels` and `condition` as factors.  
+3. Use `summary()` to get an overview of the missing data points in each variable.
 
 ```{r a2, echo = FALSE}
+evaluators <- evaluators %>%
+  mutate(sex_labels = dplyr::recode(sex, "1" = "male", "2" = "female"),
+         sex_labels = as.factor(sex_labels),
+         condition = as.factor(condition))
+```
+
+```{r a2.1, eval=FALSE}
 evaluators <- evaluators %>%
   mutate(sex_labels = dplyr::recode(sex, "1" = "male", "2" = "female"),
          sex_labels = as.factor(sex_labels),
@@ -336,7 +342,7 @@ evaluators <- evaluators %>%
 
 ### Activity 3: Ratings
 
-We are now going calculate an overall intellect rating given by each evaluator - how intellectual the evaluators thought candidates were overall depending on whether or not the evaluators **read** or **listened** to the candidates' resume pitches. This is calculated by averaging the ratings of `competent`, `thoughtful` and `intelligent` for each evaluator; held within `ratings.csv`. **Note:** we are not looking at ratings to individual candidates; we are looking at overall ratings for each evaluator. This is a bit confusing but makes sense if you stop to think about it a little.
+We are now going calculate an overall intellect rating given by each evaluator - how intellectual the evaluators thought candidates were overall depending on whether the evaluators **read** or **listened** to the candidates' resume pitches. This is calculated by averaging the ratings of `competent`, `thoughtful` and `intelligent` for each evaluator; held within `ratings.csv`. **Note:** we are not looking at ratings of individual candidates; we are looking at overall ratings for each evaluator. This is a bit confusing but makes sense if you stop to think about it a little.
 
 We will then combine the overall intellect rating with the overall impression ratings and overall hire ratings for each evaluator, with the end goal of having a tibble called `ratings2` - which has the following structure:
 
@@ -403,12 +409,10 @@ ratings2 <- ratings %>%
 
 ### Activity 4: Visualisation
 
-You should **always** visualise your data before you run a statistical analysis. Not only will it help you interpret the results of the test but it will give you a better understanding of the spread of your data. For comparing two means, we can take advantage of the many plotting options R provides so we don't have to settle for a boring (and more importantly, uninformative, bar plot).
+You should **always** visualise your data before you run a statistical analysis. It will help you interpret the results of the test and give you a better understanding of the spread of your data. To visualise our data, we are going to create a violin-boxplot.
 
-To visualise our data we are going to create a violin-boxplot.
-
-`geom_violin()` represents density. The fatter the plot, the more data points there are for that . The reason is is called a violin plot is because if your data are normally distributed it should look something like a violin.  
-`geom_boxplot()` shows the median and inter-quartile range (see [here](https://towardsdatascience.com/understanding-boxplots-5e2df7bcbd51) if you would like more information). The boxplot can also give you a good idea if the data are skewed - the median line should be in the middle of the box, if it's not, chances are the data are skewed.  
+`geom_violin()` represents density. The fatter the plot, the more data points there are. If your data are normally distributed it should look something like a violin.  
+`geom_boxplot()` shows the median and inter-quartile range (see [here](https://towardsdatascience.com/understanding-boxplots-5e2df7bcbd51) if you would like more information). The boxplot can also give you a good idea if the data are skewed - the median line should be in the middle of the box, if it's not, the data are likely skewed.  
 `geom_pointrange()` will show the mean and confidence intervals. If you're conducting a test that is comparing means, it's a good idea to add in the means.  
 
 * Run the below code to produce the plot. It is a good idea to save code 'recipes' for tasks that you will likely want to repeat in the future. You do not need to memorise lines of code, you only need to understand how to alter examples to work with your specific data set.
@@ -419,8 +423,8 @@ To visualise our data we are going to create a violin-boxplot.
 summary_dat<-ratings2%>%
   group_by(condition)%>%
   summarise(mean = mean(Rating),
-            min = mean(Rating) - qnorm(0.975)*sd(Rating)/sqrt(n()), #confidence intervals
-            max = mean(Rating) + qnorm(0.975)*sd(Rating)/sqrt(n()))
+            min = mean(Rating) - 1.96*sd(Rating)/sqrt(n()), # 95% confidence intervals
+            max = mean(Rating) + 1.96*sd(Rating)/sqrt(n()))
 
 
 ggplot(ratings2, aes(x = condition, y = Rating)) +
@@ -456,7 +460,7 @@ ratings2 <- ratings2 %>%
 qqPlot(ratings2$group_resid)
 ```
 
-We can also use a new test that will statistically test the residuals for normality, the **Shapiro-Wilk** test. `shapiro.wilk()` from Base R assesses if the distribution is significantly different from a normal distribution, so, if the test is significant it means your data is not normal, and if it is non-significant it means it is approximately normal. 
+We can also use the **Shapiro-Wilk** test to statistically evaluate if the data are normal. `shapiro.wilk()` assesses if the distribution is significantly different from a normal distribution. If the test is significant, your data are not normal. If the test is non-significant, your data are approximately normal. 
 
 * Run the below code. According to the Shapiro-Wilk test, is the data normally distributed? `r mcq(c(answer = "Yes", "No"))`
 
@@ -477,7 +481,7 @@ cat("The p-value is .2088 which is more than .05, the cut-off for statistical si
 
 ### Activity 6: Running the t-test
 
-We are going to conduct t-tests for the Intellect, Hire and Impression ratings separately; each time comparing evaluators' overall ratings for the listened group versus overall ratings for the read group to see if there was a significant difference between the two conditions: i.e. did the evaluators who **listened** to pitches give a significant higher or lower rating than evaluators that **read** pitches.
+We are going to conduct t-tests for the Intellect, Hire and Impression ratings separately. Each time we are comparing evaluators' overall ratings for the listened group versus overall ratings for the read group to see if the evaluators who **listened** to pitches gave significantly higher or lower ratings than evaluators that **read** pitches.
 
 * First, calculate the mean and SD for each condition and category.
 
@@ -501,7 +505,7 @@ hire <-
 impression <- 
 ```
 
-As you may have realised by now, most of the work of statistics involves the set-up - running the tests is generally very simple. To conduct the t-test we will use `t.test()` from Base R. This function uses a style of code you haven't come across yet but that is very important to get used to, **formula syntax**.
+Most of the work of statistics involves the set-up - running the actual tests is very simple. To conduct the t-test we will use the function `t.test()`. This function uses a style of code you haven't come across yet but that is very important to get used to, **formula syntax**.
 
 ```{r intellect_t}
 results_intellect <- t.test(Rating ~ condition, paired = FALSE, data = intellect) %>% tidy()
@@ -549,13 +553,11 @@ What do you do if the data don't meet the assumption of normality? There are a f
 3. Do nothing. [Delacre, Lakens & Leys, 2017](https://www.rips-irsp.com/articles/10.5334/irsp.82/) argue that with a large enough sample (>30), the Welch test is robust and that using a two-step process actually causes more problems than it solves.
 ```
 
-### Activity 8: Correcting for multiple comparisons
+### Activity 7: Correcting for multiple comparisons
 
-Because we've run three t-tests we risk inflating our chances of a Type 1 errors due to familywise error. To correct for this we can apply a correction for multiple comparisons.
+Because we've run three t-tests we risk inflating our chances of a Type 1 errors due to familywise error and we should apply a correction for multiple comparisons.
 
-To do this first of all we need to join all the results of the t-tests 
-together using `bind_rows()`. First, you specify all of the individual tibbles you want to join and give them a label, and then you specify what the ID column should be named.
-
+To do this, we need to join all the results of the t-tests together using `bind_rows()`. First, you specify all of the individual tibbles you want to join and give them a label, and then you specify what the ID column should be named.
 
 
 ```{r bind1}
@@ -576,9 +578,9 @@ results <- results %>%
                                method = "bonferroni")) # type of correction to apply
 ```
 
-### Activity 7: Effect size
+### Activity 8: Effect size
 
-Before we interpret and write-up the results our last task is to calculate the effect size which for a t-test is Cohen's D. To do this, we will use the function `cohensD()` from the `lsr` package. The code is very simple, it is very similar to the syntax for `t.test()`. The only difference is rather than `paired = FALSE`, you must specify `method = "unequal"` which indicates that we conducted a Welch test (see the help documentation for more information). 
+Our next task is to calculate the effect size (for a t-test it's Cohen's D). We will use the function `cohensD()` from the `lsr` package. The code is very similar to the syntax for `t.test()`. The only difference is rather than `paired = FALSE`, you must specify `method = "unequal"` which indicates that we conducted a Welch test (see the help documentation for more information). 
 
 * Run the below code and then calculate the effect sizes for hire and impression
 
@@ -594,7 +596,7 @@ hire_d <-
 impression_d <- 
 ```
 
-### Activity 8: Interpreting the results
+### Activity 9: Interpreting the results
 
 * Were your results for `hire` significant? Enter the mean estimates and t-test results (means and t-value to 2 decimal places, p-value to 3 decimal places). Use the adjusted p-values:
 
@@ -615,44 +617,40 @@ impression_d <-
 
 * According to Cohen's (1988) guidelines, the effect sizes for all three tests are `r mcq(c("Small", "Medium", answer = "Large"))`
 
-### Activity 9: Write-up
+### Activity 10: Write-up
 
-Copy and paste the below **exactly** into **white space** in your R Markdown document and then knit the file to replicate the results section in the paper (p.887). 
+Copy and paste the below **exactly** into **white space** in your R Markdown document and then knit the file. 
 
 * Note that we haven't replicated the analysis exactly - the authors of this paper conducted Student's t-test whilst we have conducted Welch tests and we've also applied a multiple comparison correction. Look back at the paper and see what differences this makes. 
 
 ```{r writeup, eval = FALSE}
-The pattern of evaluations by professional recruiters replicated the pattern observed in Experiments 1 through 3b (see Fig. 7). Bonferroni-corrected t-tests found that in particular, the recruiters believed that the job candidates had greater intellect---were more competent, thoughtful, and intelligent---when they listened to pitches (M = `r results_intellect$estimate1%>% round(2)`, SD = `r round(group_means$sd[3], 2)`) than when they read pitches (M = `r results_intellect$estimate1%>% round(2)`, SD = `r round(group_means$sd[6], 2)`), t(`r round(results_intellect$parameter, 2)`) = `r round(results$statistic,2)`, p < `r results$p.adjusted[3] %>% round(3)`, 95% CI of the difference = [`r round(results_intellect$conf.low, 2)`, `r round(results_intellect$conf.high, 2)`], d = `r round(intellect_d,2)`. 
+The pattern of evaluations by professional recruiters replicated the pattern observed in Experiments 1 through 3b (see Fig. 7). Bonferroni-corrected t-tests found that in particular, the recruiters believed that the job candidates had greater intellect---were more competent, thoughtful, and intelligent---when they listened to pitches (M = `r results_intellect$estimate1%>% round(2)`, SD = `r round(group_means$sd[3], 2)`) than when they read pitches (M = `r results_intellect$estimate2%>% round(2)`, SD = `r round(group_means$sd[6], 2)`), t(`r round(results_intellect$parameter, 2)`) = `r round(results_intellect$statistic,2)`, p < `r results$p.adjusted[3] %>% round(3)`, 95% CI of the difference = [`r round(results_intellect$conf.low, 2)`, `r round(results_intellect$conf.high, 2)`], d = `r round(intellect_d,2)`. 
 
-The recruiters also formed more positive impressions of the candidates---rated them as more likeable and had a more positive and less negative impression of them---when they listened to pitches (M = `r results_impression$estimate1%>% round(2)`, SD = `r round(group_means$sd[2], 2)`) than when they read pitches (M = `r results_impression$estimate2%>% round(2)`, SD = `r round(group_means$sd[5], 2)`, t(`r round(results_impression$parameter,2)`) = `r round(results_impression$statistic,2)`, p < `r results$p.adjusted[2] %>% round(3)`, 95% CI of the difference = [`r round(results_impression$conf.low, 2)`, `r round(results_impression$conf.high, 2)`], d = `r round(impression_d, 2)`. 
+The recruiters also formed more positive impressions of the candidates---rated them as more likeable and had a more positive and less negative impression of them---when they listened to pitches (M = `r results_impression$estimate1%>% round(2)`, SD = `r round(group_means$sd[2], 2)`) than when they read pitches (M = `r results_impression$estimate2%>% round(2)`, SD = `r round(group_means$sd[5], 2)`, t(`r format(round(results_impression$parameter, digits=2),nsmall=2)`)= `r round(results_impression$statistic,2)`, p < `r results$p.adjusted[2] %>% round(3)`, 95% CI of the difference = [`r round(results_impression$conf.low, 2)`, `r round(results_impression$conf.high, 2)`], d = `r round(impression_d, 2)`. 
 
 Finally, they also reported being more likely to hire the candidates when they listened to pitches (M = `r results_hire$estimate1 %>% round(2)`, SD = `r round(group_means$sd[1], 2)`) than when they read the same pitches (M = `r results_hire$estimate2 %>% round(2)`, SD = `r round(group_means$sd[4],2)`), t(`r round(results_hire$parameter,2)`) = `r round(results_hire$statistic,2)`, p < `r results$p.adjusted[1] %>% round(3)`, 95% CI of the difference = [`r round(results_hire$conf.low, 2)`, `r round(results_hire$conf.high, 2)`], d = `r round(hire_d,2)`.
 ```
 
 
-> The pattern of evaluations by professional recruiters replicated the pattern observed in Experiments 1 through 3b (see Fig. 7). Bonferroni-corrected t-tests found that in particular, the recruiters believed that the job candidates had greater intellect---were more competent, thoughtful, and intelligent---when they listened to pitches (M = `r results_intellect$estimate1%>% round(2)`, SD = `r round(group_means$sd[3], 2)`) than when they read pitches (M = `r results_intellect$estimate1%>% round(2)`, SD = `r round(group_means$sd[6], 2)`), t(`r round(results_intellect$parameter, 2)`) = `r round(results$statistic,2)`, p < `r results$p.adjusted[3] %>% round(3)`, 95% CI of the difference = [`r round(results_intellect$conf.low, 2)`, `r round(results_intellect$conf.high, 2)`], d = `r round(intellect_d,2)`. 
+> The pattern of evaluations by professional recruiters replicated the pattern observed in Experiments 1 through 3b (see Fig. 7). Bonferroni-corrected t-tests found that in particular, the recruiters believed that the job candidates had greater intellect---were more competent, thoughtful, and intelligent---when they listened to pitches (M = `r results_intellect$estimate1%>% round(2)`, SD = `r round(group_means$sd[3], 2)`) than when they read pitches (M = `r results_intellect$estimate2%>% round(2)`, SD = `r round(group_means$sd[6], 2)`), t(`r round(results_intellect$parameter, 2)`) = `r round(results_intellect$statistic,2)`, p < `r results$p.adjusted[3] %>% round(3)`, 95% CI of the difference = [`r round(results_intellect$conf.low, 2)`, `r round(results_intellect$conf.high, 2)`], d = `r round(intellect_d,2)`. 
 
-> The recruiters also formed more positive impressions of the candidates---rated them as more likeable and had a more positive and less negative impression of them---when they listened to pitches (M = `r results_impression$estimate1%>% round(2)`, SD = `r round(group_means$sd[2], 2)`) than when they read pitches (M = `r results_impression$estimate2%>% round(2)`, SD = `r round(group_means$sd[5], 2)`, t(`r round(results_impression$parameter,2)`) = `r round(results_impression$statistic,2)`, p < `r results$p.adjusted[2] %>% round(3)`, 95% CI of the difference = [`r round(results_impression$conf.low, 2)`, `r round(results_impression$conf.high, 2)`], d = `r round(impression_d, 2)`. 
+> The recruiters also formed more positive impressions of the candidates---rated them as more likeable and had a more positive and less negative impression of them---when they listened to pitches (M = `r results_impression$estimate1%>% round(2)`, SD = `r round(group_means$sd[2], 2)`) than when they read pitches (M = `r results_impression$estimate2%>% round(2)`, SD = `r round(group_means$sd[5], 2)`, t(`r format(round(results_impression$parameter, digits=2),nsmall=2)`) = `r round(results_impression$statistic,2)`, p < `r results$p.adjusted[2] %>% round(3)`, 95% CI of the difference = [`r round(results_impression$conf.low, 2)`, `r round(results_impression$conf.high, 2)`], d = `r round(impression_d, 2)`. 
 
-> Finally, they also reported being more likely to hire the candidates when they listened to pitches (M = `r results_hire$estimate1 %>% round(2)`, SD = `r round(group_means$sd[1], 2)`) than when they read the same pitches (M = `r results_hire$estimate2 %>% round(2)`, SD = `r round(group_means$sd[4],2)`), t(`r round(results_hire$parameter,2)`) = `r round(results_hire$statistic,2)`, p < `r results$p.adjusted[1] %>% round(3)`, 95% CI of the difference = [`r round(results_hire$conf.low, 2)`, `r round(results_hire$conf.high, 2)`], d = `r round(hire_d,2)`.
 
-### Activity 10: Paired-samples t-test
+> Finally, they also reported being more likely to hire the candidates when they listened to pitches (M = `r results_hire$estimate1 %>% round(2)`, SD = `r round(group_means$sd[1], 2)`) than when they read the same pitches (M = `r results_hire$estimate2 %>% round(2)`, SD = `r round(group_means$sd[4],2)`), t(`r round(results_hire$parameter, 2)`) = `r round(results_hire$statistic,2)`, p < `r results$p.adjusted[1] %>% round(3)`, 95% CI of the difference = [`r round(results_hire$conf.low, 2)`, `r round(results_hire$conf.high, 2)`], d = `r round(hire_d,2)`.
 
-For the final activity we will run a paired-samples t-test for a within-subject design but we will do this much quicker than for the Welch test and just point out the differences in the code.
+### Activity 11: Paired-samples t-test
 
-For this example we will again draw from the [Open Stats Lab](https://sites.trinity.edu/osl/data-sets-and-activities/t-test-activities) and look at data from the following paper:
+For the final activity we will run a paired-samples t-test for a within-subject design. For this example we will again draw from the [Open Stats Lab](https://sites.trinity.edu/osl/data-sets-and-activities/t-test-activities) and look at data from the following paper:
 
 [Mehr, S. A., Song. L. A., & Spelke, E. S. (2016). For 5-month-old infants, melodies are social. Psychological Science, 27, 486-501.](https://journals.sagepub.com/stoken/default+domain/d5HcBHg85XamSXGdYqYN/full)
 
-Parents often sing to their children and, even as infants, children listen to and look at their parents while they are singing. Research by Mehr, Song, and Spelke (2016) sought to explore the psychological function that music has for parents and infants, by examining the hypothesis that particular melodies convey
-important social information to infants. Specifically, melodies convey information about social affiliation.
+This study examines the hypothesis that particular melodies sung by the parents convey information about social affiliation to infants. The songs children are exposed to growing up depend on the culture or social group. Thus, when a stranger sings a familiar song, it may signal to the infant that this new person is a member of their social group.
 
-The authors argue that melodies are shared within social groups. Whereas children growing up in one culture may be exposed to certain songs as infants (e.g., “Rock-a-bye Baby”), children growing up in other cultures (or even other groups within a culture) may be exposed to different songs. Thus, when a novel person (someone who the infant has never seen before) sings a familiar song, it may signal to the infant that this new person is a member of their social group.
-
-To test this hypothesis, the researchers recruited 32 infants and their parents to complete an experiment. During their first visit to the lab, the parents were taught a new lullaby (one that neither they nor their infants had heard before). The experimenters asked the parents to sing the new lullaby to their child every day for the next 1-2 weeks. Following this 1-2 week exposure period, the parents and their infant returned to the lab to complete the experimental portion of the study. Infants were first shown a screen with side-by-side videos of two unfamiliar people, each of whom were silently smiling and looking at the infant. The researchers recorded the looking behaviour (or gaze) of the infants during this ‘baseline’ phase. Next, one by one, the two unfamiliar people on the screen sang either the lullaby that the parents learned or a different lullaby (that had the same lyrics and rhythm, but a different melody). Finally, the infants saw the same silent video used at baseline, and the researchers again recorded the looking behaviour of the infants during this ‘test’ phase. For more details on the experiment’s methods, please refer to Mehr et al. (2016) Experiment 1. 
+The researchers recruited 32 infants and their parents. The parents were taught a new lullaby and asked to sing it to their child every day for the next 1-2 weeks. The parents and their infant then returned to the lab. As a 'baseline', the infants were first shown videos of two unfamiliar people, each silently smiling and looking at the infant, and the infants' gaze was measured. Next, the unfamiliar people sang either the lullaby that the parents learned or a lullaby with a different melody. Finally, the infants saw the same silent video used at baseline, and the researchers again recorded the gaze of the infants during this ‘test’ phase. 
 
 
-* First, run the below code to wrnagle `Mehr Song and Spelke 2016 Experiment 1.csv` into the format we need - this code selects only the data we need for the analysis and renames variables to make them easier to work with.
+* First, run the below code to wrangle `Mehr Song and Spelke 2016 Experiment 1.csv` into the format we need - this code selects only the data we need for the analysis and renames variables to make them easier to work with.
 
 ```{r paireddata, message = FALSE}
 gaze <- read_csv("Mehr Song and Spelke 2016 Experiment 1.csv") %>%
@@ -670,7 +668,7 @@ The assumptions for the paired-samples t-test are a little different (although v
 2. All participants should appear in both conditions/groups. 
 3. The difference scores should be normally distributed. 
 
-Aside from the data being paired rather than independent, the key difference is that for the paired-samples test, the assumption of normality if that the differences between each pair of scores are normally distributed, rather than the scores themselves.
+The key difference is that for the paired-samples test, the assumption of normality is that the differences between each pair of scores are normally distributed, rather than the scores themselves.
 
 * Run the below code to calculate the difference scores and then conduct the Shapriro-Wilk and QQ-plot as with the independent test.
 
@@ -685,7 +683,7 @@ As you can see, from both the Shapiro-Wilk test and the QQ-plot, the data meet t
 
 It made sense to keep the data in wide-form until this point to make it easy to calculate a column for the difference score, but now we will transform it to tidy data so that we can easily create descriptives and plot the data using `tidyverse` tools.
 
-* Run the below code to tidy the data and calculate descriptives and then create the same violin-boxplot as you did for the independent t-test (hint: it is perfectly acceptable to copy and paste the code from above and change the data and variable names).
+* Run the below code to tidy the data and calculate descriptives and then create the same violin-boxplot as you did for the independent t-test (you can copy and paste the code from above and change the data and variable names).
 
 ```{r tidy}
 gaze_tidy <- gaze %>%
@@ -733,7 +731,7 @@ The output of the paired-samples t-test is very similar to the independent test,
     
 ### Activity 15: Write-up
 
-Copy and paste the below **exactly** into **white space** in your R Markdown document and then knit the file to replicate the results section in the paper (p.489). 
+Copy and paste the below **exactly** into **white space** in your R Markdown document and then knit the file. 
 
 ```{r writeup2, eval = FALSE}
 At test, however, the infants selectively attended to the now-silent singer of the song with the familiar melody; the proportion of time during which they looked toward her was...greater than the proportion at baseline (difference in proportion of looking: M = `r gaze_test$estimate %>% round(2)`, SD = `r sd(gaze$diff, na.rm = TRUE) %>% round(2)`, 95% CI = [`r gaze_test$conf.low %>% round(2)`, `r gaze_test$conf.high %>% round(2)`]), t(`r gaze_test$parameter`) = `r gaze_test$statistic %>% round(2)`, p = `r gaze_test$p.value %>% round(3)`, d = `r gaze_d %>% round(2)`.
@@ -743,7 +741,7 @@ At test, however, the infants selectively attended to the now-silent singer of t
 
 #### Finished!
 
-That was a long lab but now that you've done three types of statistical tests (chi-square, correlations, t-test) hopefully you will see that it really is true that the hardest part is the set-up and the data wrangling. As we've said before, you don't need to memorise lines of code - you just need to remember where to find examples and to understand which bits of them you need to change. Play around with the examples we have given you and see what changing the values does.
+That was a long lab but now that you've done three types of statistical tests (chi-square, correlations, t-test) hopefully you will see that it really is true that the hardest part is the set-up and the data wrangling. You don't need to memorise lines of code - you just need to remember where to find examples and to understand which bits of them you need to change. Play around with the examples we have given you and see what changing the values does.
 
 ### Activity solutions
 
@@ -790,15 +788,16 @@ impression <- filter(ratings2, Category == "impression")
 **click the tab to see the solution**
 <br>
 
-#### Activity 7
+#### Activity 8
 
-`r hide("Activity 7")`
+`r hide("Activity 8")`
 ```{r eval=FALSE}
 intellect_d <- cohensD(Rating ~ condition, method = "unequal", data = intellect)
 hire_d <- cohensD(Rating ~ condition, method = "unequal", data = hire)
 impression_d <- cohensD(Rating ~ condition, method = "unequal", data = impression)
 ```
 `r unhide()`  
+
 
 #### Activity 12
 
