@@ -90,8 +90,8 @@ rnorm(10)
 ```
 
 ```
-##  [1] -1.49495975  0.71708707  0.31322700 -0.92091589  0.35766052
-##  [6] -0.02514948  0.77996201 -0.14973108 -0.83654308  0.02031803
+##  [1]  0.3042930 -0.4753915 -0.7005584  0.8169363  0.3767149 -0.2558595
+##  [7]  0.5588017 -1.0125657  0.8483664 -0.4740100
 ```
 <br>
 <span style="font-size: 22px; font-weight: bold; color: var(--green);">Quickfire Questions</span>  
@@ -189,8 +189,8 @@ sample(letters)
 ```
 
 ```
-##  [1] "u" "t" "s" "g" "c" "m" "k" "h" "a" "l" "q" "j" "p" "z" "e" "d" "f"
-## [18] "n" "i" "r" "o" "b" "w" "v" "x" "y"
+##  [1] "u" "b" "x" "c" "l" "j" "t" "n" "i" "k" "p" "z" "f" "w" "s" "q" "d"
+## [18] "v" "a" "h" "m" "y" "o" "e" "r" "g"
 ```
 
 <span style="font-size: 22px; font-weight: bold; color: var(--green);">Quickfire Questions</span>  
@@ -225,18 +225,18 @@ tibble(Y = rnorm(10))
 
 ```
 ## # A tibble: 10 x 1
-##         Y
-##     <dbl>
-##  1  0.218
-##  2  1.15 
-##  3 -1.26 
-##  4 -0.884
-##  5 -0.355
-##  6  1.37 
-##  7  0.402
-##  8  0.174
-##  9 -0.945
-## 10 -0.248
+##          Y
+##      <dbl>
+##  1  0.992 
+##  2  2.06  
+##  3  1.60  
+##  4  0.430 
+##  5 -1.13  
+##  6 -0.139 
+##  7  2.44  
+##  8 -1.50  
+##  9  0.0140
+## 10 -1.08
 ```
 
 The above command creates a new table with one column named `Y`, and the values in that column are the result of a call to `rnorm(10)`: 10 randomly sampled values from a standard normal distribution (mean = 0, sd = 1) - See Skill 1.
@@ -253,16 +253,16 @@ tibble(Y = c(rnorm(5, mean = -10),
 ## # A tibble: 10 x 1
 ##         Y
 ##     <dbl>
-##  1  -9.48
-##  2 -10.4 
-##  3 -10.3 
-##  4  -9.83
-##  5  -9.78
-##  6  20.7 
-##  7  19.0 
-##  8  19.7 
-##  9  21.2 
-## 10  19.1
+##  1  -9.87
+##  2 -10.0 
+##  3  -9.02
+##  4  -8.23
+##  5  -9.50
+##  6  20.5 
+##  7  19.9 
+##  8  18.8 
+##  9  19.7 
+## 10  20.0
 ```
 
 Now we have sampled a total of 10 observations - the first 5 come from a group with a mean of -10, and the second 5 come from a group with a mean of 20. Try changing the values in the above example to get an idea of how this works. Maybe even add a third group!
@@ -324,16 +324,16 @@ Now we know `rep()`, we can complete our table of simulated data by combining wh
 ## # A tibble: 10 x 2
 ##    group      Y
 ##    <chr>  <dbl>
-##  1 A      -9.13
-##  2 A      -8.13
-##  3 A     -10.6 
-##  4 A     -10.8 
-##  5 A     -10.2 
-##  6 B      21.6 
-##  7 B      18.7 
-##  8 B      18.1 
-##  9 B      20.9 
-## 10 B      19.8
+##  1 A      -9.86
+##  2 A     -10.1 
+##  3 A     -10.8 
+##  4 A     -10.7 
+##  5 A     -10.7 
+##  6 B      20.7 
+##  7 B      20.2 
+##  8 B      19.6 
+##  9 B      20.6 
+## 10 B      21.2
 ```
 
 You now know how to create this table. Have a look at the code below and make sure you understand it. We have one column called `group` where we create **A**s and **B**s through `rep()`, and one column called **Y**, our data, all in our `tibble()`:
@@ -388,11 +388,11 @@ my_data_means
 ## # A tibble: 2 x 2
 ##   group     m
 ##   <chr> <dbl>
-## 1 A      21.1
-## 2 B     -19.9
+## 1 A      21.4
+## 2 B     -18.3
 ```
 
-Sometimes what we want though is to calculate **the differences between means** rather than just the means; so we'd like to subtract the second group mean -19.9 from the first group mean of 21.1, to get a single value, the difference: 41.
+Sometimes what we want though is to calculate **the differences between means** rather than just the means; so we'd like to subtract the second group mean -18.3 from the first group mean of 21.4, to get a single value, the difference: 39.8.
 
 We can do this using the `dplyr::pull()` and `purrr::pluck()` functions.  `pull()` will extract a single column from a dataframe and turn it into a vector.  `pluck()` then allows you to pull out an element (i.e. a value or values) from within that vector.
 
@@ -405,7 +405,7 @@ vec
 ```
 
 ```
-## [1]  21.10737 -19.89231
+## [1]  21.42750 -18.32944
 ```
 
 We have now created `vec` which is a vector containing only the group means; the rest of the information in the table has been discarded.  Now that we have `vec`, we can calculate the mean difference as below, where `vec` is our vector of the two means and `[1]` and `[2]` refer to the two means:
@@ -416,7 +416,7 @@ vec[1] - vec[2]
 ```
 
 ```
-## [1] 40.99968
+## [1] 39.75695
 ```
 
 But `pluck()` is also useful, and can be written as so: 
@@ -427,7 +427,7 @@ pluck(vec, 1) - pluck(vec, 2)
 ```
 
 ```
-## [1] 40.99968
+## [1] 39.75695
 ```
 
 It can also be incorporated into a pipeline as below where we still `pull()` the means column, `m`, and then `pluck()` each value in turn and subtract them from each other.
@@ -440,7 +440,7 @@ my_data_means %>% pull(m) %>% pluck(1) -
 ```
 
 ```
-## [1] 40.99968
+## [1] 39.75695
 ```
 
 However, there is an alternative way to extract the difference between means which may make more intuitive sense.  You already know how to calculate a difference between values in the same row of a table using `dplyr::mutate()`, e.g. `mutate(new_column = column1 minus column2)`.  So if you can get the observations in `my_data_means` into the same row, different columns, you could then use `mutate()` to calculate the difference.  Previously you learned `gather()` to bring columns together. Well the opposite of gather is the `tidyr::spread()` function to split columns apart - as below.
@@ -455,7 +455,7 @@ my_data_means %>%
 ## # A tibble: 1 x 2
 ##       A     B
 ##   <dbl> <dbl>
-## 1  21.1 -19.9
+## 1  21.4 -18.3
 ```
 
 The spread function (`?spread`) splits the data in column `m` by the information, i.e. labels, in column `group` and puts the data into separate columns.  A call to `spread()` followed by a `mutate()` can be used to calculate the difference in means - see below:
@@ -471,7 +471,7 @@ my_data_means %>%
 ## # A tibble: 1 x 3
 ##       A     B  diff
 ##   <dbl> <dbl> <dbl>
-## 1  21.1 -19.9  41.0
+## 1  21.4 -18.3  39.8
 ```
 
 * What is the name of the column containing the differences between the means of A and B? <select class='solveme' data-answer='["diff"]'> <option></option> <option>means</option> <option>group</option> <option>m</option> <option>diff</option></select>
@@ -487,7 +487,7 @@ my_data_means %>%
 ```
 
 ```
-## [1] 40.99968
+## [1] 39.75695
 ```
 
 
@@ -676,8 +676,8 @@ ten_samples
 ```
 
 ```
-##  [1]  0.15373209 -0.25831424  0.04686346 -0.11699742  0.06081467
-##  [6]  0.06158851  0.05715653 -0.21311039  0.17514231 -0.17536680
+##  [1] -0.11570057  0.02286987 -0.00664214 -0.04496755  0.03798574
+##  [6]  0.02654264 -0.02267484  0.15858447 -0.12887815 -0.06388548
 ```
 
 Each element (value) of the vector within `ten_samples` is the result of a single call to `rnorm(100) %>% mean()`.

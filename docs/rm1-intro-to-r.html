@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 2 RM1 Intro to R | MSc Conversion in Psychological Studies/Science</title>
   <meta name="description" content="This is the materials for the one-year MSc Conversion in Psychological Studies/Science." />
-  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 2 RM1 Intro to R | MSc Conversion in Psychological Studies/Science" />
   <meta property="og:type" content="book" />
@@ -24,15 +24,15 @@
 <meta name="author" content="Emily Nordmann, Heather Cleland-Woods, Phil McAleer" />
 
 
-<meta name="date" content="2020-01-29" />
+<meta name="date" content="2020-02-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="ref3.html"/>
-<link rel="next" href="rm1-data-wrangling.html"/>
+<link rel="prev" href="ref3.html">
+<link rel="next" href="rm1-data-wrangling.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -40,9 +40,6 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
-
-
 
 
 
@@ -53,27 +50,26 @@
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
 }
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
+    border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -82,9 +78,9 @@ pre.numberSource code > span > a:first-child::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  {  }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+a.sourceLine::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -592,10 +588,10 @@ When you create a new code chunk you should notice that the grey box starts and 
 <div id="activity-6-write-some-code" class="section level3">
 <h3><span class="header-section-number">2.2.7</span> Activity 6: Write some code</h3>
 <p>Now we’re going to use the code examples you read about in <a href="ref3.html#ref3">1</a> to add some simple code to our R Markdown document. In your code chunk write the below code but replace the values of name/age/birthday with your own details). Note that text values and dates need to be contained in quotation marks but numerical values do not. Missing and/or unnecessary quotation marks are a common cause of code not working - remember this!</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="rm1-intro-to-r.html#cb21-1"></a>name &lt;-<span class="st"> &quot;Emily&quot;</span> </span>
-<span id="cb21-2"><a href="rm1-intro-to-r.html#cb21-2"></a>age &lt;-<span class="st"> </span><span class="dv">34</span></span>
-<span id="cb21-3"><a href="rm1-intro-to-r.html#cb21-3"></a>today &lt;-<span class="st"> </span><span class="kw">Sys.Date</span>()</span>
-<span id="cb21-4"><a href="rm1-intro-to-r.html#cb21-4"></a>next_birthday &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span class="st">&quot;2020-07-11&quot;</span>)</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">name &lt;-<span class="st"> &quot;Emily&quot;</span> 
+age &lt;-<span class="st"> </span><span class="dv">34</span>
+today &lt;-<span class="st"> </span><span class="kw">Sys.Date</span>()
+next_birthday &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span class="st">&quot;2020-07-11&quot;</span>)</code></pre>
 </div>
 <div id="running-code" class="section level3">
 <h3><span class="header-section-number">2.2.8</span> Running code</h3>
@@ -624,13 +620,13 @@ Figure 2.8: Slightly better method of running code
 <h3><span class="header-section-number">2.2.10</span> Activity 8: Inline code</h3>
 <p>An incredibly useful feature of R Markdown is that R can insert values into your writing using <strong>inline code</strong>. If you’ve ever had to copy and paste a value or text from one file in to another, you’ll know how easy it can be to make mistakes. Inline code avoids this. It’s easier to show you what inline code does rather than to explain it so let’s have a go.</p>
 <p>First, copy and paste this text exactly (do not change anything) to the <strong>white space</strong> underneath your code chunk.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="rm1-intro-to-r.html#cb22-1"></a>My name is <span class="st">`</span><span class="dt">r name</span><span class="st">`</span> and I am <span class="st">`</span><span class="dt">r age</span><span class="st">`</span> years old. It is <span class="st">`</span><span class="dt">r next_birthday - today</span><span class="st">`</span> days until my birthday.</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">My name is <span class="st">`</span><span class="dt">r name</span><span class="st">`</span> and I am <span class="st">`</span><span class="dt">r age</span><span class="st">`</span> years old. It is <span class="st">`</span><span class="dt">r next_birthday - today</span><span class="st">`</span> days until my birthday.</code></pre>
 </div>
 <div id="activity-9-knitting-your-file" class="section level3">
 <h3><span class="header-section-number">2.2.11</span> Activity 9: Knitting your file</h3>
 <p>Nearly finished! As our final step we are going to “knit” our file. This simply means that we’re going to compile our code into a document that is more presentable. To do this click <code>Knit</code> -&gt; <code>Knit to HMTL</code>. R Markdown will create a new HTML document and it will automatically save this file in your working directory.</p>
 <p>As if by magic, that slightly odd bit of text you copied and pasted now appears as a normal sentence with the values pulled in from the objects you created.</p>
-<p><strong>My name is Emily and I am 34 years old. It is 164 days until my birthday.</strong></p>
+<p><strong>My name is Emily and I am 34 years old. It is 158 days until my birthday.</strong></p>
 <p>We’re not going to use this function very often in the rest of the course but hopefully you can see just how useful this would be when writing up a report with lots of numbers! R Markdown is an incredibly powerful and flexible format - this book was written using it! If you want to push yourself with R, additional functions and features of R Markdown would be a good place to start.</p>
 <p>Before we finish, there are a few final things to note about knitting that will be useful for the portfolio and mini-project:</p>
 <ul>
@@ -677,7 +673,7 @@ Figure 2.8: Slightly better method of running code
 <ul>
 <li>To load the <code>tidyverse</code> type the following code into your code chunk and then run it.</li>
 </ul>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="rm1-intro-to-r.html#cb23-1"></a><span class="kw">library</span>(tidyverse)</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)</code></pre>
 </div>
 <div id="open-data" class="section level3">
 <h3><span class="header-section-number">2.3.4</span> Open data</h3>
@@ -691,8 +687,8 @@ Figure 2.8: Slightly better method of running code
 <ul>
 <li>First, we will create an object called <code>dat</code> that contains the data in the <code>ahi-cesd.csv</code> file. Then, we will create an object called <code>info</code> that contains the data in the <code>participant-info.csv</code>.</li>
 </ul>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="rm1-intro-to-r.html#cb24-1"></a>dat &lt;-<span class="st"> </span><span class="kw">read_csv</span> (<span class="st">&quot;ahi-cesd.csv&quot;</span>)</span>
-<span id="cb24-2"><a href="rm1-intro-to-r.html#cb24-2"></a>pinfo &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;participant-info.csv&quot;</span>)</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">dat &lt;-<span class="st"> </span><span class="kw">read_csv</span> (<span class="st">&quot;ahi-cesd.csv&quot;</span>)
+pinfo &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;participant-info.csv&quot;</span>)</code></pre>
 <div class="danger">
 <p>
 There is also a function called <code>read.csv()</code>. Be very careful NOT to use this function instead of <code>read_csv()</code> as they have different ways of naming columns. For the portfolio tasks, unless your results match our exactly you will not get the marks which means you need to be careful to use the right functions.
@@ -719,17 +715,17 @@ There is also a function called <code>read.csv()</code>. Be very careful NOT to 
 <ul>
 <li>Type and run this code and then view the new dataset using one of the methods from Activity 4.</li>
 </ul>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="rm1-intro-to-r.html#cb25-1"></a>all_dat &lt;-<span class="st"> </span><span class="kw">inner_join</span>(<span class="dt">x =</span> dat, <span class="co"># the first table you want to join</span></span>
-<span id="cb25-2"><a href="rm1-intro-to-r.html#cb25-2"></a>                      <span class="dt">y =</span> pinfo, <span class="co"># the second table you want to join</span></span>
-<span id="cb25-3"><a href="rm1-intro-to-r.html#cb25-3"></a>                      <span class="dt">by =</span> <span class="st">&#39;id&#39;</span>, <span class="st">&#39;intervention&#39;</span>) <span class="co"># columns the two tables have in common</span></span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">all_dat &lt;-<span class="st"> </span><span class="kw">inner_join</span>(<span class="dt">x =</span> dat, <span class="co"># the first table you want to join</span>
+                      <span class="dt">y =</span> pinfo, <span class="co"># the second table you want to join</span>
+                      <span class="dt">by =</span> <span class="st">&#39;id&#39;</span>, <span class="st">&#39;intervention&#39;</span>) <span class="co"># columns the two tables have in common</span></code></pre>
 </div>
 <div id="ref1" class="section level3">
 <h3><span class="header-section-number">2.3.8</span> Activity 6: Pull out variables of interest</h3>
 <p>Our final step is to pull our variables of interest. Very frequently, datasets will have more variables and data than you actually want to use and it can make life easier to create a new object with just the data you need.</p>
 <p>In this case, the file contains the responses to each individual question on both the AHI scale and the CESD scale as well as the total score (i.e., the sum of all the individual responses). For our analysis, all we care about is the total scores, as well as the demographic information about participants.</p>
 <p>To do this we use the <code>select()</code> function to create a new object named <code>summarydata</code>.</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="rm1-intro-to-r.html#cb26-1"></a>summarydata &lt;-<span class="st"> </span><span class="kw">select</span>(<span class="dt">.data =</span> all_dat, <span class="co"># name of the object to take data from</span></span>
-<span id="cb26-2"><a href="rm1-intro-to-r.html#cb26-2"></a>                      ahiTotal, cesdTotal, sex, age, educ, income, occasion,elapsed.days) <span class="co"># all the columns you want to keep</span></span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">summarydata &lt;-<span class="st"> </span><span class="kw">select</span>(<span class="dt">.data =</span> all_dat, <span class="co"># name of the object to take data from</span>
+                      ahiTotal, cesdTotal, sex, age, educ, income, occasion,elapsed.days) <span class="co"># all the columns you want to keep</span></code></pre>
 <ul>
 <li>Type and run the above code and then run <code>head(summarydata)</code>. If everything has gone to plan it should look something like this:</li>
 </ul>
@@ -968,13 +964,11 @@ window.onload = function() {
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
-<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -982,12 +976,12 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
+"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"],
-"google": false
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -999,10 +993,6 @@ gitbook.start({
 "text": null
 },
 "history": {
-"link": null,
-"text": null
-},
-"view": {
 "link": null,
 "text": null
 },
@@ -1022,9 +1012,8 @@ gitbook.start({
     script.type = "text/javascript";
     var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
