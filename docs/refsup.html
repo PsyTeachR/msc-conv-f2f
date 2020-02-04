@@ -601,8 +601,8 @@ You can go read up on the Monte Carlo approach if you like. It can however get q
 <li>Try increasing <code>n</code> to 1000.</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rnorm</span>(<span class="dv">10</span>)</code></pre>
-<pre><code>##  [1] -0.04600803  0.48967104  0.44548610 -0.08948088  0.55016165
-##  [6]  0.47692466  0.65591288  0.59011457  1.50867907 -0.35010329</code></pre>
+<pre><code>##  [1]  0.3042930 -0.4753915 -0.7005584  0.8169363  0.3767149 -0.2558595
+##  [7]  0.5588017 -1.0125657  0.8483664 -0.4740100</code></pre>
 <p><br>
 <span style="font-size: 22px; font-weight: bold; color: var(--green);">Quickfire Questions</span></p>
 <p>If you enter <code>rnorm(50)</code> again you will get different numbers. Why? <select class='solveme' data-answer='["The numbers are random"]'> <option></option> <option>I have made a mistake</option> <option>The numbers are random</option> <option>R has made a mistake</option> <option>Phil has made a mistake</option></select></p>
@@ -683,8 +683,8 @@ The more values you have, the more permutations of the order you have. The numbe
 <li>Run the below line. Run it again. And again. What do you notice? And why is our output different from yours? (The answer is below)</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sample</span>(letters)</code></pre>
-<pre><code>##  [1] &quot;e&quot; &quot;y&quot; &quot;i&quot; &quot;s&quot; &quot;d&quot; &quot;f&quot; &quot;k&quot; &quot;j&quot; &quot;n&quot; &quot;x&quot; &quot;p&quot; &quot;h&quot; &quot;g&quot; &quot;q&quot; &quot;v&quot; &quot;l&quot; &quot;o&quot;
-## [18] &quot;a&quot; &quot;z&quot; &quot;b&quot; &quot;c&quot; &quot;w&quot; &quot;u&quot; &quot;r&quot; &quot;m&quot; &quot;t&quot;</code></pre>
+<pre><code>##  [1] &quot;u&quot; &quot;b&quot; &quot;x&quot; &quot;c&quot; &quot;l&quot; &quot;j&quot; &quot;t&quot; &quot;n&quot; &quot;i&quot; &quot;k&quot; &quot;p&quot; &quot;z&quot; &quot;f&quot; &quot;w&quot; &quot;s&quot; &quot;q&quot; &quot;d&quot;
+## [18] &quot;v&quot; &quot;a&quot; &quot;h&quot; &quot;m&quot; &quot;y&quot; &quot;o&quot; &quot;e&quot; &quot;r&quot; &quot;g&quot;</code></pre>
 <p><span style="font-size: 22px; font-weight: bold; color: var(--green);">Quickfire Questions</span></p>
 <p>If <code>month.name</code> contains the names of the twelve months of the year, how many possible permutations are there of <code>sample(month.name)</code>? <select class='solveme' data-answer='["479001600"]'> <option></option> <option>1</option> <option>12</option> <option>144</option> <option>479001600</option></select></p>
 <div class="solution">
@@ -713,18 +713,18 @@ Top Tip: Remember that you can scroll up through your command history in the con
 <p>The <code>tibble()</code> function takes named arguments - this means that the name you give each argument within the tibble function, e.g. <code>Y = rnorm(10)</code> will be the name of the column that appears in the table, i.e. <code>Y</code>. It’s best to see how it works through an example.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tibble</span>(<span class="dt">Y =</span> <span class="kw">rnorm</span>(<span class="dv">10</span>))</code></pre>
 <pre><code>## # A tibble: 10 x 1
-##         Y
-##     &lt;dbl&gt;
-##  1 -0.460
-##  2  1.97 
-##  3 -0.797
-##  4 -1.44 
-##  5  0.622
-##  6  0.337
-##  7 -0.443
-##  8  2.10 
-##  9  1.11 
-## 10  1.10</code></pre>
+##          Y
+##      &lt;dbl&gt;
+##  1  0.992 
+##  2  2.06  
+##  3  1.60  
+##  4  0.430 
+##  5 -1.13  
+##  6 -0.139 
+##  7  2.44  
+##  8 -1.50  
+##  9  0.0140
+## 10 -1.08</code></pre>
 <p>The above command creates a new table with one column named <code>Y</code>, and the values in that column are the result of a call to <code>rnorm(10)</code>: 10 randomly sampled values from a standard normal distribution (mean = 0, sd = 1) - See Skill 1.</p>
 <p>If however we wanted to sample from two different populations for <code>Y</code>, we could combine two calls to <code>rnorm()</code> within the <code>c()</code> function. Again this was in Skill 1, here we are now just storing it in a tibble. See below:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tibble</span>(<span class="dt">Y =</span> <span class="kw">c</span>(<span class="kw">rnorm</span>(<span class="dv">5</span>, <span class="dt">mean =</span> <span class="dv">-10</span>), 
@@ -732,16 +732,16 @@ Top Tip: Remember that you can scroll up through your command history in the con
 <pre><code>## # A tibble: 10 x 1
 ##         Y
 ##     &lt;dbl&gt;
-##  1  -9.40
-##  2 -10.3 
-##  3 -10.4 
-##  4  -8.88
-##  5 -10.9 
-##  6  21.1 
-##  7  21.6 
-##  8  20.5 
-##  9  20.6 
-## 10  19.0</code></pre>
+##  1  -9.87
+##  2 -10.0 
+##  3  -9.02
+##  4  -8.23
+##  5  -9.50
+##  6  20.5 
+##  7  19.9 
+##  8  18.8 
+##  9  19.7 
+## 10  20.0</code></pre>
 <p>Now we have sampled a total of 10 observations - the first 5 come from a group with a mean of -10, and the second 5 come from a group with a mean of 20. Try changing the values in the above example to get an idea of how this works. Maybe even add a third group!</p>
 <p>But, of course, it would be good to know which population each data point refers to and so we should add some group names. We can do this with some additional trickery using the <code>rep()</code> function.</p>
 </div>
@@ -772,16 +772,16 @@ Top Tip: Remember that you can scroll up through your command history in the con
 <pre><code>## # A tibble: 10 x 2
 ##    group      Y
 ##    &lt;chr&gt;  &lt;dbl&gt;
-##  1 A      -9.06
-##  2 A      -8.86
-##  3 A     -11.2 
-##  4 A      -8.54
-##  5 A      -8.70
-##  6 B      18.1 
-##  7 B      19.4 
+##  1 A      -9.86
+##  2 A     -10.1 
+##  3 A     -10.8 
+##  4 A     -10.7 
+##  5 A     -10.7 
+##  6 B      20.7 
+##  7 B      20.2 
 ##  8 B      19.6 
-##  9 B      20.3 
-## 10 B      18.1</code></pre>
+##  9 B      20.6 
+## 10 B      21.2</code></pre>
 <p>You now know how to create this table. Have a look at the code below and make sure you understand it. We have one column called <code>group</code> where we create <strong>A</strong>s and <strong>B</strong>s through <code>rep()</code>, and one column called <strong>Y</strong>, our data, all in our <code>tibble()</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tibble</span>(<span class="dt">group =</span> <span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>), <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">5</span>)),
        <span class="dt">Y =</span> <span class="kw">c</span>(<span class="kw">rnorm</span>(<span class="dv">5</span>, <span class="dt">mean =</span> <span class="dv">-10</span>), <span class="kw">rnorm</span>(<span class="dv">5</span>, <span class="dt">mean =</span>  <span class="dv">20</span>)))</code></pre>
@@ -820,33 +820,33 @@ my_data_means</code></pre>
 <pre><code>## # A tibble: 2 x 2
 ##   group     m
 ##   &lt;chr&gt; &lt;dbl&gt;
-## 1 A      20.0
-## 2 B     -19.6</code></pre>
-<p>Sometimes what we want though is to calculate <strong>the differences between means</strong> rather than just the means; so we’d like to subtract the second group mean -19.6 from the first group mean of 20, to get a single value, the difference: 39.6.</p>
+## 1 A      21.4
+## 2 B     -18.3</code></pre>
+<p>Sometimes what we want though is to calculate <strong>the differences between means</strong> rather than just the means; so we’d like to subtract the second group mean -18.3 from the first group mean of 21.4, to get a single value, the difference: 39.8.</p>
 <p>We can do this using the <code>dplyr::pull()</code> and <code>purrr::pluck()</code> functions. <code>pull()</code> will extract a single column from a dataframe and turn it into a vector. <code>pluck()</code> then allows you to pull out an element (i.e. a value or values) from within that vector.</p>
 <pre class="sourceCode r"><code class="sourceCode r">vec &lt;-<span class="st"> </span>my_data_means <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">pull</span>(m)
 
 vec</code></pre>
-<pre><code>## [1]  19.97025 -19.59140</code></pre>
+<pre><code>## [1]  21.42750 -18.32944</code></pre>
 <p>We have now created <code>vec</code> which is a vector containing only the group means; the rest of the information in the table has been discarded. Now that we have <code>vec</code>, we can calculate the mean difference as below, where <code>vec</code> is our vector of the two means and <code>[1]</code> and <code>[2]</code> refer to the two means:</p>
 <pre class="sourceCode r"><code class="sourceCode r">vec[<span class="dv">1</span>] <span class="op">-</span><span class="st"> </span>vec[<span class="dv">2</span>]</code></pre>
-<pre><code>## [1] 39.56165</code></pre>
+<pre><code>## [1] 39.75695</code></pre>
 <p>But <code>pluck()</code> is also useful, and can be written as so:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pluck</span>(vec, <span class="dv">1</span>) <span class="op">-</span><span class="st"> </span><span class="kw">pluck</span>(vec, <span class="dv">2</span>)</code></pre>
-<pre><code>## [1] 39.56165</code></pre>
+<pre><code>## [1] 39.75695</code></pre>
 <p>It can also be incorporated into a pipeline as below where we still <code>pull()</code> the means column, <code>m</code>, and then <code>pluck()</code> each value in turn and subtract them from each other.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co">## whole thing in a pipeline</span>
 my_data_means <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pull</span>(m) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pluck</span>(<span class="dv">1</span>) <span class="op">-</span>
 <span class="st">  </span>my_data_means <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pull</span>(m) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pluck</span>(<span class="dv">2</span>)</code></pre>
-<pre><code>## [1] 39.56165</code></pre>
+<pre><code>## [1] 39.75695</code></pre>
 <p>However, there is an alternative way to extract the difference between means which may make more intuitive sense. You already know how to calculate a difference between values in the same row of a table using <code>dplyr::mutate()</code>, e.g. <code>mutate(new_column = column1 minus column2)</code>. So if you can get the observations in <code>my_data_means</code> into the same row, different columns, you could then use <code>mutate()</code> to calculate the difference. Previously you learned <code>gather()</code> to bring columns together. Well the opposite of gather is the <code>tidyr::spread()</code> function to split columns apart - as below.</p>
 <pre class="sourceCode r"><code class="sourceCode r">my_data_means <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">spread</span>(group, m)</code></pre>
 <pre><code>## # A tibble: 1 x 2
 ##       A     B
 ##   &lt;dbl&gt; &lt;dbl&gt;
-## 1  20.0 -19.6</code></pre>
+## 1  21.4 -18.3</code></pre>
 <p>The spread function (<code>?spread</code>) splits the data in column <code>m</code> by the information, i.e. labels, in column <code>group</code> and puts the data into separate columns. A call to <code>spread()</code> followed by a <code>mutate()</code> can be used to calculate the difference in means - see below:</p>
 <pre class="sourceCode r"><code class="sourceCode r">my_data_means <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">spread</span>(group, m) <span class="op">%&gt;%</span>
@@ -854,7 +854,7 @@ my_data_means <span class="op">%&gt;%</span><span class="st"> </span><span class
 <pre><code>## # A tibble: 1 x 3
 ##       A     B  diff
 ##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1  20.0 -19.6  39.6</code></pre>
+## 1  21.4 -18.3  39.8</code></pre>
 <ul>
 <li>What is the name of the column containing the differences between the means of A and B? <select class='solveme' data-answer='["diff"]'> <option></option> <option>means</option> <option>group</option> <option>m</option> <option>diff</option></select></li>
 </ul>
@@ -863,7 +863,7 @@ my_data_means <span class="op">%&gt;%</span><span class="st"> </span><span class
 <span class="st">  </span><span class="kw">spread</span>(group, m) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">diff =</span> A <span class="op">-</span><span class="st"> </span>B) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">pull</span>(diff)</code></pre>
-<pre><code>## [1] 39.56165</code></pre>
+<pre><code>## [1] 39.75695</code></pre>
 <div class="solution">
 <button>
 Portfolio Point - Reading pipes and verbalising tasks
@@ -991,8 +991,8 @@ Here are two important things to understand about functions.
 <p>Also you’ll probably want to store the results in a variable, for example, <code>ten_samples</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r">ten_samples &lt;-<span class="st"> </span><span class="kw">replicate</span>(<span class="dv">10</span>, <span class="kw">rnorm</span>(<span class="dv">100</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mean</span>())
 ten_samples</code></pre>
-<pre><code>##  [1]  0.13954275 -0.22942392 -0.05985055  0.09984480  0.01942496
-##  [6]  0.16722834  0.11834613  0.12515083 -0.11908537  0.03975128</code></pre>
+<pre><code>##  [1] -0.11570057  0.02286987 -0.00664214 -0.04496755  0.03798574
+##  [6]  0.02654264 -0.02267484  0.15858447 -0.12887815 -0.06388548</code></pre>
 <p>Each element (value) of the vector within <code>ten_samples</code> is the result of a single call to <code>rnorm(100) %&gt;% mean()</code>.</p>
 <ul>
 <li>Assuming that your <code>hello()</code> function from Skill 5 still exists, and it takes the argument <code>name = Goodbye</code>, what would happen in the console if you wrote, <code>replicate(1000, hello("Goodbye"))</code>? <select class='solveme' data-answer='["Hello Goodbye would appear a thousand times"]'> <option></option> <option>Hello World would appear a thousand times</option> <option>hello Goodbye would appear a thousand times</option> <option>Hello Goodbye would appear a thousand times</option></select> - Try it and see if it works!</li>

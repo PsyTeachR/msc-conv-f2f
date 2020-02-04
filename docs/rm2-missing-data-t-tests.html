@@ -609,12 +609,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <span class="dt">post_mean =</span> <span class="kw">mean</span>(post),
           <span class="dt">delay_mean =</span> <span class="kw">mean</span>(delay)
           )</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summarise</span>(messy, 
-          <span class="dt">pre_mean =</span> <span class="kw">mean</span>(pre),
-          <span class="dt">post_mean =</span> <span class="kw">mean</span>(post),
-          <span class="dt">delay_mean =</span> <span class="kw">mean</span>(delay)
-          ) <span class="op">%&gt;%</span>
-<span class="st">  </span>knitr<span class="op">::</span><span class="kw">kable</span>(<span class="dt">digits =</span> <span class="dv">2</span>, <span class="dt">align =</span> <span class="st">&quot;c&quot;</span>)</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -635,6 +629,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>Run the below code. What is the mean score for the <code>delay</code> condition to 2 decimal places? <input class='solveme nospaces' size='5' data-answer='["13.57"]'/></li>
 </ul>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summarise</span>(messy, 
+          <span class="dt">pre_mean =</span> <span class="kw">mean</span>(pre),
+          <span class="dt">post_mean =</span> <span class="kw">mean</span>(post),
+          <span class="dt">delay_mean =</span> <span class="kw">mean</span>(delay, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
+          )</code></pre>
 <p>There are other options, for example, some researchers will replace missing values with a particular score (e.g., the mean) using <code>replace_na()</code> or you might have a cut-off such as participants need to answer at least 80% of all questionnaire items to be included. If you’re doing a quantitative dissertation, these are things to discuss with your supervisor. The key thing is to know your data.</p>
 </div>
 <div id="activity-5-tidy-data" class="section level3">
