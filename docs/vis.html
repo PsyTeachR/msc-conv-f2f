@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 7 RM2 Visualisation, power, and effect size | MSc Conversion in Psychological Studies/Science</title>
   <meta name="description" content="This is the materials for the one-year MSc Conversion in Psychological Studies/Science." />
-  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 7 RM2 Visualisation, power, and effect size | MSc Conversion in Psychological Studies/Science" />
   <meta property="og:type" content="book" />
@@ -24,15 +24,15 @@
 <meta name="author" content="Emily Nordmann, Heather Cleland-Woods, Phil McAleer" />
 
 
-<meta name="date" content="2020-01-29" />
+<meta name="date" content="2020-02-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="rm2-missing-data-t-tests.html"/>
-<link rel="next" href="rm2-anova.html"/>
+<link rel="prev" href="rm2-missing-data-t-tests.html">
+<link rel="next" href="rm2-anova.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -40,9 +40,6 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
-
-
 
 
 
@@ -53,27 +50,26 @@
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
 }
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
+    border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -82,9 +78,9 @@ pre.numberSource code > span > a:first-child::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  {  }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+a.sourceLine::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -527,17 +523,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Type and run the code that loads the package <code>tidyverse</code> using the <code>library()</code> function in the Activity 1 code chunk.</li>
 <li>Copy and paste the below code to load and wrangle the data into tidy data in the Activity 1 code chunk and then run it.</li>
 </ul>
-<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="vis.html#cb162-1"></a><span class="kw">library</span>(tidyverse)</span>
-<span id="cb162-2"><a href="vis.html#cb162-2"></a>zhang_data &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;Zhang et al. 2014 Study 3.csv&quot;</span>)<span class="op">%&gt;%</span></span>
-<span id="cb162-3"><a href="vis.html#cb162-3"></a><span class="st">  </span><span class="kw">select</span>(Gender, Age,Condition, T1_Predicted_Interest_Composite, T2_Actual_Interest_Composite)<span class="op">%&gt;%</span></span>
-<span id="cb162-4"><a href="vis.html#cb162-4"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">subject =</span> <span class="kw">row_number</span>())<span class="op">%&gt;%</span></span>
-<span id="cb162-5"><a href="vis.html#cb162-5"></a><span class="st">  </span><span class="kw">gather</span>(<span class="dt">key =</span> time,</span>
-<span id="cb162-6"><a href="vis.html#cb162-6"></a>         <span class="dt">value =</span> interest,</span>
-<span id="cb162-7"><a href="vis.html#cb162-7"></a>         T1_Predicted_Interest_Composite,T2_Actual_Interest_Composite)<span class="op">%&gt;%</span></span>
-<span id="cb162-8"><a href="vis.html#cb162-8"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Condition =</span> <span class="kw">recode</span>(Condition, <span class="st">&quot;1&quot;</span> =<span class="st"> &quot;Ordinary&quot;</span>, <span class="st">&quot;2&quot;</span> =<span class="st"> &quot;Extraordinary&quot;</span>))<span class="op">%&gt;%</span></span>
-<span id="cb162-9"><a href="vis.html#cb162-9"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">time =</span> <span class="kw">recode</span>(time, <span class="st">&quot;T1_Predicted_Interest_Composite&quot;</span> =<span class="st"> &quot;time1_interest&quot;</span>, <span class="st">&quot;T2_Actual_Interest_Composite&quot;</span> =<span class="st"> &quot;time2_interest&quot;</span>),</span>
-<span id="cb162-10"><a href="vis.html#cb162-10"></a>         <span class="dt">Gender =</span> <span class="kw">recode</span>(Gender, <span class="st">&quot;1&quot;</span> =<span class="st"> &quot;male&quot;</span>, <span class="st">&quot;2&quot;</span> =<span class="st"> &quot;female&quot;</span>)) <span class="op">%&gt;%</span></span>
-<span id="cb162-11"><a href="vis.html#cb162-11"></a><span class="st">  </span><span class="kw">filter</span>(Gender <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;male&quot;</span>, <span class="st">&quot;female&quot;</span>))</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+zhang_data &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;Zhang et al. 2014 Study 3.csv&quot;</span>)<span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(Gender, Age,Condition, T1_Predicted_Interest_Composite, T2_Actual_Interest_Composite)<span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">subject =</span> <span class="kw">row_number</span>())<span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">gather</span>(<span class="dt">key =</span> time,
+         <span class="dt">value =</span> interest,
+         T1_Predicted_Interest_Composite,T2_Actual_Interest_Composite)<span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Condition =</span> <span class="kw">recode</span>(Condition, <span class="st">&quot;1&quot;</span> =<span class="st"> &quot;Ordinary&quot;</span>, <span class="st">&quot;2&quot;</span> =<span class="st"> &quot;Extraordinary&quot;</span>))<span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">time =</span> <span class="kw">recode</span>(time, <span class="st">&quot;T1_Predicted_Interest_Composite&quot;</span> =<span class="st"> &quot;time1_interest&quot;</span>, <span class="st">&quot;T2_Actual_Interest_Composite&quot;</span> =<span class="st"> &quot;time2_interest&quot;</span>),
+         <span class="dt">Gender =</span> <span class="kw">recode</span>(Gender, <span class="st">&quot;1&quot;</span> =<span class="st"> &quot;male&quot;</span>, <span class="st">&quot;2&quot;</span> =<span class="st"> &quot;female&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(Gender <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;male&quot;</span>, <span class="st">&quot;female&quot;</span>))</code></pre>
 </div>
 <div id="activity-2-histograms" class="section level3">
 <h3><span class="header-section-number">7.1.2</span> Activity 2: Histograms</h3>
@@ -546,8 +542,8 @@ The first line of code creates the <code>ggplot()</code> object and specifies wh
 <div id="basic-histogram" class="section level4">
 <h4><span class="header-section-number">7.1.2.1</span> Basic histogram</h4>
 <p>The code below will create a simple histogram with default appearance and no customisation. You wouldn’t use this graph in a paper, but if you just want to quickly check your distributions, for e.g., normality, this code might be enough.</p>
-<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="vis.html#cb163-1"></a><span class="kw">ggplot</span>(zhang_data, <span class="kw">aes</span>(interest))<span class="op">+</span><span class="st"> </span></span>
-<span id="cb163-2"><a href="vis.html#cb163-2"></a><span class="st">  </span><span class="kw">geom_histogram</span>()</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(zhang_data, <span class="kw">aes</span>(interest))<span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_histogram</span>()</code></pre>
 <div class="figure" style="text-align: center"><span id="fig:hist1"></span>
 <img src="07-rm2-3_files/figure-html/hist1-1.png" alt="Basic histogram" width="100%" />
 <p class="caption">
@@ -560,10 +556,10 @@ Figure 7.1: Basic histogram
 <p>The next section of code will change the appearance. Plots in ggplot2 are highly customisable - <a href="https://r4ds.had.co.nz/data-visualisation.html">R for Data Science</a> has an excellent chapter on <code>ggplot</code> if you would like additional information.</p>
 <p>Adding <code>binwidth</code> to <code>geom_histogram()</code> changes the bins of the histogram, i.e., how wide the bars are. The default is 30. Sometimes this may be appropriate but often you will want to change the binwidth. What value you give will depend upon your data.</p>
 <p><code>colour()</code> changes the colour of the line around the bars. <code>fill()</code> changes the fill of the bars.</p>
-<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="vis.html#cb164-1"></a><span class="kw">ggplot</span>(zhang_data, <span class="kw">aes</span>(<span class="dt">x =</span> interest))<span class="op">+</span><span class="st"> </span></span>
-<span id="cb164-2"><a href="vis.html#cb164-2"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="fl">.3</span>, </span>
-<span id="cb164-3"><a href="vis.html#cb164-3"></a>                 <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,  </span>
-<span id="cb164-4"><a href="vis.html#cb164-4"></a>                 <span class="dt">fill =</span> <span class="st">&quot;grey&quot;</span>) </span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(zhang_data, <span class="kw">aes</span>(<span class="dt">x =</span> interest))<span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="fl">.3</span>, 
+                 <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,  
+                 <span class="dt">fill =</span> <span class="st">&quot;grey&quot;</span>) </code></pre>
 <div class="figure" style="text-align: center"><span id="fig:hist2"></span>
 <img src="07-rm2-3_files/figure-html/hist2-1.png" alt="Histogram with colour changes" width="100%" />
 <p class="caption">
@@ -582,12 +578,12 @@ Figure 7.2: Histogram with colour changes
 <li><code>labels()</code> controls the name of the breaks</li>
 </ol>
 <p>For our histogram we will just change the main axis labels.</p>
-<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="vis.html#cb165-1"></a><span class="kw">ggplot</span>(zhang_data, <span class="kw">aes</span>(<span class="dt">x =</span> interest))<span class="op">+</span><span class="st"> </span></span>
-<span id="cb165-2"><a href="vis.html#cb165-2"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="fl">.3</span>, </span>
-<span id="cb165-3"><a href="vis.html#cb165-3"></a>                 <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,  </span>
-<span id="cb165-4"><a href="vis.html#cb165-4"></a>                 <span class="dt">fill =</span> <span class="st">&quot;grey&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb165-5"><a href="vis.html#cb165-5"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Mean interest score (1-7)&quot;</span>) <span class="op">+</span></span>
-<span id="cb165-6"><a href="vis.html#cb165-6"></a><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Count&quot;</span>) </span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(zhang_data, <span class="kw">aes</span>(<span class="dt">x =</span> interest))<span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="fl">.3</span>, 
+                 <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>,  
+                 <span class="dt">fill =</span> <span class="st">&quot;grey&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Mean interest score (1-7)&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Count&quot;</span>) </code></pre>
 <div class="figure" style="text-align: center"><span id="fig:hist3"></span>
 <img src="07-rm2-3_files/figure-html/hist3-1.png" alt="Histogram with label changes" width="100%" />
 <p class="caption">
@@ -599,17 +595,17 @@ Figure 7.3: Histogram with label changes
 <h4><span class="header-section-number">7.1.2.4</span> Density curve</h4>
 <p>The following section adds a normal density curve to the histogram, which can be useful for checking the assumption of normality.</p>
 <p>To add the line you must change the <code>geom_histogram()</code> to use density on the y-axis (the default is count) and add a <code>stat_function()</code> layer that draws the line.</p>
-<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="vis.html#cb166-1"></a><span class="kw">ggplot</span>(zhang_data, <span class="kw">aes</span>(interest))<span class="op">+</span><span class="st"> </span></span>
-<span id="cb166-2"><a href="vis.html#cb166-2"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="fl">.3</span>, </span>
-<span id="cb166-3"><a href="vis.html#cb166-3"></a>                 <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>, </span>
-<span id="cb166-4"><a href="vis.html#cb166-4"></a>                 <span class="dt">fill =</span> <span class="st">&quot;grey&quot;</span>,</span>
-<span id="cb166-5"><a href="vis.html#cb166-5"></a>                 <span class="kw">aes</span>(<span class="dt">y =</span> ..density..))<span class="op">+</span><span class="st"> </span><span class="co"># change y-axis to density</span></span>
-<span id="cb166-6"><a href="vis.html#cb166-6"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Mean interest score (1-7)&quot;</span>) <span class="op">+</span></span>
-<span id="cb166-7"><a href="vis.html#cb166-7"></a><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Count&quot;</span>) <span class="op">+</span></span>
-<span id="cb166-8"><a href="vis.html#cb166-8"></a><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="co"># this adds a normal density function curve</span></span>
-<span id="cb166-9"><a href="vis.html#cb166-9"></a>                <span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>, <span class="co"># this makes it red</span></span>
-<span id="cb166-10"><a href="vis.html#cb166-10"></a>                <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(zhang_data<span class="op">$</span>interest, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</span>
-<span id="cb166-11"><a href="vis.html#cb166-11"></a>                           <span class="dt">sd =</span> <span class="kw">sd</span>(zhang_data<span class="op">$</span>interest, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)))</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(zhang_data, <span class="kw">aes</span>(interest))<span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="fl">.3</span>, 
+                 <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>, 
+                 <span class="dt">fill =</span> <span class="st">&quot;grey&quot;</span>,
+                 <span class="kw">aes</span>(<span class="dt">y =</span> ..density..))<span class="op">+</span><span class="st"> </span><span class="co"># change y-axis to density</span>
+<span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Mean interest score (1-7)&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Count&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="co"># this adds a normal density function curve</span>
+                <span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>, <span class="co"># this makes it red</span>
+                <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(zhang_data<span class="op">$</span>interest, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+                           <span class="dt">sd =</span> <span class="kw">sd</span>(zhang_data<span class="op">$</span>interest, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)))</code></pre>
 <div class="figure" style="text-align: center"><span id="fig:hist4"></span>
 <img src="07-rm2-3_files/figure-html/hist4-1.png" alt="Histogram with normal density curve" width="100%" />
 <p class="caption">
@@ -623,8 +619,8 @@ Figure 7.4: Histogram with normal density curve
 <div id="basic-scatterplot" class="section level4">
 <h4><span class="header-section-number">7.1.3.1</span> Basic scatterplot</h4>
 <p>Now let’s make a scatterplot plotting <code>Age</code> and <code>interest</code> to see if there is any relationship between the two. We need to specify both the x and y-axis variables. The following code will produce a very simple scatterplot. Again, you wouldn’t use this graph in a paper, but for eye-balling your data it would suffice.</p>
-<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="vis.html#cb167-1"></a><span class="kw">ggplot</span>(zhang_data, <span class="kw">aes</span>(<span class="dt">x =</span> interest,<span class="dt">y =</span> Age))<span class="op">+</span></span>
-<span id="cb167-2"><a href="vis.html#cb167-2"></a><span class="st">       </span><span class="kw">geom_point</span>()</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(zhang_data, <span class="kw">aes</span>(<span class="dt">x =</span> interest,<span class="dt">y =</span> Age))<span class="op">+</span>
+<span class="st">       </span><span class="kw">geom_point</span>()</code></pre>
 <div class="figure" style="text-align: center"><span id="fig:scat1"></span>
 <img src="07-rm2-3_files/figure-html/scat1-1.png" alt="Basic scatterplot" width="100%" />
 <p class="caption">
@@ -635,10 +631,10 @@ Figure 7.5: Basic scatterplot
 <div id="axis-labels-1" class="section level4">
 <h4><span class="header-section-number">7.1.3.2</span> Axis labels</h4>
 <p>From this plot it doesn’t look like there is much of a relationship between age and interest ratings. We can now change the labels using the same scale functions as before.</p>
-<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="vis.html#cb168-1"></a><span class="kw">ggplot</span>(zhang_data, <span class="kw">aes</span>(<span class="dt">x =</span> interest,<span class="dt">y =</span> Age))<span class="op">+</span></span>
-<span id="cb168-2"><a href="vis.html#cb168-2"></a><span class="st">       </span><span class="kw">geom_point</span>()<span class="op">+</span></span>
-<span id="cb168-3"><a href="vis.html#cb168-3"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Mean interest score (1-7)&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb168-4"><a href="vis.html#cb168-4"></a><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Age&quot;</span>)</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(zhang_data, <span class="kw">aes</span>(<span class="dt">x =</span> interest,<span class="dt">y =</span> Age))<span class="op">+</span>
+<span class="st">       </span><span class="kw">geom_point</span>()<span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Mean interest score (1-7)&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Age&quot;</span>)</code></pre>
 <div class="figure" style="text-align: center"><span id="fig:scat2"></span>
 <img src="07-rm2-3_files/figure-html/scat2-1.png" alt="Scatterplot with label changes" width="100%" />
 <p class="caption">
@@ -649,11 +645,11 @@ Figure 7.6: Scatterplot with label changes
 <div id="adding-a-regression-line" class="section level4">
 <h4><span class="header-section-number">7.1.3.3</span> Adding a regression line</h4>
 <p>It’s often useful to add a regression line or line of best fit to a scatterplot. The regression line is added with <code>geom_smooth()</code> and by default will also provide a 95% confidence interval. You can specify what type of line you want to draw, most often you will need <code>method = lm</code>, i.e., a linear model or a straight line. Look up the help documentation for <code>geom_smooth()</code> and see what other methods you can use.</p>
-<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="vis.html#cb169-1"></a><span class="kw">ggplot</span>(zhang_data, <span class="kw">aes</span>(<span class="dt">x =</span> interest,<span class="dt">y =</span> Age))<span class="op">+</span></span>
-<span id="cb169-2"><a href="vis.html#cb169-2"></a><span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span></span>
-<span id="cb169-3"><a href="vis.html#cb169-3"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Mean interest score (1-7)&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb169-4"><a href="vis.html#cb169-4"></a><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Age&quot;</span>)<span class="op">+</span></span>
-<span id="cb169-5"><a href="vis.html#cb169-5"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span>lm) <span class="co"># if you don&#39;t want the shaded CI, add se = FALSE to this</span></span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(zhang_data, <span class="kw">aes</span>(<span class="dt">x =</span> interest,<span class="dt">y =</span> Age))<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Mean interest score (1-7)&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Age&quot;</span>)<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span>lm) <span class="co"># if you don&#39;t want the shaded CI, add se = FALSE to this</span></code></pre>
 <div class="figure" style="text-align: center"><span id="fig:scat3"></span>
 <img src="07-rm2-3_files/figure-html/scat3-1.png" alt="Scatterplot with regression line" width="100%" />
 <p class="caption">
@@ -664,13 +660,13 @@ Figure 7.7: Scatterplot with regression line
 <div id="grouped-scatterplots" class="section level4">
 <h4><span class="header-section-number">7.1.3.4</span> Grouped scatterplots</h4>
 <p>We can use ggplot to show how the relationship might differ for different populations within our data. We do this by adding <code>colour()</code> to <code>aes()</code> and setting it as whatever variable we would like to distinguish between. In this case, we will see how the relationship between age and interest differs for the male and female participants. There are a few participants with missing gender so we will first filter them out.</p>
-<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="vis.html#cb170-1"></a>zhang_data <span class="op">%&gt;%</span></span>
-<span id="cb170-2"><a href="vis.html#cb170-2"></a><span class="st">  </span><span class="kw">filter</span>(Gender <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;male&quot;</span>, <span class="st">&quot;female&quot;</span>)) <span class="op">%&gt;%</span></span>
-<span id="cb170-3"><a href="vis.html#cb170-3"></a><span class="st">           </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> interest,<span class="dt">y =</span> Age, <span class="dt">colour =</span> Gender))<span class="op">+</span></span>
-<span id="cb170-4"><a href="vis.html#cb170-4"></a><span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span></span>
-<span id="cb170-5"><a href="vis.html#cb170-5"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Mean interest score (1-7)&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb170-6"><a href="vis.html#cb170-6"></a><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Age&quot;</span>)<span class="op">+</span></span>
-<span id="cb170-7"><a href="vis.html#cb170-7"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span>lm)</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">zhang_data <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(Gender <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;male&quot;</span>, <span class="st">&quot;female&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">           </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> interest,<span class="dt">y =</span> Age, <span class="dt">colour =</span> Gender))<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Mean interest score (1-7)&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Age&quot;</span>)<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span>lm)</code></pre>
 <div class="figure" style="text-align: center"><span id="fig:scat4"></span>
 <img src="07-rm2-3_files/figure-html/scat4-1.png" alt="Grouped scatterplot" width="100%" />
 <p class="caption">
@@ -683,13 +679,13 @@ Figure 7.8: Grouped scatterplot
 When you change the <code>labels</code>, R will simply overwrite the names in the dataset. If you wanted to actually change the order of the categories (e.g., have male as the red line) you need to change the order of the factor. We will do this later, for now, just be sure that you’re changing the name of the right category (i.e., female comes first))
 </p>
 </div>
-<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="vis.html#cb171-1"></a><span class="kw">ggplot</span>(zhang_data, <span class="kw">aes</span>(<span class="dt">x =</span> interest,<span class="dt">y =</span> Age, <span class="dt">colour =</span> Gender))<span class="op">+</span></span>
-<span id="cb171-2"><a href="vis.html#cb171-2"></a><span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span></span>
-<span id="cb171-3"><a href="vis.html#cb171-3"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Mean interest score (1-7)&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb171-4"><a href="vis.html#cb171-4"></a><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Age&quot;</span>)<span class="op">+</span></span>
-<span id="cb171-5"><a href="vis.html#cb171-5"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span>lm)<span class="op">+</span></span>
-<span id="cb171-6"><a href="vis.html#cb171-6"></a><span class="st">  </span><span class="kw">scale_color_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;Gender&quot;</span>,</span>
-<span id="cb171-7"><a href="vis.html#cb171-7"></a>                       <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Female&quot;</span>, <span class="st">&quot;Male&quot;</span>))</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(zhang_data, <span class="kw">aes</span>(<span class="dt">x =</span> interest,<span class="dt">y =</span> Age, <span class="dt">colour =</span> Gender))<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Mean interest score (1-7)&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Age&quot;</span>)<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span>lm)<span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_color_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;Gender&quot;</span>,
+                       <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Female&quot;</span>, <span class="st">&quot;Male&quot;</span>))</code></pre>
 <div class="figure" style="text-align: center"><span id="fig:scat5"></span>
 <img src="07-rm2-3_files/figure-html/scat5-1.png" alt="Grouped scatterplot with adjusted labels" width="100%" />
 <p class="caption">
@@ -703,8 +699,8 @@ Figure 7.9: Grouped scatterplot with adjusted labels
 <div id="basic-boxplot" class="section level4">
 <h4><span class="header-section-number">7.1.4.1</span> Basic boxplot</h4>
 <p>The following code will produce a simple boxplot for eye-balling your data.</p>
-<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="vis.html#cb172-1"></a><span class="kw">ggplot</span>(zhang_data, <span class="kw">aes</span>(<span class="dt">x =</span> Condition, <span class="dt">y =</span> interest))<span class="op">+</span></span>
-<span id="cb172-2"><a href="vis.html#cb172-2"></a><span class="st">  </span><span class="kw">geom_boxplot</span>()</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(zhang_data, <span class="kw">aes</span>(<span class="dt">x =</span> Condition, <span class="dt">y =</span> interest))<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_boxplot</span>()</code></pre>
 <div class="figure" style="text-align: center"><span id="fig:bp1"></span>
 <img src="07-rm2-3_files/figure-html/bp1-1.png" alt="Basic boxplot" width="100%" />
 <p class="caption">
@@ -715,9 +711,9 @@ Figure 7.10: Basic boxplot
 <div id="adding-data-points" class="section level4">
 <h4><span class="header-section-number">7.1.4.2</span> Adding data points</h4>
 <p>If we add another layer <code>geom_point()</code> we can add our raw data points to our boxplots to make them more informative.</p>
-<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="vis.html#cb173-1"></a><span class="kw">ggplot</span>(zhang_data, <span class="kw">aes</span>(<span class="dt">x =</span> Condition, <span class="dt">y =</span> interest))<span class="op">+</span></span>
-<span id="cb173-2"><a href="vis.html#cb173-2"></a><span class="st">  </span><span class="kw">geom_boxplot</span>()<span class="op">+</span></span>
-<span id="cb173-3"><a href="vis.html#cb173-3"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(zhang_data, <span class="kw">aes</span>(<span class="dt">x =</span> Condition, <span class="dt">y =</span> interest))<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_boxplot</span>()<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>()</code></pre>
 <div class="figure" style="text-align: center"><span id="fig:bp2"></span>
 <img src="07-rm2-3_files/figure-html/bp2-1.png" alt="Boxplot with overplotting" width="100%" />
 <p class="caption">
@@ -726,9 +722,9 @@ Figure 7.11: Boxplot with overplotting
 </div>
 <p>However, this plot suffers from <strong>over-plotting</strong>, that is, there are multiple data points on top of each other. We can change this by using <code>geom_jitter()</code>, which adds a layer of points that are jittered so that each one is visible.</p>
 <p><code>height</code> and <code>width</code> affect how much each point is jittered. Play around with the values to see how it affects the data points.</p>
-<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="vis.html#cb174-1"></a><span class="kw">ggplot</span>(zhang_data, <span class="kw">aes</span>(<span class="dt">x =</span> Condition, <span class="dt">y =</span> interest))<span class="op">+</span></span>
-<span id="cb174-2"><a href="vis.html#cb174-2"></a><span class="st">  </span><span class="kw">geom_boxplot</span>()<span class="op">+</span></span>
-<span id="cb174-3"><a href="vis.html#cb174-3"></a><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">height =</span> <span class="dv">0</span>, <span class="dt">width =</span> <span class="fl">.1</span>)</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(zhang_data, <span class="kw">aes</span>(<span class="dt">x =</span> Condition, <span class="dt">y =</span> interest))<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_boxplot</span>()<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">height =</span> <span class="dv">0</span>, <span class="dt">width =</span> <span class="fl">.1</span>)</code></pre>
 <div class="figure" style="text-align: center"><span id="fig:bp3"></span>
 <img src="07-rm2-3_files/figure-html/bp3-1.png" alt="Boxplot with jittered data" width="100%" />
 <p class="caption">
@@ -739,12 +735,12 @@ Figure 7.12: Boxplot with jittered data
 <div id="adding-colour" class="section level4">
 <h4><span class="header-section-number">7.1.4.3</span> Adding colour</h4>
 <p>We may want to add colour to our graph (and for consistency, we’ll sort out the labels). We do this by adding the ‘fill’ argument to the ggplot aesthetic by specifying which variable the colour of the fill should be organised by.</p>
-<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="vis.html#cb175-1"></a><span class="kw">ggplot</span>(zhang_data, <span class="kw">aes</span>(<span class="dt">x =</span> Condition, <span class="dt">y =</span> interest, <span class="dt">fill =</span> Condition))<span class="op">+</span></span>
-<span id="cb175-2"><a href="vis.html#cb175-2"></a><span class="st">  </span><span class="kw">geom_boxplot</span>()<span class="op">+</span></span>
-<span id="cb175-3"><a href="vis.html#cb175-3"></a><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">height =</span> <span class="dv">0</span>, <span class="dt">width =</span> <span class="fl">.1</span>)<span class="op">+</span></span>
-<span id="cb175-4"><a href="vis.html#cb175-4"></a><span class="st">  </span><span class="kw">scale_x_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;Condition&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="co"># note the x-axis is discrete</span></span>
-<span id="cb175-5"><a href="vis.html#cb175-5"></a><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Mean interest rating (1-7)&quot;</span>)<span class="op">+</span></span>
-<span id="cb175-6"><a href="vis.html#cb175-6"></a><span class="st">  </span><span class="kw">scale_fill_discrete</span>(<span class="dt">guide =</span> <span class="ot">FALSE</span>) <span class="co"># this suppresses the legend because we don&#39;t need it</span></span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(zhang_data, <span class="kw">aes</span>(<span class="dt">x =</span> Condition, <span class="dt">y =</span> interest, <span class="dt">fill =</span> Condition))<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_boxplot</span>()<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">height =</span> <span class="dv">0</span>, <span class="dt">width =</span> <span class="fl">.1</span>)<span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_x_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;Condition&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="co"># note the x-axis is discrete</span>
+<span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Mean interest rating (1-7)&quot;</span>)<span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_fill_discrete</span>(<span class="dt">guide =</span> <span class="ot">FALSE</span>) <span class="co"># this suppresses the legend because we don&#39;t need it</span></code></pre>
 <div class="figure" style="text-align: center"><span id="fig:bp4"></span>
 <img src="07-rm2-3_files/figure-html/bp4-1.png" alt="Boxplot with colour" width="100%" />
 <p class="caption">
@@ -757,9 +753,9 @@ Figure 7.13: Boxplot with colour
 <p>When you only have one IV, using the fill command to change the colour is a little redundant, as the colours don’t add any additional information. It makes more sense to use colour to represent an additional IV.</p>
 <p>For this example, we’ll use <code>Condition</code> and <code>time</code> as IVs. <code>fill()</code> now specifies a second IV, rather than repeating the IV on the x-axis as in the previous plot.</p>
 <p>With multiple IVs the command to overlay the raw data points changes as the data points also need dodged (try running the code with the previous geom_jitter function to see what happens)</p>
-<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="vis.html#cb176-1"></a><span class="kw">ggplot</span>(zhang_data, <span class="kw">aes</span>(<span class="dt">x =</span> Condition, <span class="dt">y =</span> interest, <span class="dt">fill =</span> time))<span class="op">+</span></span>
-<span id="cb176-2"><a href="vis.html#cb176-2"></a><span class="st">  </span><span class="kw">geom_boxplot</span>()<span class="op">+</span></span>
-<span id="cb176-3"><a href="vis.html#cb176-3"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">position=</span><span class="kw">position_jitterdodge</span>(<span class="dt">jitter.width =</span> <span class="fl">.1</span>))</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(zhang_data, <span class="kw">aes</span>(<span class="dt">x =</span> Condition, <span class="dt">y =</span> interest, <span class="dt">fill =</span> time))<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_boxplot</span>()<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">position=</span><span class="kw">position_jitterdodge</span>(<span class="dt">jitter.width =</span> <span class="fl">.1</span>))</code></pre>
 <div class="figure" style="text-align: center"><span id="fig:bp5"></span>
 <img src="07-rm2-3_files/figure-html/bp5-1.png" alt="Boxplot for two factors" width="100%" />
 <p class="caption">
@@ -770,10 +766,10 @@ Figure 7.14: Boxplot for two factors
 <div id="colour-blind-friendly-options" class="section level4">
 <h4><span class="header-section-number">7.1.4.5</span> Colour-blind friendly options</h4>
 <p>There is one more fill option that we can use. Rather than specifying <code>scale_fill_discrete()</code>, we can use <code>scale_fill_viridis_d()</code>. This function does exactly the same thing but it uses a colour-blind friendly palette (which also prints in black and white). There are 5 different options for colours and you can see them by changing <code>option</code> to A, B, C, D or E. Personally I like option E with <code>alpha = .6</code> (to control transparency) but that’s not an official School position.</p>
-<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="vis.html#cb177-1"></a><span class="kw">ggplot</span>(zhang_data, <span class="kw">aes</span>(<span class="dt">x =</span> Condition, <span class="dt">y =</span> interest, <span class="dt">fill =</span> time))<span class="op">+</span></span>
-<span id="cb177-2"><a href="vis.html#cb177-2"></a><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">alpha =</span> <span class="fl">.6</span>)<span class="op">+</span></span>
-<span id="cb177-3"><a href="vis.html#cb177-3"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">position=</span><span class="kw">position_jitterdodge</span>(<span class="dt">jitter.width =</span> <span class="fl">.1</span>)) <span class="op">+</span></span>
-<span id="cb177-4"><a href="vis.html#cb177-4"></a><span class="st">  </span><span class="kw">scale_fill_viridis_d</span>(<span class="dt">option =</span> <span class="st">&quot;E&quot;</span>)</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(zhang_data, <span class="kw">aes</span>(<span class="dt">x =</span> Condition, <span class="dt">y =</span> interest, <span class="dt">fill =</span> time))<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">alpha =</span> <span class="fl">.6</span>)<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">position=</span><span class="kw">position_jitterdodge</span>(<span class="dt">jitter.width =</span> <span class="fl">.1</span>)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_fill_viridis_d</span>(<span class="dt">option =</span> <span class="st">&quot;E&quot;</span>)</code></pre>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-4"></span>
 <img src="07-rm2-3_files/figure-html/unnamed-chunk-4-1.png" alt="Boxplots with friendly colours" width="100%" />
 <p class="caption">
@@ -786,13 +782,13 @@ Figure 7.15: Boxplots with friendly colours
 <h3><span class="header-section-number">7.1.5</span> Activity 5: Reordering factors</h3>
 <p>R orders categorical variables alphabetically. For gender it didn’t really matter whether male or female was represented first and for time 1 and 2 it makes sense for them to be in this order but we may want to change the order of Condition (in my mind it makes more sense for Ordinary to come first, but that may just be me).</p>
 <p>To do this we can use <code>mutate()</code> and <code>fct_level()</code> to change the factor levels to the order we want.</p>
-<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="vis.html#cb178-1"></a>zhang_data &lt;-<span class="st"> </span>zhang_data <span class="op">%&gt;%</span></span>
-<span id="cb178-2"><a href="vis.html#cb178-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Condition =</span> <span class="kw">fct_relevel</span>(Condition, <span class="kw">c</span>(<span class="st">&quot;Ordinary&quot;</span>, <span class="st">&quot;Extraordinary&quot;</span>)))</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">zhang_data &lt;-<span class="st"> </span>zhang_data <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Condition =</span> <span class="kw">fct_relevel</span>(Condition, <span class="kw">c</span>(<span class="st">&quot;Ordinary&quot;</span>, <span class="st">&quot;Extraordinary&quot;</span>)))</code></pre>
 <p>Now we can re-run the boxplot. That’s better.</p>
-<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="vis.html#cb179-1"></a><span class="kw">ggplot</span>(zhang_data, <span class="kw">aes</span>(<span class="dt">x =</span> Condition, <span class="dt">y =</span> interest, <span class="dt">fill =</span> time))<span class="op">+</span></span>
-<span id="cb179-2"><a href="vis.html#cb179-2"></a><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">alpha =</span> <span class="fl">.6</span>)<span class="op">+</span></span>
-<span id="cb179-3"><a href="vis.html#cb179-3"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">position=</span><span class="kw">position_jitterdodge</span>(<span class="dt">jitter.width =</span> <span class="fl">.1</span>)) <span class="op">+</span></span>
-<span id="cb179-4"><a href="vis.html#cb179-4"></a><span class="st">  </span><span class="kw">scale_fill_viridis_d</span>(<span class="dt">option =</span> <span class="st">&quot;E&quot;</span>)</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(zhang_data, <span class="kw">aes</span>(<span class="dt">x =</span> Condition, <span class="dt">y =</span> interest, <span class="dt">fill =</span> time))<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">alpha =</span> <span class="fl">.6</span>)<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">position=</span><span class="kw">position_jitterdodge</span>(<span class="dt">jitter.width =</span> <span class="fl">.1</span>)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_fill_viridis_d</span>(<span class="dt">option =</span> <span class="st">&quot;E&quot;</span>)</code></pre>
 <div class="figure" style="text-align: center"><span id="fig:bp6"></span>
 <img src="07-rm2-3_files/figure-html/bp6-1.png" alt="Boxplot with reordered factors" width="100%" />
 <p class="caption">
@@ -806,8 +802,8 @@ Figure 7.16: Boxplot with reordered factors
 <h4><span class="header-section-number">7.1.6.1</span> Basic bar chart</h4>
 <p>Bar charts should only be used for counts because they can distort your understanding of the data if you use them to represent means (see <a href="https://www.autodeskresearch.com/publications/samestats">here for a great example</a>.</p>
 <p>First, we’ll do a bar chart for the count of male and females in our sample.</p>
-<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="vis.html#cb180-1"></a><span class="kw">ggplot</span>(zhang_data, <span class="kw">aes</span>(<span class="dt">x=</span>Gender))<span class="op">+</span></span>
-<span id="cb180-2"><a href="vis.html#cb180-2"></a><span class="st">  </span><span class="kw">geom_bar</span>()</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(zhang_data, <span class="kw">aes</span>(<span class="dt">x=</span>Gender))<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_bar</span>()</code></pre>
 <div class="figure" style="text-align: center"><span id="fig:bc1"></span>
 <img src="07-rm2-3_files/figure-html/bc1-1.png" alt="Basic bar chart" width="100%" />
 <p class="caption">
@@ -818,9 +814,9 @@ Figure 7.17: Basic bar chart
 <div id="bar-charts-with-two-factors" class="section level4">
 <h4><span class="header-section-number">7.1.6.2</span> Bar charts with two factors</h4>
 <p>We can also use <code>fill()</code> to separate gender by Condition</p>
-<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="vis.html#cb181-1"></a><span class="kw">ggplot</span>(zhang_data, <span class="kw">aes</span>(<span class="dt">x=</span>Gender, <span class="dt">fill =</span> Condition))<span class="op">+</span></span>
-<span id="cb181-2"><a href="vis.html#cb181-2"></a><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>, <span class="dt">alpha =</span> <span class="fl">.6</span>) <span class="op">+</span><span class="st"> </span><span class="co"># the position argument places the bars next to each other, rather than on top of each other, try removing this</span></span>
-<span id="cb181-3"><a href="vis.html#cb181-3"></a><span class="st">  </span><span class="kw">scale_fill_viridis_d</span>(<span class="dt">option =</span> <span class="st">&quot;E&quot;</span>)</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(zhang_data, <span class="kw">aes</span>(<span class="dt">x=</span>Gender, <span class="dt">fill =</span> Condition))<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>, <span class="dt">alpha =</span> <span class="fl">.6</span>) <span class="op">+</span><span class="st"> </span><span class="co"># the position argument places the bars next to each other, rather than on top of each other, try removing this</span>
+<span class="st">  </span><span class="kw">scale_fill_viridis_d</span>(<span class="dt">option =</span> <span class="st">&quot;E&quot;</span>)</code></pre>
 <div class="figure" style="text-align: center"><span id="fig:bc2"></span>
 <img src="07-rm2-3_files/figure-html/bc2-1.png" alt="Bar chart with two factors" width="100%" />
 <p class="caption">
@@ -834,8 +830,8 @@ Figure 7.18: Bar chart with two factors
 <div id="basic-violin-plot" class="section level4">
 <h4><span class="header-section-number">7.1.7.1</span> Basic violin plot</h4>
 <p>Violin plots are so-called because with a normal distribution the shape would look something like a violin. They show density, i.e., the fatter the violin the more data points there are for that value.</p>
-<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="vis.html#cb182-1"></a><span class="kw">ggplot</span>(zhang_data, <span class="kw">aes</span>(<span class="dt">x =</span> Condition, <span class="dt">y =</span> interest))<span class="op">+</span></span>
-<span id="cb182-2"><a href="vis.html#cb182-2"></a><span class="st">  </span><span class="kw">geom_violin</span>()</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(zhang_data, <span class="kw">aes</span>(<span class="dt">x =</span> Condition, <span class="dt">y =</span> interest))<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_violin</span>()</code></pre>
 <div class="figure" style="text-align: center"><span id="fig:vp1"></span>
 <img src="07-rm2-3_files/figure-html/vp1-1.png" alt="Basic violin plot" width="100%" />
 <p class="caption">
@@ -846,9 +842,9 @@ Figure 7.19: Basic violin plot
 <div id="violin-plots-with-raw-data-points" class="section level4">
 <h4><span class="header-section-number">7.1.7.2</span> Violin plots with raw data points</h4>
 <p>Like the boxplot, we can also add the raw data points to our violin plot, making sure to use jitter to avoid over-plotting.</p>
-<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="vis.html#cb183-1"></a><span class="kw">ggplot</span>(zhang_data, <span class="kw">aes</span>(<span class="dt">x =</span> Condition, <span class="dt">y =</span> interest))<span class="op">+</span></span>
-<span id="cb183-2"><a href="vis.html#cb183-2"></a><span class="st">  </span><span class="kw">geom_violin</span>()<span class="op">+</span></span>
-<span id="cb183-3"><a href="vis.html#cb183-3"></a><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">height =</span> <span class="dv">0</span>, <span class="dt">width =</span> <span class="fl">.1</span>)</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(zhang_data, <span class="kw">aes</span>(<span class="dt">x =</span> Condition, <span class="dt">y =</span> interest))<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_violin</span>()<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">height =</span> <span class="dv">0</span>, <span class="dt">width =</span> <span class="fl">.1</span>)</code></pre>
 <div class="figure" style="text-align: center"><span id="fig:vp2"></span>
 <img src="07-rm2-3_files/figure-html/vp2-1.png" alt="Violin plot with data points" width="100%" />
 <p class="caption">
@@ -866,23 +862,23 @@ It’s important to remember that R is very literal. <code>ggplot2</code> works 
 <h3><span class="header-section-number">7.1.8</span> Activity 8: Violin-boxplots</h3>
 <p>One increasingly common graph is a violin + boxplot + summary plot that shows a huge amount of information about your data in a single plot. You’ve already come across these when you looked at t-tests.</p>
 <p>This plot first requires you to calculate summary data for the variables that you want to plot. We need to calculate the mean of our DV, standard error, and SD and we need to do this grouped by the IV.</p>
-<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="vis.html#cb184-1"></a>summary_data&lt;-zhang_data<span class="op">%&gt;%</span></span>
-<span id="cb184-2"><a href="vis.html#cb184-2"></a><span class="st">  </span><span class="kw">group_by</span>(Condition)<span class="op">%&gt;%</span></span>
-<span id="cb184-3"><a href="vis.html#cb184-3"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(interest, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</span>
-<span id="cb184-4"><a href="vis.html#cb184-4"></a>            <span class="dt">min =</span> <span class="kw">mean</span>(interest) <span class="op">-</span><span class="st"> </span><span class="kw">qnorm</span>(<span class="fl">0.975</span>)<span class="op">*</span><span class="kw">sd</span>(interest)<span class="op">/</span><span class="kw">sqrt</span>(<span class="kw">n</span>()), <span class="co"># standard error</span></span>
-<span id="cb184-5"><a href="vis.html#cb184-5"></a>            <span class="dt">max =</span> <span class="kw">mean</span>(interest) <span class="op">+</span><span class="st"> </span><span class="kw">qnorm</span>(<span class="fl">0.975</span>)<span class="op">*</span><span class="kw">sd</span>(interest)<span class="op">/</span><span class="kw">sqrt</span>(<span class="kw">n</span>()),</span>
-<span id="cb184-6"><a href="vis.html#cb184-6"></a>            <span class="dt">sd =</span> <span class="kw">sd</span>(interest)</span>
-<span id="cb184-7"><a href="vis.html#cb184-7"></a>            )</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">summary_data&lt;-zhang_data<span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(Condition)<span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(interest, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+            <span class="dt">min =</span> <span class="kw">mean</span>(interest) <span class="op">-</span><span class="st"> </span><span class="kw">qnorm</span>(<span class="fl">0.975</span>)<span class="op">*</span><span class="kw">sd</span>(interest)<span class="op">/</span><span class="kw">sqrt</span>(<span class="kw">n</span>()), <span class="co"># standard error</span>
+            <span class="dt">max =</span> <span class="kw">mean</span>(interest) <span class="op">+</span><span class="st"> </span><span class="kw">qnorm</span>(<span class="fl">0.975</span>)<span class="op">*</span><span class="kw">sd</span>(interest)<span class="op">/</span><span class="kw">sqrt</span>(<span class="kw">n</span>()),
+            <span class="dt">sd =</span> <span class="kw">sd</span>(interest)
+            )</code></pre>
 <p>Once you’ve done this you can then create the plot. By now you should have a good understand of what each of the layers are doing. Change them to make the plot look how you want.</p>
-<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="vis.html#cb185-1"></a><span class="kw">ggplot</span>(zhang_data, <span class="kw">aes</span>(<span class="dt">x =</span> Condition, <span class="dt">y =</span> interest, <span class="dt">fill =</span> Condition))<span class="op">+</span></span>
-<span id="cb185-2"><a href="vis.html#cb185-2"></a><span class="st">  </span><span class="kw">geom_violin</span>(<span class="dt">alpha =</span> <span class="fl">.6</span>, <span class="dt">trim =</span> <span class="ot">FALSE</span>)<span class="op">+</span></span>
-<span id="cb185-3"><a href="vis.html#cb185-3"></a><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">width =</span> <span class="fl">.2</span>, <span class="dt">alpha =</span> <span class="fl">.7</span>)<span class="op">+</span></span>
-<span id="cb185-4"><a href="vis.html#cb185-4"></a><span class="st">  </span><span class="kw">geom_pointrange</span>(<span class="dt">data =</span> summary_data,</span>
-<span id="cb185-5"><a href="vis.html#cb185-5"></a>                  <span class="kw">aes</span>(Condition, mean, <span class="dt">ymin=</span>min, <span class="dt">ymax=</span>max),</span>
-<span id="cb185-6"><a href="vis.html#cb185-6"></a>                  <span class="dt">shape =</span> <span class="dv">20</span>, </span>
-<span id="cb185-7"><a href="vis.html#cb185-7"></a>                  <span class="dt">position =</span> <span class="kw">position_dodge</span>(<span class="dt">width =</span> <span class="fl">0.9</span>)) <span class="op">+</span></span>
-<span id="cb185-8"><a href="vis.html#cb185-8"></a><span class="st">  </span><span class="kw">scale_fill_viridis_d</span>(<span class="dt">option =</span> <span class="st">&quot;E&quot;</span>, <span class="dt">label =</span> <span class="kw">c</span>(<span class="st">&quot;Ordinary&quot;</span>, <span class="st">&quot;Extraordinary&quot;</span>))<span class="op">+</span></span>
-<span id="cb185-9"><a href="vis.html#cb185-9"></a><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Mean interest rating (1-7)&quot;</span>)</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(zhang_data, <span class="kw">aes</span>(<span class="dt">x =</span> Condition, <span class="dt">y =</span> interest, <span class="dt">fill =</span> Condition))<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_violin</span>(<span class="dt">alpha =</span> <span class="fl">.6</span>, <span class="dt">trim =</span> <span class="ot">FALSE</span>)<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">width =</span> <span class="fl">.2</span>, <span class="dt">alpha =</span> <span class="fl">.7</span>)<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_pointrange</span>(<span class="dt">data =</span> summary_data,
+                  <span class="kw">aes</span>(Condition, mean, <span class="dt">ymin=</span>min, <span class="dt">ymax=</span>max),
+                  <span class="dt">shape =</span> <span class="dv">20</span>, 
+                  <span class="dt">position =</span> <span class="kw">position_dodge</span>(<span class="dt">width =</span> <span class="fl">0.9</span>)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_fill_viridis_d</span>(<span class="dt">option =</span> <span class="st">&quot;E&quot;</span>, <span class="dt">label =</span> <span class="kw">c</span>(<span class="st">&quot;Ordinary&quot;</span>, <span class="st">&quot;Extraordinary&quot;</span>))<span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Mean interest rating (1-7)&quot;</span>)</code></pre>
 <div class="figure" style="text-align: center"><span id="fig:vbp1"></span>
 <img src="07-rm2-3_files/figure-html/vbp1-1.png" alt="Violin-boxplot with summary data" width="100%" />
 <p class="caption">
@@ -893,11 +889,11 @@ Figure 7.21: Violin-boxplot with summary data
 <div id="activity-9-faceting" class="section level3">
 <h3><span class="header-section-number">7.1.9</span> Activity 9: Faceting</h3>
 <p><code>ggplot2</code> contains a facet function that produces different plots for each level of a grouping variable which can be very useful when you have more than two factors, for example, for a three-way ANOVA. The following code displays produces violin-boxplots for Condition ~ interest, but separately for male and female participants.</p>
-<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="vis.html#cb186-1"></a><span class="kw">ggplot</span>(zhang_data, <span class="kw">aes</span>(<span class="dt">x =</span> Condition, <span class="dt">y =</span> interest, <span class="dt">fill =</span> time))<span class="op">+</span></span>
-<span id="cb186-2"><a href="vis.html#cb186-2"></a><span class="st">  </span><span class="kw">geom_violin</span>(<span class="dt">alpha =</span> <span class="fl">.6</span>, <span class="dt">trim =</span> <span class="ot">FALSE</span>)<span class="op">+</span></span>
-<span id="cb186-3"><a href="vis.html#cb186-3"></a><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">width =</span> <span class="fl">.2</span>, <span class="dt">alpha =</span> <span class="fl">.6</span>, <span class="dt">position =</span> <span class="kw">position_dodge</span>(.<span class="dv">9</span>))<span class="op">+</span></span>
-<span id="cb186-4"><a href="vis.html#cb186-4"></a><span class="st">  </span><span class="kw">scale_fill_viridis_d</span>(<span class="dt">option =</span> <span class="st">&quot;E&quot;</span>) <span class="op">+</span></span>
-<span id="cb186-5"><a href="vis.html#cb186-5"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>Gender)</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(zhang_data, <span class="kw">aes</span>(<span class="dt">x =</span> Condition, <span class="dt">y =</span> interest, <span class="dt">fill =</span> time))<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_violin</span>(<span class="dt">alpha =</span> <span class="fl">.6</span>, <span class="dt">trim =</span> <span class="ot">FALSE</span>)<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">width =</span> <span class="fl">.2</span>, <span class="dt">alpha =</span> <span class="fl">.6</span>, <span class="dt">position =</span> <span class="kw">position_dodge</span>(.<span class="dv">9</span>))<span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_fill_viridis_d</span>(<span class="dt">option =</span> <span class="st">&quot;E&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>Gender)</code></pre>
 <div class="figure" style="text-align: center"><span id="fig:facet1"></span>
 <img src="07-rm2-3_files/figure-html/facet1-1.png" alt="Violin-boxplot facetted by gender" width="100%" />
 <p class="caption">
@@ -905,23 +901,23 @@ Figure 7.22: Violin-boxplot facetted by gender
 </p>
 </div>
 <p>If you want to add <code>geom_pointrange()</code> to this then you would need to calculate a new <code>summary_data</code> that also grouped by Gender (because it requires the mean, se, and SD for all four combinations, rather than just two).</p>
-<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="vis.html#cb187-1"></a>summary_data2&lt;-zhang_data<span class="op">%&gt;%</span></span>
-<span id="cb187-2"><a href="vis.html#cb187-2"></a><span class="st">  </span><span class="kw">group_by</span>(Condition, Gender, time)<span class="op">%&gt;%</span><span class="st"> </span><span class="co"># add Gender to group_by()</span></span>
-<span id="cb187-3"><a href="vis.html#cb187-3"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(interest, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</span>
-<span id="cb187-4"><a href="vis.html#cb187-4"></a>            <span class="dt">min =</span> <span class="kw">mean</span>(interest) <span class="op">-</span><span class="st"> </span><span class="kw">qnorm</span>(<span class="fl">0.975</span>)<span class="op">*</span><span class="kw">sd</span>(interest)<span class="op">/</span><span class="kw">sqrt</span>(<span class="kw">n</span>()),</span>
-<span id="cb187-5"><a href="vis.html#cb187-5"></a>            <span class="dt">max =</span> <span class="kw">mean</span>(interest) <span class="op">+</span><span class="st"> </span><span class="kw">qnorm</span>(<span class="fl">0.975</span>)<span class="op">*</span><span class="kw">sd</span>(interest)<span class="op">/</span><span class="kw">sqrt</span>(<span class="kw">n</span>()),</span>
-<span id="cb187-6"><a href="vis.html#cb187-6"></a>            <span class="dt">sd =</span> <span class="kw">sd</span>(interest)</span>
-<span id="cb187-7"><a href="vis.html#cb187-7"></a>            )</span>
-<span id="cb187-8"><a href="vis.html#cb187-8"></a></span>
-<span id="cb187-9"><a href="vis.html#cb187-9"></a><span class="kw">ggplot</span>(zhang_data, <span class="kw">aes</span>(<span class="dt">x =</span> Condition, <span class="dt">y =</span> interest, <span class="dt">fill =</span> time))<span class="op">+</span></span>
-<span id="cb187-10"><a href="vis.html#cb187-10"></a><span class="st">  </span><span class="kw">geom_violin</span>(<span class="dt">alpha =</span> <span class="fl">.6</span>, <span class="dt">trim =</span> <span class="ot">FALSE</span>)<span class="op">+</span></span>
-<span id="cb187-11"><a href="vis.html#cb187-11"></a><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">width =</span> <span class="fl">.2</span>, <span class="dt">alpha =</span> <span class="fl">.6</span>, <span class="dt">position =</span> <span class="kw">position_dodge</span>(.<span class="dv">9</span>))<span class="op">+</span></span>
-<span id="cb187-12"><a href="vis.html#cb187-12"></a><span class="st">  </span><span class="kw">scale_fill_viridis_d</span>(<span class="dt">option =</span> <span class="st">&quot;E&quot;</span>) <span class="op">+</span></span>
-<span id="cb187-13"><a href="vis.html#cb187-13"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>Gender)<span class="op">+</span></span>
-<span id="cb187-14"><a href="vis.html#cb187-14"></a><span class="st">  </span><span class="kw">geom_pointrange</span>(<span class="dt">data =</span> summary_data2,</span>
-<span id="cb187-15"><a href="vis.html#cb187-15"></a>                  <span class="kw">aes</span>(Condition, mean, <span class="dt">ymin=</span>min, <span class="dt">ymax=</span>max),</span>
-<span id="cb187-16"><a href="vis.html#cb187-16"></a>                  <span class="dt">shape =</span> <span class="dv">20</span>, </span>
-<span id="cb187-17"><a href="vis.html#cb187-17"></a>                  <span class="dt">position =</span> <span class="kw">position_dodge</span>(<span class="dt">width =</span> <span class="fl">0.9</span>))</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">summary_data2&lt;-zhang_data<span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(Condition, Gender, time)<span class="op">%&gt;%</span><span class="st"> </span><span class="co"># add Gender to group_by()</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(interest, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+            <span class="dt">min =</span> <span class="kw">mean</span>(interest) <span class="op">-</span><span class="st"> </span><span class="kw">qnorm</span>(<span class="fl">0.975</span>)<span class="op">*</span><span class="kw">sd</span>(interest)<span class="op">/</span><span class="kw">sqrt</span>(<span class="kw">n</span>()),
+            <span class="dt">max =</span> <span class="kw">mean</span>(interest) <span class="op">+</span><span class="st"> </span><span class="kw">qnorm</span>(<span class="fl">0.975</span>)<span class="op">*</span><span class="kw">sd</span>(interest)<span class="op">/</span><span class="kw">sqrt</span>(<span class="kw">n</span>()),
+            <span class="dt">sd =</span> <span class="kw">sd</span>(interest)
+            )
+
+<span class="kw">ggplot</span>(zhang_data, <span class="kw">aes</span>(<span class="dt">x =</span> Condition, <span class="dt">y =</span> interest, <span class="dt">fill =</span> time))<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_violin</span>(<span class="dt">alpha =</span> <span class="fl">.6</span>, <span class="dt">trim =</span> <span class="ot">FALSE</span>)<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">width =</span> <span class="fl">.2</span>, <span class="dt">alpha =</span> <span class="fl">.6</span>, <span class="dt">position =</span> <span class="kw">position_dodge</span>(.<span class="dv">9</span>))<span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_fill_viridis_d</span>(<span class="dt">option =</span> <span class="st">&quot;E&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>Gender)<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_pointrange</span>(<span class="dt">data =</span> summary_data2,
+                  <span class="kw">aes</span>(Condition, mean, <span class="dt">ymin=</span>min, <span class="dt">ymax=</span>max),
+                  <span class="dt">shape =</span> <span class="dv">20</span>, 
+                  <span class="dt">position =</span> <span class="kw">position_dodge</span>(<span class="dt">width =</span> <span class="fl">0.9</span>))</code></pre>
 <div class="figure" style="text-align: center"><span id="fig:sumdat2"></span>
 <img src="07-rm2-3_files/figure-html/sumdat2-1.png" alt="Violin-boxplot facetted by gender with summary data" width="100%" />
 <p class="caption">
@@ -931,15 +927,15 @@ Figure 7.23: Violin-boxplot facetted by gender with summary data
 <div id="facet-labelling" class="section level4">
 <h4><span class="header-section-number">7.1.9.1</span> Facet labelling</h4>
 <p>Finally, changing the labels within the facets is a little more complicated - there’s no additional scale layer, instead, you adjust this inside <code>facet_wrap()</code> using <code>labeller</code>. This has always felt unintuitive to me and I have to look it up every single time so don’t worry if it is confusing - just remember where to look for the example.</p>
-<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="vis.html#cb188-1"></a><span class="kw">ggplot</span>(zhang_data, <span class="kw">aes</span>(<span class="dt">x =</span> Condition, <span class="dt">y =</span> interest, <span class="dt">fill =</span> Condition))<span class="op">+</span></span>
-<span id="cb188-2"><a href="vis.html#cb188-2"></a><span class="st">  </span><span class="kw">geom_violin</span>(<span class="dt">alpha =</span> <span class="fl">.6</span>, <span class="dt">trim =</span> <span class="ot">FALSE</span>)<span class="op">+</span></span>
-<span id="cb188-3"><a href="vis.html#cb188-3"></a><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">width =</span> <span class="fl">.2</span>, <span class="dt">alpha =</span> <span class="fl">.6</span>)<span class="op">+</span></span>
-<span id="cb188-4"><a href="vis.html#cb188-4"></a><span class="st">  </span><span class="kw">scale_fill_viridis_d</span>(<span class="dt">option =</span> <span class="st">&quot;E&quot;</span>) <span class="op">+</span></span>
-<span id="cb188-5"><a href="vis.html#cb188-5"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>Gender, <span class="dt">labeller =</span> <span class="kw">labeller</span>(<span class="dt">Gender =</span> (<span class="kw">c</span>(<span class="dt">female =</span> <span class="st">&quot;Female&quot;</span>, <span class="dt">male =</span> <span class="st">&quot;Male&quot;</span>))))<span class="op">+</span></span>
-<span id="cb188-6"><a href="vis.html#cb188-6"></a><span class="st">  </span><span class="kw">geom_pointrange</span>(<span class="dt">data =</span> summary_data,</span>
-<span id="cb188-7"><a href="vis.html#cb188-7"></a>                  <span class="kw">aes</span>(Condition, mean, <span class="dt">ymin=</span>min, <span class="dt">ymax=</span>max),</span>
-<span id="cb188-8"><a href="vis.html#cb188-8"></a>                  <span class="dt">shape =</span> <span class="dv">20</span>, </span>
-<span id="cb188-9"><a href="vis.html#cb188-9"></a>                  <span class="dt">position =</span> <span class="kw">position_dodge</span>(<span class="dt">width =</span> <span class="fl">0.9</span>))</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(zhang_data, <span class="kw">aes</span>(<span class="dt">x =</span> Condition, <span class="dt">y =</span> interest, <span class="dt">fill =</span> Condition))<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_violin</span>(<span class="dt">alpha =</span> <span class="fl">.6</span>, <span class="dt">trim =</span> <span class="ot">FALSE</span>)<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">width =</span> <span class="fl">.2</span>, <span class="dt">alpha =</span> <span class="fl">.6</span>)<span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_fill_viridis_d</span>(<span class="dt">option =</span> <span class="st">&quot;E&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>Gender, <span class="dt">labeller =</span> <span class="kw">labeller</span>(<span class="dt">Gender =</span> (<span class="kw">c</span>(<span class="dt">female =</span> <span class="st">&quot;Female&quot;</span>, <span class="dt">male =</span> <span class="st">&quot;Male&quot;</span>))))<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_pointrange</span>(<span class="dt">data =</span> summary_data,
+                  <span class="kw">aes</span>(Condition, mean, <span class="dt">ymin=</span>min, <span class="dt">ymax=</span>max),
+                  <span class="dt">shape =</span> <span class="dv">20</span>, 
+                  <span class="dt">position =</span> <span class="kw">position_dodge</span>(<span class="dt">width =</span> <span class="fl">0.9</span>))</code></pre>
 <div class="figure" style="text-align: center"><span id="fig:facet2"></span>
 <img src="07-rm2-3_files/figure-html/facet2-1.png" alt="Facetted plot with updated labels" width="100%" />
 <p class="caption">
@@ -954,68 +950,68 @@ Figure 7.24: Facetted plot with updated labels
 <div id="split-violin-plots" class="section level4">
 <h4><span class="header-section-number">7.1.10.1</span> Split-violin plots</h4>
 <p>Because the functions we need don’t exist in a package we can load, we need to create them. Copy and paste all of the below code without changing anything. You do not need to understand this code. I certainly don’t. When you run this, you should see <code>geom_split_violin</code> appear in the Environment pane under Functions.</p>
-<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="vis.html#cb189-1"></a>GeomSplitViolin &lt;-<span class="st"> </span><span class="kw">ggproto</span>(</span>
-<span id="cb189-2"><a href="vis.html#cb189-2"></a>  <span class="st">&quot;GeomSplitViolin&quot;</span>, </span>
-<span id="cb189-3"><a href="vis.html#cb189-3"></a>  GeomViolin, </span>
-<span id="cb189-4"><a href="vis.html#cb189-4"></a>  <span class="dt">draw_group =</span> <span class="cf">function</span>(self, data, ..., <span class="dt">draw_quantiles =</span> <span class="ot">NULL</span>) {</span>
-<span id="cb189-5"><a href="vis.html#cb189-5"></a>    data &lt;-<span class="st"> </span><span class="kw">transform</span>(data, </span>
-<span id="cb189-6"><a href="vis.html#cb189-6"></a>                      <span class="dt">xminv =</span> x <span class="op">-</span><span class="st"> </span>violinwidth <span class="op">*</span><span class="st"> </span>(x <span class="op">-</span><span class="st"> </span>xmin), </span>
-<span id="cb189-7"><a href="vis.html#cb189-7"></a>                      <span class="dt">xmaxv =</span> x <span class="op">+</span><span class="st"> </span>violinwidth <span class="op">*</span><span class="st"> </span>(xmax <span class="op">-</span><span class="st"> </span>x))</span>
-<span id="cb189-8"><a href="vis.html#cb189-8"></a>    grp &lt;-<span class="st"> </span>data[<span class="dv">1</span>,<span class="st">&#39;group&#39;</span>]</span>
-<span id="cb189-9"><a href="vis.html#cb189-9"></a>    newdata &lt;-<span class="st"> </span>plyr<span class="op">::</span><span class="kw">arrange</span>(</span>
-<span id="cb189-10"><a href="vis.html#cb189-10"></a>      <span class="kw">transform</span>(data, <span class="dt">x =</span> <span class="cf">if</span>(grp<span class="op">%%</span><span class="dv">2</span><span class="op">==</span><span class="dv">1</span>) xminv <span class="cf">else</span> xmaxv), </span>
-<span id="cb189-11"><a href="vis.html#cb189-11"></a>      <span class="cf">if</span>(grp<span class="op">%%</span><span class="dv">2</span><span class="op">==</span><span class="dv">1</span>) y <span class="cf">else</span> <span class="op">-</span>y</span>
-<span id="cb189-12"><a href="vis.html#cb189-12"></a>    )</span>
-<span id="cb189-13"><a href="vis.html#cb189-13"></a>    newdata &lt;-<span class="st"> </span><span class="kw">rbind</span>(newdata[<span class="dv">1</span>, ], newdata, newdata[<span class="kw">nrow</span>(newdata), ], newdata[<span class="dv">1</span>, ])</span>
-<span id="cb189-14"><a href="vis.html#cb189-14"></a>    newdata[<span class="kw">c</span>(<span class="dv">1</span>,<span class="kw">nrow</span>(newdata)<span class="op">-</span><span class="dv">1</span>,<span class="kw">nrow</span>(newdata)), <span class="st">&#39;x&#39;</span>] &lt;-<span class="st"> </span><span class="kw">round</span>(newdata[<span class="dv">1</span>, <span class="st">&#39;x&#39;</span>]) </span>
-<span id="cb189-15"><a href="vis.html#cb189-15"></a>    <span class="cf">if</span> (<span class="kw">length</span>(draw_quantiles) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span> <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span>scales<span class="op">::</span><span class="kw">zero_range</span>(<span class="kw">range</span>(data<span class="op">$</span>y))) {</span>
-<span id="cb189-16"><a href="vis.html#cb189-16"></a>      <span class="kw">stopifnot</span>(<span class="kw">all</span>(draw_quantiles <span class="op">&gt;=</span><span class="st"> </span><span class="dv">0</span>), <span class="kw">all</span>(draw_quantiles <span class="op">&lt;=</span><span class="st"> </span><span class="dv">1</span>))</span>
-<span id="cb189-17"><a href="vis.html#cb189-17"></a>      quantiles &lt;-<span class="st"> </span>ggplot2<span class="op">:::</span><span class="kw">create_quantile_segment_frame</span>(data, draw_quantiles)</span>
-<span id="cb189-18"><a href="vis.html#cb189-18"></a>      aesthetics &lt;-<span class="st"> </span>data[<span class="kw">rep</span>(<span class="dv">1</span>, <span class="kw">nrow</span>(quantiles)), <span class="kw">setdiff</span>(<span class="kw">names</span>(data), <span class="kw">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>)), drop =<span class="st"> </span><span class="ot">FALSE</span>]</span>
-<span id="cb189-19"><a href="vis.html#cb189-19"></a>      aesthetics<span class="op">$</span>alpha &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span>, <span class="kw">nrow</span>(quantiles))</span>
-<span id="cb189-20"><a href="vis.html#cb189-20"></a>      both &lt;-<span class="st"> </span><span class="kw">cbind</span>(quantiles, aesthetics)</span>
-<span id="cb189-21"><a href="vis.html#cb189-21"></a>      quantile_grob &lt;-<span class="st"> </span>GeomPath<span class="op">$</span><span class="kw">draw_panel</span>(both, ...)</span>
-<span id="cb189-22"><a href="vis.html#cb189-22"></a>      ggplot2<span class="op">:::</span><span class="kw">ggname</span>(<span class="st">&quot;geom_split_violin&quot;</span>, </span>
-<span id="cb189-23"><a href="vis.html#cb189-23"></a>                       grid<span class="op">::</span><span class="kw">grobTree</span>(GeomPolygon<span class="op">$</span><span class="kw">draw_panel</span>(newdata, ...), quantile_grob))</span>
-<span id="cb189-24"><a href="vis.html#cb189-24"></a>    } <span class="cf">else</span> {</span>
-<span id="cb189-25"><a href="vis.html#cb189-25"></a>      ggplot2<span class="op">:::</span><span class="kw">ggname</span>(<span class="st">&quot;geom_split_violin&quot;</span>, GeomPolygon<span class="op">$</span><span class="kw">draw_panel</span>(newdata, ...))</span>
-<span id="cb189-26"><a href="vis.html#cb189-26"></a>    }</span>
-<span id="cb189-27"><a href="vis.html#cb189-27"></a>  }</span>
-<span id="cb189-28"><a href="vis.html#cb189-28"></a>)</span>
-<span id="cb189-29"><a href="vis.html#cb189-29"></a></span>
-<span id="cb189-30"><a href="vis.html#cb189-30"></a>geom_split_violin &lt;-<span class="st"> </span><span class="cf">function</span> (<span class="dt">mapping =</span> <span class="ot">NULL</span>, </span>
-<span id="cb189-31"><a href="vis.html#cb189-31"></a>                               <span class="dt">data =</span> <span class="ot">NULL</span>, </span>
-<span id="cb189-32"><a href="vis.html#cb189-32"></a>                               <span class="dt">stat =</span> <span class="st">&quot;ydensity&quot;</span>, </span>
-<span id="cb189-33"><a href="vis.html#cb189-33"></a>                               <span class="dt">position =</span> <span class="st">&quot;identity&quot;</span>, ..., </span>
-<span id="cb189-34"><a href="vis.html#cb189-34"></a>                               <span class="dt">draw_quantiles =</span> <span class="ot">NULL</span>, </span>
-<span id="cb189-35"><a href="vis.html#cb189-35"></a>                               <span class="dt">trim =</span> <span class="ot">TRUE</span>, </span>
-<span id="cb189-36"><a href="vis.html#cb189-36"></a>                               <span class="dt">scale =</span> <span class="st">&quot;area&quot;</span>, </span>
-<span id="cb189-37"><a href="vis.html#cb189-37"></a>                               <span class="dt">na.rm =</span> <span class="ot">FALSE</span>, </span>
-<span id="cb189-38"><a href="vis.html#cb189-38"></a>                               <span class="dt">show.legend =</span> <span class="ot">NA</span>, </span>
-<span id="cb189-39"><a href="vis.html#cb189-39"></a>                               <span class="dt">inherit.aes =</span> <span class="ot">TRUE</span>) {</span>
-<span id="cb189-40"><a href="vis.html#cb189-40"></a>  <span class="kw">layer</span>(<span class="dt">data =</span> data, </span>
-<span id="cb189-41"><a href="vis.html#cb189-41"></a>        <span class="dt">mapping =</span> mapping, </span>
-<span id="cb189-42"><a href="vis.html#cb189-42"></a>        <span class="dt">stat =</span> stat, </span>
-<span id="cb189-43"><a href="vis.html#cb189-43"></a>        <span class="dt">geom =</span> GeomSplitViolin, </span>
-<span id="cb189-44"><a href="vis.html#cb189-44"></a>        <span class="dt">position =</span> position, </span>
-<span id="cb189-45"><a href="vis.html#cb189-45"></a>        <span class="dt">show.legend =</span> show.legend, </span>
-<span id="cb189-46"><a href="vis.html#cb189-46"></a>        <span class="dt">inherit.aes =</span> inherit.aes, </span>
-<span id="cb189-47"><a href="vis.html#cb189-47"></a>        <span class="dt">params =</span> <span class="kw">list</span>(<span class="dt">trim =</span> trim, </span>
-<span id="cb189-48"><a href="vis.html#cb189-48"></a>                      <span class="dt">scale =</span> scale, </span>
-<span id="cb189-49"><a href="vis.html#cb189-49"></a>                      <span class="dt">draw_quantiles =</span> draw_quantiles, </span>
-<span id="cb189-50"><a href="vis.html#cb189-50"></a>                      <span class="dt">na.rm =</span> na.rm, ...)</span>
-<span id="cb189-51"><a href="vis.html#cb189-51"></a>  )</span>
-<span id="cb189-52"><a href="vis.html#cb189-52"></a>}</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">GeomSplitViolin &lt;-<span class="st"> </span><span class="kw">ggproto</span>(
+  <span class="st">&quot;GeomSplitViolin&quot;</span>, 
+  GeomViolin, 
+  <span class="dt">draw_group =</span> <span class="cf">function</span>(self, data, ..., <span class="dt">draw_quantiles =</span> <span class="ot">NULL</span>) {
+    data &lt;-<span class="st"> </span><span class="kw">transform</span>(data, 
+                      <span class="dt">xminv =</span> x <span class="op">-</span><span class="st"> </span>violinwidth <span class="op">*</span><span class="st"> </span>(x <span class="op">-</span><span class="st"> </span>xmin), 
+                      <span class="dt">xmaxv =</span> x <span class="op">+</span><span class="st"> </span>violinwidth <span class="op">*</span><span class="st"> </span>(xmax <span class="op">-</span><span class="st"> </span>x))
+    grp &lt;-<span class="st"> </span>data[<span class="dv">1</span>,<span class="st">&#39;group&#39;</span>]
+    newdata &lt;-<span class="st"> </span>plyr<span class="op">::</span><span class="kw">arrange</span>(
+      <span class="kw">transform</span>(data, <span class="dt">x =</span> <span class="cf">if</span>(grp<span class="op">%%</span><span class="dv">2</span><span class="op">==</span><span class="dv">1</span>) xminv <span class="cf">else</span> xmaxv), 
+      <span class="cf">if</span>(grp<span class="op">%%</span><span class="dv">2</span><span class="op">==</span><span class="dv">1</span>) y <span class="cf">else</span> <span class="op">-</span>y
+    )
+    newdata &lt;-<span class="st"> </span><span class="kw">rbind</span>(newdata[<span class="dv">1</span>, ], newdata, newdata[<span class="kw">nrow</span>(newdata), ], newdata[<span class="dv">1</span>, ])
+    newdata[<span class="kw">c</span>(<span class="dv">1</span>,<span class="kw">nrow</span>(newdata)<span class="op">-</span><span class="dv">1</span>,<span class="kw">nrow</span>(newdata)), <span class="st">&#39;x&#39;</span>] &lt;-<span class="st"> </span><span class="kw">round</span>(newdata[<span class="dv">1</span>, <span class="st">&#39;x&#39;</span>]) 
+    <span class="cf">if</span> (<span class="kw">length</span>(draw_quantiles) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span> <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span>scales<span class="op">::</span><span class="kw">zero_range</span>(<span class="kw">range</span>(data<span class="op">$</span>y))) {
+      <span class="kw">stopifnot</span>(<span class="kw">all</span>(draw_quantiles <span class="op">&gt;=</span><span class="st"> </span><span class="dv">0</span>), <span class="kw">all</span>(draw_quantiles <span class="op">&lt;=</span><span class="st"> </span><span class="dv">1</span>))
+      quantiles &lt;-<span class="st"> </span>ggplot2<span class="op">:::</span><span class="kw">create_quantile_segment_frame</span>(data, draw_quantiles)
+      aesthetics &lt;-<span class="st"> </span>data[<span class="kw">rep</span>(<span class="dv">1</span>, <span class="kw">nrow</span>(quantiles)), <span class="kw">setdiff</span>(<span class="kw">names</span>(data), <span class="kw">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>)), drop =<span class="st"> </span><span class="ot">FALSE</span>]
+      aesthetics<span class="op">$</span>alpha &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span>, <span class="kw">nrow</span>(quantiles))
+      both &lt;-<span class="st"> </span><span class="kw">cbind</span>(quantiles, aesthetics)
+      quantile_grob &lt;-<span class="st"> </span>GeomPath<span class="op">$</span><span class="kw">draw_panel</span>(both, ...)
+      ggplot2<span class="op">:::</span><span class="kw">ggname</span>(<span class="st">&quot;geom_split_violin&quot;</span>, 
+                       grid<span class="op">::</span><span class="kw">grobTree</span>(GeomPolygon<span class="op">$</span><span class="kw">draw_panel</span>(newdata, ...), quantile_grob))
+    } <span class="cf">else</span> {
+      ggplot2<span class="op">:::</span><span class="kw">ggname</span>(<span class="st">&quot;geom_split_violin&quot;</span>, GeomPolygon<span class="op">$</span><span class="kw">draw_panel</span>(newdata, ...))
+    }
+  }
+)
+
+geom_split_violin &lt;-<span class="st"> </span><span class="cf">function</span> (<span class="dt">mapping =</span> <span class="ot">NULL</span>, 
+                               <span class="dt">data =</span> <span class="ot">NULL</span>, 
+                               <span class="dt">stat =</span> <span class="st">&quot;ydensity&quot;</span>, 
+                               <span class="dt">position =</span> <span class="st">&quot;identity&quot;</span>, ..., 
+                               <span class="dt">draw_quantiles =</span> <span class="ot">NULL</span>, 
+                               <span class="dt">trim =</span> <span class="ot">TRUE</span>, 
+                               <span class="dt">scale =</span> <span class="st">&quot;area&quot;</span>, 
+                               <span class="dt">na.rm =</span> <span class="ot">FALSE</span>, 
+                               <span class="dt">show.legend =</span> <span class="ot">NA</span>, 
+                               <span class="dt">inherit.aes =</span> <span class="ot">TRUE</span>) {
+  <span class="kw">layer</span>(<span class="dt">data =</span> data, 
+        <span class="dt">mapping =</span> mapping, 
+        <span class="dt">stat =</span> stat, 
+        <span class="dt">geom =</span> GeomSplitViolin, 
+        <span class="dt">position =</span> position, 
+        <span class="dt">show.legend =</span> show.legend, 
+        <span class="dt">inherit.aes =</span> inherit.aes, 
+        <span class="dt">params =</span> <span class="kw">list</span>(<span class="dt">trim =</span> trim, 
+                      <span class="dt">scale =</span> scale, 
+                      <span class="dt">draw_quantiles =</span> draw_quantiles, 
+                      <span class="dt">na.rm =</span> na.rm, ...)
+  )
+}</code></pre>
 <p>The split-violin is a version of the violin-boxplot that is good for visualising interactions. If you look at the faceted graph we made, there’s actually quite a lot of unnecessary space used up because we only need half of the violin to see the distribution - the other half is just repeating the same information.</p>
-<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="vis.html#cb190-1"></a><span class="kw">ggplot</span>(zhang_data, <span class="kw">aes</span>(<span class="dt">x =</span> Condition, <span class="dt">y =</span> interest, <span class="dt">fill =</span> Gender))<span class="op">+</span></span>
-<span id="cb190-2"><a href="vis.html#cb190-2"></a><span class="st">  </span><span class="kw">geom_split_violin</span>(<span class="dt">trim =</span> <span class="ot">FALSE</span>, <span class="dt">alpha =</span> <span class="fl">.5</span>)<span class="op">+</span></span>
-<span id="cb190-3"><a href="vis.html#cb190-3"></a><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">width =</span> <span class="fl">.2</span>, <span class="dt">position =</span> <span class="kw">position_dodge</span>(.<span class="dv">25</span>))<span class="op">+</span></span>
-<span id="cb190-4"><a href="vis.html#cb190-4"></a><span class="st">  </span><span class="kw">scale_fill_viridis_d</span>(<span class="dt">option =</span> <span class="st">&quot;E&quot;</span>) <span class="op">+</span></span>
-<span id="cb190-5"><a href="vis.html#cb190-5"></a><span class="st">  </span><span class="kw">geom_pointrange</span>(<span class="dt">data =</span> summary_data2,</span>
-<span id="cb190-6"><a href="vis.html#cb190-6"></a>                  <span class="kw">aes</span>(Condition, mean, <span class="dt">ymin=</span>min, <span class="dt">ymax=</span>max),</span>
-<span id="cb190-7"><a href="vis.html#cb190-7"></a>                  <span class="dt">shape =</span> <span class="dv">20</span>, </span>
-<span id="cb190-8"><a href="vis.html#cb190-8"></a>                  <span class="dt">position =</span> <span class="kw">position_dodge</span>(<span class="dt">width =</span> <span class="fl">0.25</span>),</span>
-<span id="cb190-9"><a href="vis.html#cb190-9"></a>                  <span class="dt">colour =</span> <span class="st">&quot;white&quot;</span>)</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(zhang_data, <span class="kw">aes</span>(<span class="dt">x =</span> Condition, <span class="dt">y =</span> interest, <span class="dt">fill =</span> Gender))<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_split_violin</span>(<span class="dt">trim =</span> <span class="ot">FALSE</span>, <span class="dt">alpha =</span> <span class="fl">.5</span>)<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">width =</span> <span class="fl">.2</span>, <span class="dt">position =</span> <span class="kw">position_dodge</span>(.<span class="dv">25</span>))<span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_fill_viridis_d</span>(<span class="dt">option =</span> <span class="st">&quot;E&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_pointrange</span>(<span class="dt">data =</span> summary_data2,
+                  <span class="kw">aes</span>(Condition, mean, <span class="dt">ymin=</span>min, <span class="dt">ymax=</span>max),
+                  <span class="dt">shape =</span> <span class="dv">20</span>, 
+                  <span class="dt">position =</span> <span class="kw">position_dodge</span>(<span class="dt">width =</span> <span class="fl">0.25</span>),
+                  <span class="dt">colour =</span> <span class="st">&quot;white&quot;</span>)</code></pre>
 <div class="figure" style="text-align: center"><span id="fig:sv1"></span>
 <img src="07-rm2-3_files/figure-html/sv1-1.png" alt="Split-violin plot" width="100%" />
 <p class="caption">
@@ -1026,83 +1022,83 @@ Figure 7.25: Split-violin plot
 <div id="raincloud-plots" class="section level4">
 <h4><span class="header-section-number">7.1.10.2</span> Raincloud plots</h4>
 <p>The second custom function is <code>geom_flat_violin</code>. Copy and paste all of this code and again you should see it appear in your Environment pane.</p>
-<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="vis.html#cb191-1"></a><span class="st">&quot;%||%&quot;</span> &lt;-<span class="st"> </span><span class="cf">function</span>(a, b) {</span>
-<span id="cb191-2"><a href="vis.html#cb191-2"></a>  <span class="cf">if</span> (<span class="op">!</span><span class="kw">is.null</span>(a)) a <span class="cf">else</span> b</span>
-<span id="cb191-3"><a href="vis.html#cb191-3"></a>}</span>
-<span id="cb191-4"><a href="vis.html#cb191-4"></a></span>
-<span id="cb191-5"><a href="vis.html#cb191-5"></a>geom_flat_violin &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">mapping =</span> <span class="ot">NULL</span>, <span class="dt">data =</span> <span class="ot">NULL</span>, <span class="dt">stat =</span> <span class="st">&quot;ydensity&quot;</span>,</span>
-<span id="cb191-6"><a href="vis.html#cb191-6"></a>                             <span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>, <span class="dt">trim =</span> <span class="ot">TRUE</span>, <span class="dt">scale =</span> <span class="st">&quot;area&quot;</span>,</span>
-<span id="cb191-7"><a href="vis.html#cb191-7"></a>                             <span class="dt">show.legend =</span> <span class="ot">NA</span>, <span class="dt">inherit.aes =</span> <span class="ot">TRUE</span>, ...) {</span>
-<span id="cb191-8"><a href="vis.html#cb191-8"></a>  <span class="kw">layer</span>(</span>
-<span id="cb191-9"><a href="vis.html#cb191-9"></a>    <span class="dt">data =</span> data,</span>
-<span id="cb191-10"><a href="vis.html#cb191-10"></a>    <span class="dt">mapping =</span> mapping,</span>
-<span id="cb191-11"><a href="vis.html#cb191-11"></a>    <span class="dt">stat =</span> stat,</span>
-<span id="cb191-12"><a href="vis.html#cb191-12"></a>    <span class="dt">geom =</span> GeomFlatViolin,</span>
-<span id="cb191-13"><a href="vis.html#cb191-13"></a>    <span class="dt">position =</span> position,</span>
-<span id="cb191-14"><a href="vis.html#cb191-14"></a>    <span class="dt">show.legend =</span> show.legend,</span>
-<span id="cb191-15"><a href="vis.html#cb191-15"></a>    <span class="dt">inherit.aes =</span> inherit.aes,</span>
-<span id="cb191-16"><a href="vis.html#cb191-16"></a>    <span class="dt">params =</span> <span class="kw">list</span>(</span>
-<span id="cb191-17"><a href="vis.html#cb191-17"></a>      <span class="dt">trim =</span> trim,</span>
-<span id="cb191-18"><a href="vis.html#cb191-18"></a>      <span class="dt">scale =</span> scale,</span>
-<span id="cb191-19"><a href="vis.html#cb191-19"></a>      ...</span>
-<span id="cb191-20"><a href="vis.html#cb191-20"></a>    )</span>
-<span id="cb191-21"><a href="vis.html#cb191-21"></a>  )</span>
-<span id="cb191-22"><a href="vis.html#cb191-22"></a>}</span>
-<span id="cb191-23"><a href="vis.html#cb191-23"></a></span>
-<span id="cb191-24"><a href="vis.html#cb191-24"></a>GeomFlatViolin &lt;-</span>
-<span id="cb191-25"><a href="vis.html#cb191-25"></a><span class="st">  </span><span class="kw">ggproto</span>(<span class="st">&quot;Violinist&quot;</span>, Geom,</span>
-<span id="cb191-26"><a href="vis.html#cb191-26"></a>          <span class="dt">setup_data =</span> <span class="cf">function</span>(data, params) {</span>
-<span id="cb191-27"><a href="vis.html#cb191-27"></a>            data<span class="op">$</span>width &lt;-<span class="st"> </span>data<span class="op">$</span>width <span class="op">%||%</span></span>
-<span id="cb191-28"><a href="vis.html#cb191-28"></a><span class="st">              </span>params<span class="op">$</span>width <span class="op">%||%</span><span class="st"> </span>(<span class="kw">resolution</span>(data<span class="op">$</span>x, <span class="ot">FALSE</span>) <span class="op">*</span><span class="st"> </span><span class="fl">0.9</span>)</span>
-<span id="cb191-29"><a href="vis.html#cb191-29"></a>            </span>
-<span id="cb191-30"><a href="vis.html#cb191-30"></a>            <span class="co"># ymin, ymax, xmin, and xmax define the bounding rectangle for each group</span></span>
-<span id="cb191-31"><a href="vis.html#cb191-31"></a>            data <span class="op">%&gt;%</span></span>
-<span id="cb191-32"><a href="vis.html#cb191-32"></a><span class="st">              </span><span class="kw">group_by</span>(group) <span class="op">%&gt;%</span></span>
-<span id="cb191-33"><a href="vis.html#cb191-33"></a><span class="st">              </span><span class="kw">mutate</span>(<span class="dt">ymin =</span> <span class="kw">min</span>(y),</span>
-<span id="cb191-34"><a href="vis.html#cb191-34"></a>                     <span class="dt">ymax =</span> <span class="kw">max</span>(y),</span>
-<span id="cb191-35"><a href="vis.html#cb191-35"></a>                     <span class="dt">xmin =</span> x,</span>
-<span id="cb191-36"><a href="vis.html#cb191-36"></a>                     <span class="dt">xmax =</span> x <span class="op">+</span><span class="st"> </span>width <span class="op">/</span><span class="st"> </span><span class="dv">2</span>)</span>
-<span id="cb191-37"><a href="vis.html#cb191-37"></a>            </span>
-<span id="cb191-38"><a href="vis.html#cb191-38"></a>          },</span>
-<span id="cb191-39"><a href="vis.html#cb191-39"></a>          </span>
-<span id="cb191-40"><a href="vis.html#cb191-40"></a>          <span class="dt">draw_group =</span> <span class="cf">function</span>(data, panel_scales, coord) {</span>
-<span id="cb191-41"><a href="vis.html#cb191-41"></a>            <span class="co"># Find the points for the line to go all the way around</span></span>
-<span id="cb191-42"><a href="vis.html#cb191-42"></a>            data &lt;-<span class="st"> </span><span class="kw">transform</span>(data, <span class="dt">xminv =</span> x,</span>
-<span id="cb191-43"><a href="vis.html#cb191-43"></a>                              <span class="dt">xmaxv =</span> x <span class="op">+</span><span class="st"> </span>violinwidth <span class="op">*</span><span class="st"> </span>(xmax <span class="op">-</span><span class="st"> </span>x))</span>
-<span id="cb191-44"><a href="vis.html#cb191-44"></a>            </span>
-<span id="cb191-45"><a href="vis.html#cb191-45"></a>            <span class="co"># Make sure it&#39;s sorted properly to draw the outline</span></span>
-<span id="cb191-46"><a href="vis.html#cb191-46"></a>            newdata &lt;-<span class="st"> </span><span class="kw">rbind</span>(plyr<span class="op">::</span><span class="kw">arrange</span>(<span class="kw">transform</span>(data, <span class="dt">x =</span> xminv), y),</span>
-<span id="cb191-47"><a href="vis.html#cb191-47"></a>                             plyr<span class="op">::</span><span class="kw">arrange</span>(<span class="kw">transform</span>(data, <span class="dt">x =</span> xmaxv), <span class="op">-</span>y))</span>
-<span id="cb191-48"><a href="vis.html#cb191-48"></a>            </span>
-<span id="cb191-49"><a href="vis.html#cb191-49"></a>            <span class="co"># Close the polygon: set first and last point the same</span></span>
-<span id="cb191-50"><a href="vis.html#cb191-50"></a>            <span class="co"># Needed for coord_polar and such</span></span>
-<span id="cb191-51"><a href="vis.html#cb191-51"></a>            newdata &lt;-<span class="st"> </span><span class="kw">rbind</span>(newdata, newdata[<span class="dv">1</span>,])</span>
-<span id="cb191-52"><a href="vis.html#cb191-52"></a>            </span>
-<span id="cb191-53"><a href="vis.html#cb191-53"></a>            ggplot2<span class="op">:::</span><span class="kw">ggname</span>(<span class="st">&quot;geom_flat_violin&quot;</span>, GeomPolygon<span class="op">$</span><span class="kw">draw_panel</span>(newdata, panel_scales, coord))</span>
-<span id="cb191-54"><a href="vis.html#cb191-54"></a>          },</span>
-<span id="cb191-55"><a href="vis.html#cb191-55"></a>          </span>
-<span id="cb191-56"><a href="vis.html#cb191-56"></a>          <span class="dt">draw_key =</span> draw_key_polygon,</span>
-<span id="cb191-57"><a href="vis.html#cb191-57"></a>          </span>
-<span id="cb191-58"><a href="vis.html#cb191-58"></a>          <span class="dt">default_aes =</span> <span class="kw">aes</span>(<span class="dt">weight =</span> <span class="dv">1</span>, <span class="dt">colour =</span> <span class="st">&quot;grey20&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">size =</span> <span class="fl">0.5</span>,</span>
-<span id="cb191-59"><a href="vis.html#cb191-59"></a>                            <span class="dt">alpha =</span> <span class="ot">NA</span>, <span class="dt">linetype =</span> <span class="st">&quot;solid&quot;</span>),</span>
-<span id="cb191-60"><a href="vis.html#cb191-60"></a>          </span>
-<span id="cb191-61"><a href="vis.html#cb191-61"></a>          <span class="dt">required_aes =</span> <span class="kw">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>)</span>
-<span id="cb191-62"><a href="vis.html#cb191-62"></a>  )</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="st">&quot;%||%&quot;</span> &lt;-<span class="st"> </span><span class="cf">function</span>(a, b) {
+  <span class="cf">if</span> (<span class="op">!</span><span class="kw">is.null</span>(a)) a <span class="cf">else</span> b
+}
+
+geom_flat_violin &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">mapping =</span> <span class="ot">NULL</span>, <span class="dt">data =</span> <span class="ot">NULL</span>, <span class="dt">stat =</span> <span class="st">&quot;ydensity&quot;</span>,
+                             <span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>, <span class="dt">trim =</span> <span class="ot">TRUE</span>, <span class="dt">scale =</span> <span class="st">&quot;area&quot;</span>,
+                             <span class="dt">show.legend =</span> <span class="ot">NA</span>, <span class="dt">inherit.aes =</span> <span class="ot">TRUE</span>, ...) {
+  <span class="kw">layer</span>(
+    <span class="dt">data =</span> data,
+    <span class="dt">mapping =</span> mapping,
+    <span class="dt">stat =</span> stat,
+    <span class="dt">geom =</span> GeomFlatViolin,
+    <span class="dt">position =</span> position,
+    <span class="dt">show.legend =</span> show.legend,
+    <span class="dt">inherit.aes =</span> inherit.aes,
+    <span class="dt">params =</span> <span class="kw">list</span>(
+      <span class="dt">trim =</span> trim,
+      <span class="dt">scale =</span> scale,
+      ...
+    )
+  )
+}
+
+GeomFlatViolin &lt;-
+<span class="st">  </span><span class="kw">ggproto</span>(<span class="st">&quot;Violinist&quot;</span>, Geom,
+          <span class="dt">setup_data =</span> <span class="cf">function</span>(data, params) {
+            data<span class="op">$</span>width &lt;-<span class="st"> </span>data<span class="op">$</span>width <span class="op">%||%</span>
+<span class="st">              </span>params<span class="op">$</span>width <span class="op">%||%</span><span class="st"> </span>(<span class="kw">resolution</span>(data<span class="op">$</span>x, <span class="ot">FALSE</span>) <span class="op">*</span><span class="st"> </span><span class="fl">0.9</span>)
+            
+            <span class="co"># ymin, ymax, xmin, and xmax define the bounding rectangle for each group</span>
+            data <span class="op">%&gt;%</span>
+<span class="st">              </span><span class="kw">group_by</span>(group) <span class="op">%&gt;%</span>
+<span class="st">              </span><span class="kw">mutate</span>(<span class="dt">ymin =</span> <span class="kw">min</span>(y),
+                     <span class="dt">ymax =</span> <span class="kw">max</span>(y),
+                     <span class="dt">xmin =</span> x,
+                     <span class="dt">xmax =</span> x <span class="op">+</span><span class="st"> </span>width <span class="op">/</span><span class="st"> </span><span class="dv">2</span>)
+            
+          },
+          
+          <span class="dt">draw_group =</span> <span class="cf">function</span>(data, panel_scales, coord) {
+            <span class="co"># Find the points for the line to go all the way around</span>
+            data &lt;-<span class="st"> </span><span class="kw">transform</span>(data, <span class="dt">xminv =</span> x,
+                              <span class="dt">xmaxv =</span> x <span class="op">+</span><span class="st"> </span>violinwidth <span class="op">*</span><span class="st"> </span>(xmax <span class="op">-</span><span class="st"> </span>x))
+            
+            <span class="co"># Make sure it&#39;s sorted properly to draw the outline</span>
+            newdata &lt;-<span class="st"> </span><span class="kw">rbind</span>(plyr<span class="op">::</span><span class="kw">arrange</span>(<span class="kw">transform</span>(data, <span class="dt">x =</span> xminv), y),
+                             plyr<span class="op">::</span><span class="kw">arrange</span>(<span class="kw">transform</span>(data, <span class="dt">x =</span> xmaxv), <span class="op">-</span>y))
+            
+            <span class="co"># Close the polygon: set first and last point the same</span>
+            <span class="co"># Needed for coord_polar and such</span>
+            newdata &lt;-<span class="st"> </span><span class="kw">rbind</span>(newdata, newdata[<span class="dv">1</span>,])
+            
+            ggplot2<span class="op">:::</span><span class="kw">ggname</span>(<span class="st">&quot;geom_flat_violin&quot;</span>, GeomPolygon<span class="op">$</span><span class="kw">draw_panel</span>(newdata, panel_scales, coord))
+          },
+          
+          <span class="dt">draw_key =</span> draw_key_polygon,
+          
+          <span class="dt">default_aes =</span> <span class="kw">aes</span>(<span class="dt">weight =</span> <span class="dv">1</span>, <span class="dt">colour =</span> <span class="st">&quot;grey20&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">size =</span> <span class="fl">0.5</span>,
+                            <span class="dt">alpha =</span> <span class="ot">NA</span>, <span class="dt">linetype =</span> <span class="st">&quot;solid&quot;</span>),
+          
+          <span class="dt">required_aes =</span> <span class="kw">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>)
+  )</code></pre>
 <p>This plot is similar to the split-violin, but it adds in the raw data points and looks a bit like a raincloud as a result.</p>
 <p>First, we will run the plot for just one variable, Condition, so we’ll use summary_data. Again, try changing the arguments to see how you can control different aspects of the plot, in particular, try removing <code>coord_flip()</code> to see what happens.</p>
-<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="vis.html#cb192-1"></a><span class="kw">ggplot</span>(zhang_data, <span class="kw">aes</span>(<span class="dt">x =</span> Condition, <span class="dt">y =</span> interest))<span class="op">+</span></span>
-<span id="cb192-2"><a href="vis.html#cb192-2"></a><span class="st">  </span><span class="kw">geom_flat_violin</span>(<span class="dt">position =</span> <span class="kw">position_nudge</span>(<span class="dt">x =</span> <span class="fl">.25</span>, <span class="dt">y =</span> <span class="dv">0</span>), </span>
-<span id="cb192-3"><a href="vis.html#cb192-3"></a>                   <span class="dt">trim=</span><span class="ot">FALSE</span>, <span class="dt">alpha =</span> <span class="fl">0.75</span>) <span class="op">+</span></span>
-<span id="cb192-4"><a href="vis.html#cb192-4"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Condition), </span>
-<span id="cb192-5"><a href="vis.html#cb192-5"></a>             <span class="dt">position =</span> <span class="kw">position_jitter</span>(<span class="dt">width =</span> <span class="fl">.2</span>, <span class="dt">height =</span> <span class="fl">0.05</span>), </span>
-<span id="cb192-6"><a href="vis.html#cb192-6"></a>             <span class="dt">size =</span> <span class="fl">.5</span>, <span class="dt">alpha =</span> <span class="fl">.75</span>, <span class="dt">show.legend =</span> <span class="ot">FALSE</span>)<span class="op">+</span></span>
-<span id="cb192-7"><a href="vis.html#cb192-7"></a><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">width =</span> <span class="fl">.1</span>, <span class="dt">outlier.shape =</span> <span class="ot">NA</span>, <span class="dt">alpha =</span> <span class="fl">0.5</span>)<span class="op">+</span></span>
-<span id="cb192-8"><a href="vis.html#cb192-8"></a><span class="st">  </span><span class="kw">coord_flip</span>()<span class="op">+</span></span>
-<span id="cb192-9"><a href="vis.html#cb192-9"></a><span class="st">  </span><span class="kw">geom_pointrange</span>(</span>
-<span id="cb192-10"><a href="vis.html#cb192-10"></a>    <span class="dt">data =</span> summary_data,</span>
-<span id="cb192-11"><a href="vis.html#cb192-11"></a>    <span class="kw">aes</span>(Condition, mean, <span class="dt">ymin=</span>min, <span class="dt">ymax=</span>max),</span>
-<span id="cb192-12"><a href="vis.html#cb192-12"></a>    <span class="dt">shape =</span> <span class="dv">20</span>, </span>
-<span id="cb192-13"><a href="vis.html#cb192-13"></a>    <span class="dt">position =</span> <span class="kw">position_dodge</span>(<span class="dt">width =</span> <span class="fl">0.9</span>))</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(zhang_data, <span class="kw">aes</span>(<span class="dt">x =</span> Condition, <span class="dt">y =</span> interest))<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_flat_violin</span>(<span class="dt">position =</span> <span class="kw">position_nudge</span>(<span class="dt">x =</span> <span class="fl">.25</span>, <span class="dt">y =</span> <span class="dv">0</span>), 
+                   <span class="dt">trim=</span><span class="ot">FALSE</span>, <span class="dt">alpha =</span> <span class="fl">0.75</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Condition), 
+             <span class="dt">position =</span> <span class="kw">position_jitter</span>(<span class="dt">width =</span> <span class="fl">.2</span>, <span class="dt">height =</span> <span class="fl">0.05</span>), 
+             <span class="dt">size =</span> <span class="fl">.5</span>, <span class="dt">alpha =</span> <span class="fl">.75</span>, <span class="dt">show.legend =</span> <span class="ot">FALSE</span>)<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">width =</span> <span class="fl">.1</span>, <span class="dt">outlier.shape =</span> <span class="ot">NA</span>, <span class="dt">alpha =</span> <span class="fl">0.5</span>)<span class="op">+</span>
+<span class="st">  </span><span class="kw">coord_flip</span>()<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_pointrange</span>(
+    <span class="dt">data =</span> summary_data,
+    <span class="kw">aes</span>(Condition, mean, <span class="dt">ymin=</span>min, <span class="dt">ymax=</span>max),
+    <span class="dt">shape =</span> <span class="dv">20</span>, 
+    <span class="dt">position =</span> <span class="kw">position_dodge</span>(<span class="dt">width =</span> <span class="fl">0.9</span>))</code></pre>
 <div class="figure" style="text-align: center"><span id="fig:rc1"></span>
 <img src="07-rm2-3_files/figure-html/rc1-1.png" alt="Raincloud plot for one factor" width="100%" />
 <p class="caption">
@@ -1113,19 +1109,19 @@ Figure 7.26: Raincloud plot for one factor
 <div id="raincloud-plots-with-multiple-factors" class="section level4">
 <h4><span class="header-section-number">7.1.10.3</span> Raincloud plots with multiple factors</h4>
 <p>Now we can run the code for a 2 x 2 plot, adding in Gender to <code>fill</code> argument and changing to <code>summary_data2</code>. This is quite a complicated plot, do not worry if you are struggling to understand the code but remember, you just need to understand which bits to change.</p>
-<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="vis.html#cb193-1"></a><span class="kw">ggplot</span>(zhang_data, <span class="kw">aes</span>(<span class="dt">x =</span> Condition, <span class="dt">y =</span> interest, <span class="dt">fill =</span> Gender))<span class="op">+</span></span>
-<span id="cb193-2"><a href="vis.html#cb193-2"></a><span class="st">  </span><span class="kw">geom_flat_violin</span>(<span class="dt">position =</span> <span class="kw">position_nudge</span>(<span class="dt">x =</span> <span class="fl">.25</span>, <span class="dt">y =</span> <span class="dv">0</span>), </span>
-<span id="cb193-3"><a href="vis.html#cb193-3"></a>                   <span class="dt">trim=</span><span class="ot">FALSE</span>, <span class="dt">alpha =</span> <span class="fl">0.6</span>) <span class="op">+</span></span>
-<span id="cb193-4"><a href="vis.html#cb193-4"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">position =</span> <span class="kw">position_jitter</span>(<span class="dt">width =</span> <span class="fl">.05</span>, <span class="dt">height =</span> <span class="fl">0.05</span>), </span>
-<span id="cb193-5"><a href="vis.html#cb193-5"></a>             <span class="dt">size =</span> <span class="fl">.5</span>, <span class="dt">alpha =</span> <span class="fl">.7</span>, <span class="dt">show.legend =</span> <span class="ot">FALSE</span>)<span class="op">+</span></span>
-<span id="cb193-6"><a href="vis.html#cb193-6"></a><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">width =</span> <span class="fl">.1</span>, <span class="dt">outlier.shape =</span> <span class="ot">NA</span>, <span class="dt">alpha =</span> <span class="fl">0.5</span>, <span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>)<span class="op">+</span></span>
-<span id="cb193-7"><a href="vis.html#cb193-7"></a><span class="st">  </span><span class="kw">geom_pointrange</span>(</span>
-<span id="cb193-8"><a href="vis.html#cb193-8"></a>    <span class="dt">data =</span> summary_data2,</span>
-<span id="cb193-9"><a href="vis.html#cb193-9"></a>    <span class="kw">aes</span>(Condition, mean, <span class="dt">ymin=</span>min, <span class="dt">ymax=</span>max),</span>
-<span id="cb193-10"><a href="vis.html#cb193-10"></a>    <span class="dt">shape =</span> <span class="dv">20</span>, </span>
-<span id="cb193-11"><a href="vis.html#cb193-11"></a>    <span class="dt">position =</span> <span class="kw">position_dodge</span>(<span class="dt">width =</span> <span class="fl">0.1</span>),</span>
-<span id="cb193-12"><a href="vis.html#cb193-12"></a>    <span class="dt">show.legend =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
-<span id="cb193-13"><a href="vis.html#cb193-13"></a><span class="st">  </span><span class="kw">scale_fill_viridis_d</span>(<span class="dt">option =</span> <span class="st">&quot;E&quot;</span>)</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(zhang_data, <span class="kw">aes</span>(<span class="dt">x =</span> Condition, <span class="dt">y =</span> interest, <span class="dt">fill =</span> Gender))<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_flat_violin</span>(<span class="dt">position =</span> <span class="kw">position_nudge</span>(<span class="dt">x =</span> <span class="fl">.25</span>, <span class="dt">y =</span> <span class="dv">0</span>), 
+                   <span class="dt">trim=</span><span class="ot">FALSE</span>, <span class="dt">alpha =</span> <span class="fl">0.6</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">position =</span> <span class="kw">position_jitter</span>(<span class="dt">width =</span> <span class="fl">.05</span>, <span class="dt">height =</span> <span class="fl">0.05</span>), 
+             <span class="dt">size =</span> <span class="fl">.5</span>, <span class="dt">alpha =</span> <span class="fl">.7</span>, <span class="dt">show.legend =</span> <span class="ot">FALSE</span>)<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">width =</span> <span class="fl">.1</span>, <span class="dt">outlier.shape =</span> <span class="ot">NA</span>, <span class="dt">alpha =</span> <span class="fl">0.5</span>, <span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>)<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_pointrange</span>(
+    <span class="dt">data =</span> summary_data2,
+    <span class="kw">aes</span>(Condition, mean, <span class="dt">ymin=</span>min, <span class="dt">ymax=</span>max),
+    <span class="dt">shape =</span> <span class="dv">20</span>, 
+    <span class="dt">position =</span> <span class="kw">position_dodge</span>(<span class="dt">width =</span> <span class="fl">0.1</span>),
+    <span class="dt">show.legend =</span> <span class="ot">FALSE</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_fill_viridis_d</span>(<span class="dt">option =</span> <span class="st">&quot;E&quot;</span>)</code></pre>
 <div class="figure" style="text-align: center"><span id="fig:rc2"></span>
 <img src="07-rm2-3_files/figure-html/rc2-1.png" alt="Raincloud plot for two factors" width="100%" />
 <p class="caption">
@@ -1288,12 +1284,11 @@ Helpful hint
 <ul>
 <li>Run the below code:</li>
 </ul>
-<pre><code>## Warning: package &#39;broom&#39; was built under R version 3.6.1</code></pre>
-<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="vis.html#cb195-1"></a><span class="kw">pwr.t.test</span>(<span class="dt">d =</span> <span class="fl">.4</span>,</span>
-<span id="cb195-2"><a href="vis.html#cb195-2"></a>           <span class="dt">power =</span> <span class="fl">.8</span>,</span>
-<span id="cb195-3"><a href="vis.html#cb195-3"></a>           <span class="dt">sig.level =</span> <span class="fl">.05</span>,</span>
-<span id="cb195-4"><a href="vis.html#cb195-4"></a>           <span class="dt">alternative =</span> <span class="st">&quot;two.sided&quot;</span>,</span>
-<span id="cb195-5"><a href="vis.html#cb195-5"></a>           <span class="dt">type =</span> <span class="st">&quot;two.sample&quot;</span>)</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pwr.t.test</span>(<span class="dt">d =</span> <span class="fl">.4</span>,
+           <span class="dt">power =</span> <span class="fl">.8</span>,
+           <span class="dt">sig.level =</span> <span class="fl">.05</span>,
+           <span class="dt">alternative =</span> <span class="st">&quot;two.sided&quot;</span>,
+           <span class="dt">type =</span> <span class="st">&quot;two.sample&quot;</span>)</code></pre>
 <p>The output tells you that you would need 99.0803248 people <strong>per condition</strong>. But you only get whole people and we like to be conservative on our estimates so we would actually run 100 <strong>per condition</strong>. That is a lot of people!!!</p>
 <p>To make the output of <code>pwr.t.test()</code> easier to work with, we’re going to amend the code to just give us exactly the number that we want.</p>
 <ul>
@@ -1301,14 +1296,14 @@ Helpful hint
 <li><code>pull()</code> will pull out a single value (in this case <code>n</code> but it could be anything)</li>
 <li><code>ceiling()</code> rounds up to give us the next highest whole number</li>
 </ul>
-<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="vis.html#cb196-1"></a><span class="kw">pwr.t.test</span>(<span class="dt">d =</span> <span class="fl">.4</span>,</span>
-<span id="cb196-2"><a href="vis.html#cb196-2"></a>           <span class="dt">power =</span> <span class="fl">.8</span>,</span>
-<span id="cb196-3"><a href="vis.html#cb196-3"></a>           <span class="dt">sig.level =</span> <span class="fl">.05</span>,</span>
-<span id="cb196-4"><a href="vis.html#cb196-4"></a>           <span class="dt">alternative =</span> <span class="st">&quot;two.sided&quot;</span>,</span>
-<span id="cb196-5"><a href="vis.html#cb196-5"></a>           <span class="dt">type =</span> <span class="st">&quot;two.sample&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb196-6"><a href="vis.html#cb196-6"></a><span class="st">  </span><span class="kw">tidy</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb196-7"><a href="vis.html#cb196-7"></a><span class="st">  </span><span class="kw">pull</span>(n) <span class="op">%&gt;%</span></span>
-<span id="cb196-8"><a href="vis.html#cb196-8"></a><span class="st">  </span><span class="kw">ceiling</span>()</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pwr.t.test</span>(<span class="dt">d =</span> <span class="fl">.4</span>,
+           <span class="dt">power =</span> <span class="fl">.8</span>,
+           <span class="dt">sig.level =</span> <span class="fl">.05</span>,
+           <span class="dt">alternative =</span> <span class="st">&quot;two.sided&quot;</span>,
+           <span class="dt">type =</span> <span class="st">&quot;two.sample&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">tidy</span>() <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">pull</span>(n) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ceiling</span>()</code></pre>
 </div>
 <div id="activity-6-sample-size-for-standard-power-one-sample-t-test" class="section level3">
 <h3><span class="header-section-number">7.2.8</span> Activity 6: Sample size for standard power one-sample t-test</h3>
@@ -1426,9 +1421,9 @@ Helpful hint
 <button>
 Activity 1
 </button>
-<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="vis.html#cb197-1"></a><span class="kw">library</span>(pwr)</span>
-<span id="cb197-2"><a href="vis.html#cb197-2"></a><span class="kw">library</span>(broom)</span>
-<span id="cb197-3"><a href="vis.html#cb197-3"></a><span class="kw">library</span>(tidyverse)</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(pwr)
+<span class="kw">library</span>(broom)
+<span class="kw">library</span>(tidyverse)</code></pre>
 </div>
 <p><br>
 Click on the tab to reveal the solution</p>
@@ -1439,9 +1434,9 @@ Click on the tab to reveal the solution</p>
 <button>
 Activity 2
 </button>
-<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="vis.html#cb198-1"></a>d &lt;-<span class="st"> </span><span class="fl">3.24</span> <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">25</span> <span class="op">+</span><span class="dv">1</span>)</span>
-<span id="cb198-2"><a href="vis.html#cb198-2"></a></span>
-<span id="cb198-3"><a href="vis.html#cb198-3"></a><span class="co"># effect is medium to large; d = .64</span></span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">d &lt;-<span class="st"> </span><span class="fl">3.24</span> <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">25</span> <span class="op">+</span><span class="dv">1</span>)
+
+<span class="co"># effect is medium to large; d = .64</span></code></pre>
 </div>
 <p><br>
 Click on the tab to reveal the solution</p>
@@ -1452,44 +1447,44 @@ Click on the tab to reveal the solution</p>
 <button>
 Activity 3
 </button>
-<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="vis.html#cb199-1"></a>d &lt;-<span class="st"> </span>(<span class="dv">2</span><span class="op">*</span><span class="fl">2.9</span>) <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">30</span>)</span>
-<span id="cb199-2"><a href="vis.html#cb199-2"></a></span>
-<span id="cb199-3"><a href="vis.html#cb199-3"></a><span class="co"># effect is large; d = 1.06</span></span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">d &lt;-<span class="st"> </span>(<span class="dv">2</span><span class="op">*</span><span class="fl">2.9</span>) <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">30</span>)
+
+<span class="co"># effect is large; d = 1.06</span></code></pre>
 </div>
 <p><br>
 Click on the tab to reveal the solution</p>
 </div>
-<div id="activity-4-3" class="section level4">
+<div id="activity-4-2" class="section level4">
 <h4><span class="header-section-number">7.2.14.4</span> Activity 4</h4>
 <div class="solution">
 <button>
 Activity 4
 </button>
-<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="vis.html#cb200-1"></a>t =<span class="st"> </span>(<span class="dv">10</span> <span class="op">-</span><span class="st"> </span><span class="dv">11</span>)<span class="op">/</span><span class="kw">sqrt</span>((<span class="fl">1.3</span><span class="op">^</span><span class="dv">2</span><span class="op">/</span><span class="dv">30</span>) <span class="op">+</span><span class="st"> </span>(<span class="fl">1.7</span><span class="op">^</span><span class="dv">2</span><span class="op">/</span><span class="dv">30</span>))</span>
-<span id="cb200-2"><a href="vis.html#cb200-2"></a></span>
-<span id="cb200-3"><a href="vis.html#cb200-3"></a>d =<span class="st"> </span>(<span class="dv">2</span><span class="op">*</span>t)<span class="op">/</span><span class="kw">sqrt</span>((<span class="dv">30-1</span>) <span class="op">+</span><span class="st"> </span>(<span class="dv">30-1</span>))</span>
-<span id="cb200-4"><a href="vis.html#cb200-4"></a></span>
-<span id="cb200-5"><a href="vis.html#cb200-5"></a><span class="co"># t = 2.56</span></span>
-<span id="cb200-6"><a href="vis.html#cb200-6"></a><span class="co"># d = .67</span></span>
-<span id="cb200-7"><a href="vis.html#cb200-7"></a></span>
-<span id="cb200-8"><a href="vis.html#cb200-8"></a><span class="co"># Remember that convention is that people report the t and d as positive.</span></span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">t =<span class="st"> </span>(<span class="dv">10</span> <span class="op">-</span><span class="st"> </span><span class="dv">11</span>)<span class="op">/</span><span class="kw">sqrt</span>((<span class="fl">1.3</span><span class="op">^</span><span class="dv">2</span><span class="op">/</span><span class="dv">30</span>) <span class="op">+</span><span class="st"> </span>(<span class="fl">1.7</span><span class="op">^</span><span class="dv">2</span><span class="op">/</span><span class="dv">30</span>))
+
+d =<span class="st"> </span>(<span class="dv">2</span><span class="op">*</span>t)<span class="op">/</span><span class="kw">sqrt</span>((<span class="dv">30-1</span>) <span class="op">+</span><span class="st"> </span>(<span class="dv">30-1</span>))
+
+<span class="co"># t = 2.56</span>
+<span class="co"># d = .67</span>
+
+<span class="co"># Remember that convention is that people report the t and d as positive.</span></code></pre>
 </div>
 <p><br>
 Click on the tab to reveal the solution</p>
 </div>
-<div id="activity-6-2" class="section level4">
+<div id="activity-6-3" class="section level4">
 <h4><span class="header-section-number">7.2.14.5</span> Activity 6</h4>
 <div class="solution">
 <button>
 Activity 6
 </button>
-<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="vis.html#cb201-1"></a>sample_size_t &lt;-<span class="st"> </span><span class="kw">pwr.t.test</span>(<span class="dt">d =</span> <span class="fl">.23</span>,</span>
-<span id="cb201-2"><a href="vis.html#cb201-2"></a>                            <span class="dt">power =</span> <span class="fl">.8</span>, </span>
-<span id="cb201-3"><a href="vis.html#cb201-3"></a>                            <span class="dt">sig.level =</span> <span class="fl">.05</span>, </span>
-<span id="cb201-4"><a href="vis.html#cb201-4"></a>                            <span class="dt">alternative =</span> <span class="st">&quot;two.sided&quot;</span>, </span>
-<span id="cb201-5"><a href="vis.html#cb201-5"></a>                            <span class="dt">type =</span> <span class="st">&quot;one.sample&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">tidy</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pull</span>(n) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ceiling</span>()</span>
-<span id="cb201-6"><a href="vis.html#cb201-6"></a></span>
-<span id="cb201-7"><a href="vis.html#cb201-7"></a>sample_size_t</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">sample_size_t &lt;-<span class="st"> </span><span class="kw">pwr.t.test</span>(<span class="dt">d =</span> <span class="fl">.23</span>,
+                            <span class="dt">power =</span> <span class="fl">.8</span>, 
+                            <span class="dt">sig.level =</span> <span class="fl">.05</span>, 
+                            <span class="dt">alternative =</span> <span class="st">&quot;two.sided&quot;</span>, 
+                            <span class="dt">type =</span> <span class="st">&quot;one.sample&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">tidy</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pull</span>(n) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ceiling</span>()
+
+sample_size_t</code></pre>
 <p>[1] 151</p>
 </div>
 <p><br>
@@ -1501,11 +1496,11 @@ Click on the tab to reveal the solution</p>
 <button>
 Activity 7
 </button>
-<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="vis.html#cb202-1"></a><span class="kw">pwr.t.test</span>(<span class="dt">n =</span> <span class="dv">50</span>,</span>
-<span id="cb202-2"><a href="vis.html#cb202-2"></a>           <span class="dt">power =</span> <span class="fl">.9</span>, </span>
-<span id="cb202-3"><a href="vis.html#cb202-3"></a>           <span class="dt">sig.level =</span> <span class="fl">.05</span>, </span>
-<span id="cb202-4"><a href="vis.html#cb202-4"></a>           <span class="dt">alternative =</span> <span class="st">&quot;two.sided&quot;</span>, </span>
-<span id="cb202-5"><a href="vis.html#cb202-5"></a>           <span class="dt">type =</span> <span class="st">&quot;two.sample&quot;</span>)</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pwr.t.test</span>(<span class="dt">n =</span> <span class="dv">50</span>,
+           <span class="dt">power =</span> <span class="fl">.9</span>, 
+           <span class="dt">sig.level =</span> <span class="fl">.05</span>, 
+           <span class="dt">alternative =</span> <span class="st">&quot;two.sided&quot;</span>, 
+           <span class="dt">type =</span> <span class="st">&quot;two.sample&quot;</span>)</code></pre>
 <pre><code> Two-sample t test power calculation 
 
           n = 50
@@ -1524,11 +1519,11 @@ Click on the tab to reveal the solution</p>
 <button>
 Activity 8
 </button>
-<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="vis.html#cb204-1"></a>sample_size_r &lt;-<span class="st"> </span><span class="kw">pwr.r.test</span>(<span class="dt">r =</span> <span class="fl">.4</span>, </span>
-<span id="cb204-2"><a href="vis.html#cb204-2"></a>                            <span class="dt">sig.level =</span> <span class="fl">.05</span>, </span>
-<span id="cb204-3"><a href="vis.html#cb204-3"></a>                            <span class="dt">power =</span> <span class="fl">.8</span>, </span>
-<span id="cb204-4"><a href="vis.html#cb204-4"></a>                            <span class="dt">alternative =</span> <span class="st">&quot;two.sided&quot;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb204-5"><a href="vis.html#cb204-5"></a><span class="st">  </span><span class="kw">tidy</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pull</span>(n) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ceiling</span>()</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">sample_size_r &lt;-<span class="st"> </span><span class="kw">pwr.r.test</span>(<span class="dt">r =</span> <span class="fl">.4</span>, 
+                            <span class="dt">sig.level =</span> <span class="fl">.05</span>, 
+                            <span class="dt">power =</span> <span class="fl">.8</span>, 
+                            <span class="dt">alternative =</span> <span class="st">&quot;two.sided&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tidy</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pull</span>(n) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ceiling</span>()</code></pre>
 </div>
 <p><br>
 Click on the tab to reveal the solution</p>
@@ -1539,10 +1534,10 @@ Click on the tab to reveal the solution</p>
 <button>
 Activity 9
 </button>
-<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="vis.html#cb205-1"></a><span class="kw">pwr.r.test</span>(<span class="dt">n =</span> <span class="dv">50</span>,</span>
-<span id="cb205-2"><a href="vis.html#cb205-2"></a>           <span class="dt">sig.level =</span> <span class="fl">.05</span>, </span>
-<span id="cb205-3"><a href="vis.html#cb205-3"></a>           <span class="dt">power =</span> <span class="fl">.8</span>, </span>
-<span id="cb205-4"><a href="vis.html#cb205-4"></a>           <span class="dt">alternative =</span> <span class="st">&quot;greater&quot;</span>)</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pwr.r.test</span>(<span class="dt">n =</span> <span class="dv">50</span>,
+           <span class="dt">sig.level =</span> <span class="fl">.05</span>, 
+           <span class="dt">power =</span> <span class="fl">.8</span>, 
+           <span class="dt">alternative =</span> <span class="st">&quot;greater&quot;</span>)</code></pre>
 <pre><code> approximate correlation power calculation (arctangh transformation) 
 
           n = 50
@@ -1560,10 +1555,10 @@ Click on the tab to reveal the solution</p>
 <button>
 Activity 10
 </button>
-<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="vis.html#cb207-1"></a><span class="kw">pwr.chisq.test</span>(<span class="dt">N =</span> <span class="dv">30</span>,</span>
-<span id="cb207-2"><a href="vis.html#cb207-2"></a>               <span class="dt">df =</span> <span class="dv">1</span>,</span>
-<span id="cb207-3"><a href="vis.html#cb207-3"></a>           <span class="dt">sig.level =</span> <span class="fl">.05</span>, </span>
-<span id="cb207-4"><a href="vis.html#cb207-4"></a>           <span class="dt">power =</span> <span class="fl">.8</span>)</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pwr.chisq.test</span>(<span class="dt">N =</span> <span class="dv">30</span>,
+               <span class="dt">df =</span> <span class="dv">1</span>,
+           <span class="dt">sig.level =</span> <span class="fl">.05</span>, 
+           <span class="dt">power =</span> <span class="fl">.8</span>)</code></pre>
 <pre><code> Chi squared power calculation 
 
           w = 0.5114954
@@ -1582,12 +1577,12 @@ Click on the tab to reveal the solution</p>
 <button>
 Activity 11
 </button>
-<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="vis.html#cb209-1"></a><span class="co"># Achievable Cohen d for Example 1</span></span>
-<span id="cb209-2"><a href="vis.html#cb209-2"></a><span class="kw">pwr.t.test</span>(<span class="dt">power =</span> <span class="fl">.8</span>, </span>
-<span id="cb209-3"><a href="vis.html#cb209-3"></a>           <span class="dt">n =</span> <span class="dv">32</span>, </span>
-<span id="cb209-4"><a href="vis.html#cb209-4"></a>           <span class="dt">type =</span> <span class="st">&quot;one.sample&quot;</span>, </span>
-<span id="cb209-5"><a href="vis.html#cb209-5"></a>           <span class="dt">alternative =</span> <span class="st">&quot;two.sided&quot;</span>, </span>
-<span id="cb209-6"><a href="vis.html#cb209-6"></a>           <span class="dt">sig.level =</span> <span class="fl">.05</span>)</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Achievable Cohen d for Example 1</span>
+<span class="kw">pwr.t.test</span>(<span class="dt">power =</span> <span class="fl">.8</span>, 
+           <span class="dt">n =</span> <span class="dv">32</span>, 
+           <span class="dt">type =</span> <span class="st">&quot;one.sample&quot;</span>, 
+           <span class="dt">alternative =</span> <span class="st">&quot;two.sided&quot;</span>, 
+           <span class="dt">sig.level =</span> <span class="fl">.05</span>)</code></pre>
 <pre><code> One-sample t test power calculation 
 
           n = 32
@@ -1595,14 +1590,14 @@ Activity 11
   sig.level = 0.05
       power = 0.8
 alternative = two.sided</code></pre>
-<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="vis.html#cb211-1"></a><span class="co"># This study seems ok as the authors could achieve an effect size as low as .51 and found an effect size at .52</span></span>
-<span id="cb211-2"><a href="vis.html#cb211-2"></a></span>
-<span id="cb211-3"><a href="vis.html#cb211-3"></a><span class="co"># Achievable Cohen d for Example 2</span></span>
-<span id="cb211-4"><a href="vis.html#cb211-4"></a><span class="kw">pwr.t.test</span>(<span class="dt">power =</span> <span class="fl">.8</span>, </span>
-<span id="cb211-5"><a href="vis.html#cb211-5"></a>           <span class="dt">n =</span> <span class="dv">32</span>, </span>
-<span id="cb211-6"><a href="vis.html#cb211-6"></a>           <span class="dt">type =</span> <span class="st">&quot;paired&quot;</span>, </span>
-<span id="cb211-7"><a href="vis.html#cb211-7"></a>           <span class="dt">alternative =</span> <span class="st">&quot;two.sided&quot;</span>, </span>
-<span id="cb211-8"><a href="vis.html#cb211-8"></a>           <span class="dt">sig.level =</span> <span class="fl">.05</span>) </span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># This study seems ok as the authors could achieve an effect size as low as .51 and found an effect size at .52</span>
+
+<span class="co"># Achievable Cohen d for Example 2</span>
+<span class="kw">pwr.t.test</span>(<span class="dt">power =</span> <span class="fl">.8</span>, 
+           <span class="dt">n =</span> <span class="dv">32</span>, 
+           <span class="dt">type =</span> <span class="st">&quot;paired&quot;</span>, 
+           <span class="dt">alternative =</span> <span class="st">&quot;two.sided&quot;</span>, 
+           <span class="dt">sig.level =</span> <span class="fl">.05</span>) </code></pre>
 <pre><code> Paired t test power calculation 
 
           n = 32
@@ -1611,18 +1606,18 @@ alternative = two.sided</code></pre>
       power = 0.8
 alternative = two.sided</code></pre>
 <p>NOTE: n is number of <em>pairs</em></p>
-<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="vis.html#cb213-1"></a><span class="co"># this effect might not be reliable given that the effect size found was much lower than the achievable effect size. The issue here is that the researchers established their sample size based on a previous effect size and not on the minimum effect size that they would find important. If an effect size as small as .4 was important then they should have powered all studies to that level and ran the appropriate n ~52 babies (see below). Flipside of course is that obtaining 52 babies isnt easy; hence why some people consider the Many Labs approach a good way ahead.</span></span>
-<span id="cb213-2"><a href="vis.html#cb213-2"></a></span>
-<span id="cb213-3"><a href="vis.html#cb213-3"></a><span class="co"># Below you could calculate the actual sample size required to achieve a power of .8:</span></span>
-<span id="cb213-4"><a href="vis.html#cb213-4"></a></span>
-<span id="cb213-5"><a href="vis.html#cb213-5"></a>sample_size &lt;-<span class="st"> </span><span class="kw">pwr.t.test</span>(<span class="dt">power =</span> <span class="fl">.8</span>,</span>
-<span id="cb213-6"><a href="vis.html#cb213-6"></a>                          <span class="dt">d =</span> <span class="fl">.4</span>, </span>
-<span id="cb213-7"><a href="vis.html#cb213-7"></a>                          <span class="dt">type =</span> <span class="st">&quot;paired&quot;</span>, </span>
-<span id="cb213-8"><a href="vis.html#cb213-8"></a>                          <span class="dt">alternative =</span> <span class="st">&quot;two.sided&quot;</span>, </span>
-<span id="cb213-9"><a href="vis.html#cb213-9"></a>                          <span class="dt">sig.level =</span> <span class="fl">.05</span>) <span class="op">%&gt;%</span></span>
-<span id="cb213-10"><a href="vis.html#cb213-10"></a><span class="kw">tidy</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pull</span>(n) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ceiling</span>()</span>
-<span id="cb213-11"><a href="vis.html#cb213-11"></a></span>
-<span id="cb213-12"><a href="vis.html#cb213-12"></a>sample_size</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># this effect might not be reliable given that the effect size found was much lower than the achievable effect size. The issue here is that the researchers established their sample size based on a previous effect size and not on the minimum effect size that they would find important. If an effect size as small as .4 was important then they should have powered all studies to that level and ran the appropriate n ~52 babies (see below). Flipside of course is that obtaining 52 babies isnt easy; hence why some people consider the Many Labs approach a good way ahead.</span>
+
+<span class="co"># Below you could calculate the actual sample size required to achieve a power of .8:</span>
+
+sample_size &lt;-<span class="st"> </span><span class="kw">pwr.t.test</span>(<span class="dt">power =</span> <span class="fl">.8</span>,
+                          <span class="dt">d =</span> <span class="fl">.4</span>, 
+                          <span class="dt">type =</span> <span class="st">&quot;paired&quot;</span>, 
+                          <span class="dt">alternative =</span> <span class="st">&quot;two.sided&quot;</span>, 
+                          <span class="dt">sig.level =</span> <span class="fl">.05</span>) <span class="op">%&gt;%</span>
+<span class="kw">tidy</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pull</span>(n) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ceiling</span>()
+
+sample_size</code></pre>
 <p>[1] 52</p>
 </div>
 <p><br>
@@ -1748,13 +1743,11 @@ window.onload = function() {
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
-<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -1762,12 +1755,12 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
+"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"],
-"google": false
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -1779,10 +1772,6 @@ gitbook.start({
 "text": null
 },
 "history": {
-"link": null,
-"text": null
-},
-"view": {
 "link": null,
 "text": null
 },
@@ -1802,9 +1791,8 @@ gitbook.start({
     script.type = "text/javascript";
     var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

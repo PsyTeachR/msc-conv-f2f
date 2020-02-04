@@ -91,7 +91,7 @@ summarise(messy,
           )
 ```
 
-```{r na.rm2, echo=FALSE}
+```{r na.rm2, echo=TRUE}
 summarise(messy, 
           pre_mean = mean(pre),
           post_mean = mean(post),
@@ -179,7 +179,7 @@ qdat_tidy <- qdat %>%
 
 Next, we want to add in the information in `scales`.
 
-* Join `qdat_tidy` and `scales` by "item" using `inner_join()`. If you need help with this, refer back to Chapter \@ref(join).
+* Join `qdat_tidy` and `scales` by "item" using `inner_join()` and save it to `qdat_tidy` (i.e., overwrite the object). If you need help with this, refer back to Chapter \@ref(join).
 
 ```{r echo = FALSE}
 qdat_tidy <- inner_join(x = qdat_tidy, y = scales, by = "item")
@@ -244,7 +244,7 @@ messy <- read_csv("messy.csv")
 **click the tab to see the solution**
 <br>
 
-#### Activity 4
+#### Activity 5
 
 `r hide("Activity 4")`
 ```{r eval=FALSE}
@@ -255,7 +255,7 @@ tidy <- gather(data = messy, key = test_time, value = score, pre:delay)
 **click the tab to see the solution**
 <br>
 
-#### Activity 5
+#### Activity 6
 
 `r hide("Activity 5")`
 ```{r eval=FALSE}
