@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 5 RM2 R Markdown &amp; Correlations | MSc Conversion in Psychological Studies/Science</title>
   <meta name="description" content="This is the materials for the one-year MSc Conversion in Psychological Studies/Science." />
-  <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 5 RM2 R Markdown &amp; Correlations | MSc Conversion in Psychological Studies/Science" />
   <meta property="og:type" content="book" />
@@ -24,15 +24,15 @@
 <meta name="author" content="Emily Nordmann, Heather Cleland-Woods, Phil McAleer" />
 
 
-<meta name="date" content="2020-02-04" />
+<meta name="date" content="2020-02-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="rm1-data-wrangling-chi-square.html">
-<link rel="next" href="rm2-missing-data-t-tests.html">
+<link rel="prev" href="rm1-data-wrangling-chi-square.html"/>
+<link rel="next" href="rm2-missing-data-t-tests.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -40,6 +40,9 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -50,26 +53,27 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -78,9 +82,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -336,7 +340,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.1.7" data-path="vis.html"><a href="vis.html#activity-7-violin-plots"><i class="fa fa-check"></i><b>7.1.7</b> Activity 7: Violin plots</a></li>
 <li class="chapter" data-level="7.1.8" data-path="vis.html"><a href="vis.html#viobox"><i class="fa fa-check"></i><b>7.1.8</b> Activity 8: Violin-boxplots</a></li>
 <li class="chapter" data-level="7.1.9" data-path="vis.html"><a href="vis.html#activity-9-faceting"><i class="fa fa-check"></i><b>7.1.9</b> Activity 9: Faceting</a></li>
-<li class="chapter" data-level="7.1.10" data-path="vis.html"><a href="vis.html#activity-10-split-violins-and-raincloud-plots"><i class="fa fa-check"></i><b>7.1.10</b> Activity 10: Split-violins and raincloud plots</a></li>
 </ul></li>
 <li class="chapter" data-level="7.2" data-path="vis.html"><a href="vis.html#in-class-activities-4"><i class="fa fa-check"></i><b>7.2</b> In-class activities</a><ul>
 <li class="chapter" data-level="7.2.1" data-path="vis.html"><a href="vis.html#power-and-error"><i class="fa fa-check"></i><b>7.2.1</b> Power and Error</a></li>
@@ -842,8 +845,8 @@ Hints on removing missing data points
 <ul>
 <li>Run the below code to create a histogram for <code>Abil</code>.</li>
 </ul>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> mh, <span class="kw">aes</span>(<span class="dt">x =</span> Abil)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_histogram</span>()</code></pre>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="rm2-r-markdown-correlations.html#cb108-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> mh, <span class="kw">aes</span>(<span class="dt">x =</span> Abil)) <span class="op">+</span></span>
+<span id="cb108-2"><a href="rm2-r-markdown-correlations.html#cb108-2"></a><span class="st">  </span><span class="kw">geom_histogram</span>()</span></code></pre></div>
 <div class="figure" style="text-align: center">
 <img src="05-rm2-1_files/figure-html/abil_hist-1.png" alt="Histogram of Abil" width="100%" />
 <p class="caption">
@@ -858,7 +861,7 @@ Hints on removing missing data points
 <ul>
 <li>Run the below code to create a QQ-plot for <code>Abil</code>.</li>
 </ul>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qqPlot</span>(<span class="dt">x =</span> mh<span class="op">$</span>Abil)</code></pre>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="rm2-r-markdown-correlations.html#cb109-1"></a><span class="kw">qqPlot</span>(<span class="dt">x =</span> mh<span class="op">$</span>Abil)</span></code></pre></div>
 <div class="figure" style="text-align: center">
 <img src="05-rm2-1_files/figure-html/qq_abil-1.png" alt="QQ-plot for Abil" width="100%" />
 <p class="caption">
@@ -872,9 +875,9 @@ Hints on removing missing data points
 </ul>
 <p>In order to assess linearity and homoscedasticity, we can create a scatterplot using <code>ggplot2</code>. This code is slightly different to what you have already done with <code>ggplot()</code> in that with a scatterplot you need to specify both the x and y axis in <code>aes()</code>.</p>
 <p>The first geom, <code>geom_point()</code> adds in the data points, the second geom, <code>geom_smooth</code> adds in the line of best fit. The shaded area around the line is a <strong>confidence interval</strong>.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> mh, <span class="kw">aes</span>(<span class="dt">x =</span> Abil, <span class="dt">y =</span> IQ)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm) <span class="co"># if you don&#39;t want the shaded CI, add se = FALSE to this</span></code></pre>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="rm2-r-markdown-correlations.html#cb111-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> mh, <span class="kw">aes</span>(<span class="dt">x =</span> Abil, <span class="dt">y =</span> IQ)) <span class="op">+</span></span>
+<span id="cb111-2"><a href="rm2-r-markdown-correlations.html#cb111-2"></a><span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span></span>
+<span id="cb111-3"><a href="rm2-r-markdown-correlations.html#cb111-3"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm) <span class="co"># if you don&#39;t want the shaded CI, add se = FALSE to this</span></span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-11"></span>
 <img src="05-rm2-1_files/figure-html/unnamed-chunk-11-1.png" alt="**CAPTION THIS FIGURE!!**" width="100%" />
 <p class="caption">
@@ -940,7 +943,7 @@ Explain these answers
 <li>the type of correlation you want to run: e.g. <code>two.sided</code> (non-directional), <code>greater</code> (positive correlation), or <code>lesser</code> (negative correlation).</li>
 </ul>
 <p>For example, if your data is stored in <code>dat</code> and you want to do a two-sided pearson correlation of the variables (columns) <code>X</code> and <code>Y</code>, then you would do:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cor.test</span>(dat<span class="op">$</span>X, dat<span class="op">$</span>Y, <span class="dt">method =</span> <span class="st">&quot;pearson&quot;</span>, <span class="dt">alternative =</span> <span class="st">&quot;two.sided&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="rm2-r-markdown-correlations.html#cb112-1"></a><span class="kw">cor.test</span>(dat<span class="op">$</span>X, dat<span class="op">$</span>Y, <span class="dt">method =</span> <span class="st">&quot;pearson&quot;</span>, <span class="dt">alternative =</span> <span class="st">&quot;two.sided&quot;</span>)</span></code></pre></div>
 <ul>
 <li>Based on your answers to the assumption tests, spend a couple of minutes deciding with your group which correlation method to use (e.g. pearson or spearman) and the type of correlation to run (e.g. two.sided, positive or negative).</li>
 <li>Run the correlation between IQ and Ability and save it in an object called <code>results</code>.</li>
@@ -950,8 +953,8 @@ Explain these answers
 <ul>
 <li>Run the below code and then view the object by clicking on <code>results</code> in the environment.</li>
 </ul>
-<pre class="sourceCode r"><code class="sourceCode r">results &lt;-<span class="st"> </span>results <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># take the object results and then</span>
-<span class="st">  </span><span class="kw">tidy</span>()              <span class="co"># tidy it up</span></code></pre>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="rm2-r-markdown-correlations.html#cb113-1"></a>results &lt;-<span class="st"> </span>results <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># take the object results and then</span></span>
+<span id="cb113-2"><a href="rm2-r-markdown-correlations.html#cb113-2"></a><span class="st">  </span><span class="kw">tidy</span>()              <span class="co"># tidy it up</span></span></code></pre></div>
 </div>
 <div id="activity-6-interpreting-the-correlation" class="section level3">
 <h3><span class="header-section-number">5.2.7</span> Activity 6: Interpreting the correlation</h3>
@@ -980,7 +983,7 @@ Explain these answers
 <div id="activity-7-write-up" class="section level3">
 <h3><span class="header-section-number">5.2.8</span> Activity 7: Write-up</h3>
 <p>Copy and paste the below <strong>exactly</strong> into <strong>white space</strong> in your R Markdown document and then knit the file.</p>
-<pre class="sourceCode r"><code class="sourceCode r">The mean IQ score was <span class="st">`</span><span class="dt">r round(pluck(descriptives$IQ_mean),2)</span><span class="st">`</span> (<span class="st">`</span><span class="dt">r round(pluck(descriptives$IQ_SD),2)</span><span class="st">`</span>) and the mean reading ability score was <span class="st">`</span><span class="dt">r round(pluck(descriptives$Abil_mean),2)</span><span class="st">`</span> (<span class="st">`</span><span class="dt">r round(pluck(descriptives$Abil_SD),2)</span><span class="st">`</span>). A Pearson\<span class="st">`</span><span class="dt">s correlation found a significant, medium positive correlation between the two variables (r (</span><span class="st">`</span>r results<span class="op">$</span>parameter<span class="st">`</span><span class="dt">) = </span><span class="st">`</span>r <span class="kw">round</span>(results<span class="op">$</span>estimate, <span class="dv">2</span>)<span class="st">`</span><span class="dt">, *p* = </span><span class="st">`</span>r <span class="kw">round</span>(results<span class="op">$</span>p.value, <span class="dv">3</span>)<span class="st">`</span><span class="dt">).</span></code></pre>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="rm2-r-markdown-correlations.html#cb114-1"></a>The mean IQ score was <span class="st">`</span><span class="dt">r round(pluck(descriptives$IQ_mean),2)</span><span class="st">`</span> (<span class="st">`</span><span class="dt">r round(pluck(descriptives$IQ_SD),2)</span><span class="st">`</span>) and the mean reading ability score was <span class="st">`</span><span class="dt">r round(pluck(descriptives$Abil_mean),2)</span><span class="st">`</span> (<span class="st">`</span><span class="dt">r round(pluck(descriptives$Abil_SD),2)</span><span class="st">`</span>). A Pearson\<span class="st">`</span><span class="dt">s correlation found a significant, medium positive correlation between the two variables (r (</span><span class="st">`</span>r results<span class="op">$</span>parameter<span class="st">`</span><span class="dt">) = </span><span class="st">`</span>r <span class="kw">round</span>(results<span class="op">$</span>estimate, <span class="dv">2</span>)<span class="st">`</span><span class="dt">, *p* = </span><span class="st">`</span>r <span class="kw">round</span>(results<span class="op">$</span>p.value, <span class="dv">3</span>)<span class="st">`</span><span class="dt">).</span></span></code></pre></div>
 <p>It will magically transform into:</p>
 <blockquote>
 <p>The mean IQ score was 100.04(9.04) and the mean reading ability score was 55.12(6.08). A Pearson`s correlation found a significant, medium positive correlation between the two variables (r (23) = 0.45, <em>p</em> = 0.024)</p>
@@ -992,7 +995,7 @@ Explain these answers
 <ul>
 <li>Run the following line. The <code>pairs()</code> function from the <code>Hmisc</code> library creates a matrix of scatterplots which you can then use to view all the relationships at the one time.</li>
 </ul>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pairs</span>(mh)</code></pre>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="rm2-r-markdown-correlations.html#cb115-1"></a><span class="kw">pairs</span>(mh)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:pairs"></span>
 <img src="05-rm2-1_files/figure-html/pairs-1.png" alt="Scatterplot matrix" width="100%" />
 <p class="caption">
@@ -1007,7 +1010,7 @@ Figure 5.15: Scatterplot matrix
 <div id="activity-9-multiple-correlations" class="section level3">
 <h3><span class="header-section-number">5.2.10</span> Activity 9: Multiple correlations</h3>
 <p>To perform multiple correlations in one go, we will use the <code>correlate()</code> function from the <code>lsr</code> package. If you look at the help documentation for <code>correlate()</code> you will see that it takes the following form:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">correlate</span>(x, <span class="dt">y=</span><span class="ot">NULL</span>, <span class="dt">test=</span><span class="ot">FALSE</span>, <span class="dt">corr.method=</span><span class="st">&quot;pearson&quot;</span>, <span class="dt">p.adjust.method=</span><span class="st">&quot;holm&quot;</span>) </code></pre>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="rm2-r-markdown-correlations.html#cb116-1"></a><span class="kw">correlate</span>(x, <span class="dt">y=</span><span class="ot">NULL</span>, <span class="dt">test=</span><span class="ot">FALSE</span>, <span class="dt">corr.method=</span><span class="st">&quot;pearson&quot;</span>, <span class="dt">p.adjust.method=</span><span class="st">&quot;holm&quot;</span>) </span></code></pre></div>
 <p>You can use <code>correlate()</code> similar to <code>cor.test()</code> and specify a specific variable for both <code>x</code> and <code>y</code> to perform a single correlation. However, you can also provide a data frame that has multiple variables as <code>x</code> and it will run all possible correlations between the variables.</p>
 <ul>
 <li><code>test</code> controls whether or not p-values will be computed. The default setting for this is <code>FALSE</code>. You will almost always want to change this to <code>TRUE</code>.<br />
@@ -1022,18 +1025,18 @@ Figure 5.15: Scatterplot matrix
 <ul>
 <li>Run the below code. It will overwrite the tibble <code>mh</code> with a data frame.</li>
 </ul>
-<pre class="sourceCode r"><code class="sourceCode r">mh &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(mh)</code></pre>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="rm2-r-markdown-correlations.html#cb117-1"></a>mh &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(mh)</span></code></pre></div>
 <p>OK, finally let’s run the correlations.</p>
 <ul>
 <li>Type and run the below code to calculate then view the correlation results</li>
 </ul>
-<pre class="sourceCode r"><code class="sourceCode r">corr_results &lt;-<span class="st"> </span><span class="kw">correlate</span>(<span class="dt">x =</span> mh, <span class="co"># our data</span>
-                          <span class="dt">test =</span> <span class="ot">TRUE</span>, <span class="co"># compute p-values</span>
-                          <span class="dt">corr.method =</span> <span class="st">&quot;pearson&quot;</span>, <span class="co"># run a pearson test </span>
-                          <span class="dt">p.adjust.method =</span> <span class="st">&quot;holm&quot;</span>) <span class="co"># use the holm correction</span>
-corr_results</code></pre>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="rm2-r-markdown-correlations.html#cb118-1"></a>corr_results &lt;-<span class="st"> </span><span class="kw">correlate</span>(<span class="dt">x =</span> mh, <span class="co"># our data</span></span>
+<span id="cb118-2"><a href="rm2-r-markdown-correlations.html#cb118-2"></a>                          <span class="dt">test =</span> <span class="ot">TRUE</span>, <span class="co"># compute p-values</span></span>
+<span id="cb118-3"><a href="rm2-r-markdown-correlations.html#cb118-3"></a>                          <span class="dt">corr.method =</span> <span class="st">&quot;pearson&quot;</span>, <span class="co"># run a pearson test </span></span>
+<span id="cb118-4"><a href="rm2-r-markdown-correlations.html#cb118-4"></a>                          <span class="dt">p.adjust.method =</span> <span class="st">&quot;holm&quot;</span>) <span class="co"># use the holm correction</span></span>
+<span id="cb118-5"><a href="rm2-r-markdown-correlations.html#cb118-5"></a>corr_results</span></code></pre></div>
 <p><code>corr_results</code> is a list with 5 components and you can view each of these separately just like you did with chi-square, for example, trying running the below code to view just the correlation values:</p>
-<pre class="sourceCode r"><code class="sourceCode r">corr_results<span class="op">$</span>correlation</code></pre>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="rm2-r-markdown-correlations.html#cb119-1"></a>corr_results<span class="op">$</span>correlation</span></code></pre></div>
 <ol style="list-style-type: decimal">
 <li>Is the correlation between <code>Abil</code> and <code>Home</code> positive or negative? <select class='solveme' data-answer='["Positive"]'> <option></option> <option>Positive</option> <option>Negative</option></select></li>
 <li>This means that as <code>Abil</code> scores increase, <code>Home</code> scores will <select class='solveme' data-answer='["Increase"]'> <option></option> <option>Increase</option> <option>Decrease</option></select></li>
@@ -1075,12 +1078,12 @@ Explain these answers
 <button>
 Activity 1
 </button>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;broom&quot;</span>)
-<span class="kw">library</span>(<span class="st">&quot;car&quot;</span>)
-<span class="kw">library</span>(<span class="st">&quot;lsr&quot;</span>)
-<span class="kw">library</span>(<span class="st">&quot;Hmisc&quot;</span>)
-<span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)
-mh &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;MillerHadenData.csv&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="rm2-r-markdown-correlations.html#cb120-1"></a><span class="kw">library</span>(<span class="st">&quot;broom&quot;</span>)</span>
+<span id="cb120-2"><a href="rm2-r-markdown-correlations.html#cb120-2"></a><span class="kw">library</span>(<span class="st">&quot;car&quot;</span>)</span>
+<span id="cb120-3"><a href="rm2-r-markdown-correlations.html#cb120-3"></a><span class="kw">library</span>(<span class="st">&quot;lsr&quot;</span>)</span>
+<span id="cb120-4"><a href="rm2-r-markdown-correlations.html#cb120-4"></a><span class="kw">library</span>(<span class="st">&quot;Hmisc&quot;</span>)</span>
+<span id="cb120-5"><a href="rm2-r-markdown-correlations.html#cb120-5"></a><span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)</span>
+<span id="cb120-6"><a href="rm2-r-markdown-correlations.html#cb120-6"></a>mh &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;MillerHadenData.csv&quot;</span>)</span></code></pre></div>
 </div>
 <p><strong>click the tab to see the solution</strong>
 <br></p>
@@ -1091,18 +1094,18 @@ mh &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="s
 <button>
 Activity 3
 </button>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># histogram</span>
-<span class="kw">ggplot</span>(<span class="dt">data =</span> mh, <span class="kw">aes</span>(<span class="dt">x =</span> IQ)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_histogram</span>()
-
-<span class="co"># qqplot</span>
-<span class="kw">qqPlot</span>(<span class="dt">x =</span> mh<span class="op">$</span>IQ)
-
-<span class="co"># edited scatterplot</span>
-<span class="kw">ggplot</span>(<span class="dt">data =</span> mh, <span class="kw">aes</span>(<span class="dt">x =</span> Abil, <span class="dt">y =</span> IQ)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm)<span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Reading Ability&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="rm2-r-markdown-correlations.html#cb121-1"></a><span class="co"># histogram</span></span>
+<span id="cb121-2"><a href="rm2-r-markdown-correlations.html#cb121-2"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> mh, <span class="kw">aes</span>(<span class="dt">x =</span> IQ)) <span class="op">+</span></span>
+<span id="cb121-3"><a href="rm2-r-markdown-correlations.html#cb121-3"></a><span class="st">  </span><span class="kw">geom_histogram</span>()</span>
+<span id="cb121-4"><a href="rm2-r-markdown-correlations.html#cb121-4"></a></span>
+<span id="cb121-5"><a href="rm2-r-markdown-correlations.html#cb121-5"></a><span class="co"># qqplot</span></span>
+<span id="cb121-6"><a href="rm2-r-markdown-correlations.html#cb121-6"></a><span class="kw">qqPlot</span>(<span class="dt">x =</span> mh<span class="op">$</span>IQ)</span>
+<span id="cb121-7"><a href="rm2-r-markdown-correlations.html#cb121-7"></a></span>
+<span id="cb121-8"><a href="rm2-r-markdown-correlations.html#cb121-8"></a><span class="co"># edited scatterplot</span></span>
+<span id="cb121-9"><a href="rm2-r-markdown-correlations.html#cb121-9"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> mh, <span class="kw">aes</span>(<span class="dt">x =</span> Abil, <span class="dt">y =</span> IQ)) <span class="op">+</span></span>
+<span id="cb121-10"><a href="rm2-r-markdown-correlations.html#cb121-10"></a><span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span></span>
+<span id="cb121-11"><a href="rm2-r-markdown-correlations.html#cb121-11"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm)<span class="op">+</span></span>
+<span id="cb121-12"><a href="rm2-r-markdown-correlations.html#cb121-12"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">name =</span> <span class="st">&quot;Reading Ability&quot;</span>)</span></code></pre></div>
 </div>
 <p><strong>click the tab to see the solution</strong>
 <br></p>
@@ -1113,11 +1116,11 @@ Activity 3
 <button>
 Activity 5
 </button>
-<pre class="sourceCode r"><code class="sourceCode r">descriptives &lt;-<span class="st"> </span><span class="kw">summarise</span>(mh, 
-                          <span class="dt">Abil_mean =</span> <span class="kw">mean</span>(Abil),
-                          <span class="dt">Abil_SD =</span> <span class="kw">sd</span>(Abil),
-                          <span class="dt">IQ_mean =</span> <span class="kw">mean</span>(IQ),
-                          <span class="dt">IQ_SD =</span> <span class="kw">sd</span>(IQ))</code></pre>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="rm2-r-markdown-correlations.html#cb122-1"></a>descriptives &lt;-<span class="st"> </span><span class="kw">summarise</span>(mh, </span>
+<span id="cb122-2"><a href="rm2-r-markdown-correlations.html#cb122-2"></a>                          <span class="dt">Abil_mean =</span> <span class="kw">mean</span>(Abil),</span>
+<span id="cb122-3"><a href="rm2-r-markdown-correlations.html#cb122-3"></a>                          <span class="dt">Abil_SD =</span> <span class="kw">sd</span>(Abil),</span>
+<span id="cb122-4"><a href="rm2-r-markdown-correlations.html#cb122-4"></a>                          <span class="dt">IQ_mean =</span> <span class="kw">mean</span>(IQ),</span>
+<span id="cb122-5"><a href="rm2-r-markdown-correlations.html#cb122-5"></a>                          <span class="dt">IQ_SD =</span> <span class="kw">sd</span>(IQ))</span></code></pre></div>
 </div>
 <p><strong>click the tab to see the solution</strong>
 <br></p>
@@ -1128,7 +1131,7 @@ Activity 5
 <button>
 Activity 5
 </button>
-<pre class="sourceCode r"><code class="sourceCode r">results &lt;-<span class="st"> </span><span class="kw">cor.test</span>(mh<span class="op">$</span>Abil, mh<span class="op">$</span>IQ, <span class="dt">method =</span> <span class="st">&quot;pearson&quot;</span>, <span class="dt">alternative =</span> <span class="st">&quot;two.sided&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="rm2-r-markdown-correlations.html#cb123-1"></a>results &lt;-<span class="st"> </span><span class="kw">cor.test</span>(mh<span class="op">$</span>Abil, mh<span class="op">$</span>IQ, <span class="dt">method =</span> <span class="st">&quot;pearson&quot;</span>, <span class="dt">alternative =</span> <span class="st">&quot;two.sided&quot;</span>)</span></code></pre></div>
 </div>
 <p><strong>click the tab to see the solution</strong>
 <br></p>
@@ -1139,9 +1142,9 @@ Activity 5
 <button>
 Activity 8
 </button>
-<pre class="sourceCode r"><code class="sourceCode r">mh &lt;-<span class="st"> </span>mh <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>Participant)
-<span class="kw">pairs</span>(mh)</code></pre>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="rm2-r-markdown-correlations.html#cb124-1"></a>mh &lt;-<span class="st"> </span>mh <span class="op">%&gt;%</span></span>
+<span id="cb124-2"><a href="rm2-r-markdown-correlations.html#cb124-2"></a><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>Participant)</span>
+<span id="cb124-3"><a href="rm2-r-markdown-correlations.html#cb124-3"></a><span class="kw">pairs</span>(mh)</span></code></pre></div>
 </div>
 <p><strong>click the tab to see the solution</strong>
 <br></p>
@@ -1266,11 +1269,13 @@ window.onload = function() {
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -1278,12 +1283,12 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"],
+"google": false
 },
 "fontsettings": {
 "theme": "white",
@@ -1295,6 +1300,10 @@ gitbook.start({
 "text": null
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
@@ -1314,8 +1323,9 @@ gitbook.start({
     script.type = "text/javascript";
     var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
