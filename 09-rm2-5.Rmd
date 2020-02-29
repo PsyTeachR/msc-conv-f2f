@@ -378,17 +378,7 @@ Take a look at the resulting tibbles `pinfo`, `wellbeing`, and `screen`.  The `w
 
 ### Activity 3: Compute the well-being score for each respondent
 
-The WEMWBS well-being score is simply the *sum* of all the items. 
-
-* Write the code to create a new table called `wemwbs`, with two variables: `Serial`, and `tot_wellbeing`, the total WEMWBS score.
-
-`r hide("Hint")`
-- "gather" the table from wide to long
-`r unhide()`
-
-`r hide("Another Hint")`
-- `group_by()`; `summarise(tot_wellbeing = ...)`
-`r unhide()`
+The WEMWBS well-being score is simply the *sum* of all the items. Run the below code to gather the data and then calculate the sum score for each participant.
 
 ```{r meanwb, echo = FALSE}
 wemwbs <- wellbeing %>%
@@ -399,10 +389,6 @@ wemwbs <- wellbeing %>%
 
 **Sanity check:** Verify for yourself that the scores all fall in the 14-70 range.  Przybylski and Weinstein reported a mean of 47.52 with a standard deviation of 9.55. Can you reproduce these values?
 
-`r hide("Hint")`
-- `summarise()`, `min()`, `max()`
-`r unhide()`
-<br>
 * Now visualise the distribution of `tot_wellbeing` in a histogram using ggplot2.
 
 `r hide("Hint")`
@@ -487,22 +473,19 @@ As discussed in the lecture, When you have continuous variables in a regression,
 
 - if there are interactions in the model, any lower-order effects can be given the same interpretation as they receive in ANOVA (main effects, rather than simple effects).
 
-For categorical predictors with two levels, these become coded as -.5 and .5 (because the mean of these two values is 0).
+For categorical predictors with two levels, these become coded as -.5 and .5 (because the mean of these two values is 0). Run the below code to mean centre the variables. This code:
 
-* Use `mutate` to add two new variables to `smart_wb`: `tothours_c`, calculated as a mean-centered version of the `tothours` predictor; and `male_c`, recoded as -.5 for female and .5 for male.
-* To create `male_c` you will need to use `if_else(male == 1, .5, -.5)` You can read this code as "if the variable `male` equals 1, recode it as .5, if not, recode it as -.5".
-* Finally, recode `male` and `male_c` as factors, so that R knows not to treat them as a real numbers.
+* Uses `mutate` to add two new variables to `smart_wb`: `tothours_c`, calculated as a mean-centered version of the `tothours` predictor; and `male_c`, recoded as -.5 for female and .5 for male.
+* Creates `male_c` by using `if_else(male == 1, .5, -.5)` You can read this code as "if the variable `male` equals 1, recode it as .5, if not, recode it as -.5".
+* Recodes `male` and `male_c` as factors so that R knows not to treat them as proper numbers.
 
 
-```{r centering, echo = FALSE}
-smart_wb <- smarttot %>%
-  filter(tothours > 1) %>%
-  inner_join(wemwbs, "Serial") %>%
-  inner_join(pinfo, "Serial") %>%
+```{r centering, echo = TRUE}
+smart_wb <- smart_wb %>%
   mutate(thours_c = tothours - mean(tothours),
          male_c = ifelse(male == 1, .5, -.5),
-         male_c = as.factor(male_c),
-         male = as.factor(male))
+         male = as.factor(male),
+         male_c = as.factor(male_c))
 ```
 
 ### Activity 7: Visualise the relationship
@@ -534,21 +517,12 @@ Girls show lower overall well-being compared to boys.  In addition, the slope fo
 
 Now we're going to see if there is statistical support for our above interpretation of the graph.
 
-For the data in `smart_wb`, use the `lm()` function to calculate the multiple regression model:
-
-$Y_i = \beta_0 + \beta_1 X_{1i}  + \beta_2 X_{2i}  + \beta_3 X_{3i} + e_i$
-
-where
-
-- $Y_i$ is the well-being score for participant $i$;
-- $X_{1i}$ is the mean-centered smartphone use variable for participant $i$;
-- $X_{2i}$ is gender (-.5 = female, .5 = male);
-- $X_{3i}$ is the interaction between smartphone use and gender ($= X_{1i} \times X_{2i}$)
+For the data in `smart_wb`, use the `lm()` function with well-being as the outcome variable, and mean-centered smartphone and gender as the predictors. Make sure that the model also calculates the interaction between these two variables.
 
 Then use `summary()` to view the results and store this in an object called `mod_summary()`.
 
 `r hide("Hint")`
-- R formulas look like this: `y ~ a + b + a:b` where `a:b` means interaction
+- To specify the interaction you can do `y ~ a + b + a:b` where `a:b` means interaction or `y ~ a * b`.
 `r unhide()`
 
 ```{r mod2, echo = FALSE}
@@ -647,11 +621,6 @@ Regardless of whether you continue with quantitative methods and using R, rememb
 
 <div class="solution"><button>Activity 3</button>
 ```{r a3, eval = FALSE}
-wemwbs <- wellbeing %>%
-  gather("var", "score", -Serial) %>%
-  group_by(Serial) %>%
-  summarise(tot_wellbeing = sum(score))
-
 # sanity check values
 
 wemwbs %>% summarise(mean = mean(tot_wellbeing),
@@ -674,19 +643,6 @@ smart_wb <- smarttot %>%
   filter(tothours > 1) %>%
   inner_join(wemwbs, "Serial") %>%
   inner_join(pinfo, "Serial") 
-```
-</div>
-
-#### Activity 6
-
-<div class="solution"><button>Activity 6</button>
-```{r a6, eval = FALSE}
-smart_wb <- smarttot %>%
-  filter(tothours > 1) %>%
-  inner_join(wemwbs, "Serial") %>%
-  inner_join(pinfo, "Serial") %>%
-  mutate(thours_c = tothours - mean(tothours),
-         male_c = ifelse(male == 1, .5, -.5))
 ```
 </div>
 
