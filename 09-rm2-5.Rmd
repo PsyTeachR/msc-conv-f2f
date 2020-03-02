@@ -380,7 +380,7 @@ Take a look at the resulting tibbles `pinfo`, `wellbeing`, and `screen`.  The `w
 
 The WEMWBS well-being score is simply the *sum* of all the items. Run the below code to gather the data and then calculate the sum score for each participant.
 
-```{r meanwb, echo = FALSE}
+```{r meanwb, echo = TRUE}
 wemwbs <- wellbeing %>%
   gather("var", "score", -Serial) %>%
   group_by(Serial) %>%
