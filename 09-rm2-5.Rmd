@@ -457,10 +457,10 @@ For this analysis, we are going to collapse weekday and weekend use for smartpho
 smarttot <- screen2 %>%
   filter(variable == "Using Smartphone") %>%
   group_by(Serial) %>%
-  summarise(tothours = mean(hours))
+  summarise(hours_per_day = mean(hours))
 
 smart_wb <- smarttot %>%
-  filter(tothours > 1) %>%
+  filter(hours_per_day > 1) %>%
   inner_join(wemwbs, "Serial") %>%
   inner_join(pinfo, "Serial") 
 ```
@@ -475,14 +475,14 @@ As discussed in the lecture, When you have continuous variables in a regression,
 
 For categorical predictors with two levels, these become coded as -.5 and .5 (because the mean of these two values is 0). Run the below code to mean centre the variables. This code:
 
-* Uses `mutate` to add two new variables to `smart_wb`: `tothours_c`, calculated as a mean-centered version of the `tothours` predictor; and `male_c`, recoded as -.5 for female and .5 for male.
+* Uses `mutate` to add two new variables to `smart_wb`: `hours_per_day_c`, calculated as a mean-centered version of the `hours_per_day` predictor; and `male_c`, recoded as -.5 for female and .5 for male.
 * Creates `male_c` by using `if_else(male == 1, .5, -.5)` You can read this code as "if the variable `male` equals 1, recode it as .5, if not, recode it as -.5".
 * Recodes `male` and `male_c` as factors so that R knows not to treat them as proper numbers.
 
 
 ```{r centering, echo = TRUE}
 smart_wb <- smart_wb %>%
-  mutate(thours_c = tothours - mean(tothours),
+  mutate(hours_c = hours_per_day - mean(hours_per_day),
          male_c = ifelse(male == 1, .5, -.5),
          male = as.factor(male),
          male_c = as.factor(male_c))
@@ -490,15 +490,15 @@ smart_wb <- smart_wb %>%
 
 ### Activity 7: Visualise the relationship
 
-* Reverse-engineer the below plot. Calculate mean well-being scores for each combination of `male` and `tothours`, and then create a scatterplot plot that includes separate regression lines for each gender.
+* Reverse-engineer the below plot. Calculate mean well-being scores for each combination of `male` and `hours_per_day`, and then create a scatterplot plot that includes separate regression lines for each gender.
 * You may find it useful to refer to Chapter \@ref(vis). 
 
 ```{r plots, echo = FALSE, fig.cap="Relationship between mean wellbeing and smartphone use by gender"}
 smart_wb_gen <- smart_wb %>%
-  group_by(tothours, male) %>%
+  group_by(hours_per_day, male) %>%
   summarise(mean_wellbeing = mean(tot_wellbeing))
 
-ggplot(smart_wb_gen, aes(tothours, mean_wellbeing, color = male)) +
+ggplot(smart_wb_gen, aes(hours_per_day, mean_wellbeing, color = male)) +
   geom_point() +
   geom_smooth(method = "lm") +
   scale_color_discrete(name = "Gender", labels = c("Female", "Male"))+
@@ -526,14 +526,14 @@ Then use `summary()` to view the results and store this in an object called `mod
 `r unhide()`
 
 ```{r mod2, echo = FALSE}
-mod <- lm(tot_wellbeing ~ thours_c * male_c, smart_wb)
+mod <- lm(tot_wellbeing ~ hours_c * male_c, smart_wb)
 # alternatively: 
-# mod <- lm(tot_wellbeing ~ thours_c + male_c + thours_c:male_c, smart_wb)
+# mod <- lm(tot_wellbeing ~ hours_c + male_c + hours_c:male_c, smart_wb)
 
 mod_summary <- summary(mod)
 ```
 
-* The interaction between smartphone use and gender is shown by the variable `r mcq(c("thours_c", "male_c", answer = "thours_c:male_c"))`, and this interaction was `r mcq(c(answer = "significant", "nonsignificant"))` at the $\alpha = .05$ level.
+* The interaction between smartphone use and gender is shown by the variable `r mcq(c("hours_c", "male_c", answer = "hours_c:male_c"))`, and this interaction was `r mcq(c(answer = "significant", "nonsignificant"))` at the $\alpha = .05$ level.
 
 * To 2 decimal places, what proportion of the variance in well-being scores does the overall model explain? `r fitb("9.38")`
 
@@ -571,7 +571,7 @@ Finally, to check for multicollinearity we can use `vif()` to calculate the vari
 
 There are various rules of thumb, but most converge on a VIF of above 2 - 2.5 for any one predictor being problematic.
 
-* Run the below code. Do any of the predictors show evidence of multicollinearity? `r mcq(c("thours_c", "male_c", "thours_c:male_c", answer = "There is no evidence of multicollinearity"))`
+* Run the below code. Do any of the predictors show evidence of multicollinearity? `r mcq(c("hours_c", "male_c", "hours_c:male_c", answer = "There is no evidence of multicollinearity"))`
 
 ```{r vif, eval = FALSE}
 vif(mod)
@@ -637,10 +637,10 @@ wemwbs %>% summarise(mean = mean(tot_wellbeing),
 smarttot <- screen2 %>%
   filter(variable == "Using Smartphone") %>%
   group_by(Serial) %>%
-  summarise(tothours = mean(hours))
+  summarise(hours_per_day = mean(hours))
 
 smart_wb <- smarttot %>%
-  filter(tothours > 1) %>%
+  filter(hours_per_day > 1) %>%
   inner_join(wemwbs, "Serial") %>%
   inner_join(pinfo, "Serial") 
 ```
@@ -651,10 +651,10 @@ smart_wb <- smarttot %>%
 <div class="solution"><button>Activity 7</button>
 ```{r a7, eval = FALSE}
 smart_wb_gen <- smart_wb %>%
-  group_by(tothours, male) %>%
+  group_by(hours_per_day, male) %>%
   summarise(mean_wellbeing = mean(tot_wellbeing))
 
-ggplot(smart_wb_gen, aes(tothours, mean_wellbeing, color = male)) +
+ggplot(smart_wb_gen, aes(hours_per_day, mean_wellbeing, color = male)) +
   geom_point() +
   geom_smooth(method = "lm") +
   scale_color_discrete(name = "Gender", labels = c("Female", "Male"))+
@@ -667,9 +667,9 @@ ggplot(smart_wb_gen, aes(tothours, mean_wellbeing, color = male)) +
 
 <div class="solution"><button>Activity 8</button>
 ```{r a8, eval = FALSE}
-mod <- lm(tot_wellbeing ~ thours_c * male_c, smart_wb)
+mod <- lm(tot_wellbeing ~ hours_c * male_c, smart_wb)
 # alternatively: 
-# mod <- lm(tot_wellbeing ~ thours_c + male_c + thours_c:male_c, smart_wb)
+# mod <- lm(tot_wellbeing ~ hours_c + male_c + hours_c:male_c, smart_wb)
 
 mod_summary <- summary(mod)
 ```
