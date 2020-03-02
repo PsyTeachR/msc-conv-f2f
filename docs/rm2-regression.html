@@ -938,12 +938,12 @@ Figure 9.3: Relationship between wellbeing and screentime usage by technology an
 </ul>
 <p>For categorical predictors with two levels, these become coded as -.5 and .5 (because the mean of these two values is 0). Run the below code to mean centre the variables. This code:</p>
 <ul>
-<li>Uses <code>mutate</code> to add two new variables to <code>smart_wb</code>: <code>tothours_c</code>, calculated as a mean-centered version of the <code>tothours</code> predictor; and <code>male_c</code>, recoded as -.5 for female and .5 for male.</li>
+<li>Uses <code>mutate</code> to add two new variables to <code>smart_wb</code>: <code>hours_per_day_c</code>, calculated as a mean-centered version of the <code>hours_per_day</code> predictor; and <code>male_c</code>, recoded as -.5 for female and .5 for male.</li>
 <li>Creates <code>male_c</code> by using <code>if_else(male == 1, .5, -.5)</code> You can read this code as “if the variable <code>male</code> equals 1, recode it as .5, if not, recode it as -.5”.</li>
 <li>Recodes <code>male</code> and <code>male_c</code> as factors so that R knows not to treat them as proper numbers.</li>
 </ul>
 <div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="rm2-regression.html#cb268-1"></a>smart_wb &lt;-<span class="st"> </span>smart_wb <span class="op">%&gt;%</span></span>
-<span id="cb268-2"><a href="rm2-regression.html#cb268-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">thours_c =</span> tothours <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(tothours),</span>
+<span id="cb268-2"><a href="rm2-regression.html#cb268-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">hours_c =</span> hours_per_day <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(hours_per_day),</span>
 <span id="cb268-3"><a href="rm2-regression.html#cb268-3"></a>         <span class="dt">male_c =</span> <span class="kw">ifelse</span>(male <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, <span class="fl">.5</span>, <span class="fl">-.5</span>),</span>
 <span id="cb268-4"><a href="rm2-regression.html#cb268-4"></a>         <span class="dt">male =</span> <span class="kw">as.factor</span>(male),</span>
 <span id="cb268-5"><a href="rm2-regression.html#cb268-5"></a>         <span class="dt">male_c =</span> <span class="kw">as.factor</span>(male_c))</span></code></pre></div>
@@ -951,7 +951,7 @@ Figure 9.3: Relationship between wellbeing and screentime usage by technology an
 <div id="activity-7-visualise-the-relationship" class="section level3">
 <h3><span class="header-section-number">9.2.8</span> Activity 7: Visualise the relationship</h3>
 <ul>
-<li>Reverse-engineer the below plot. Calculate mean well-being scores for each combination of <code>male</code> and <code>tothours</code>, and then create a scatterplot plot that includes separate regression lines for each gender.</li>
+<li>Reverse-engineer the below plot. Calculate mean well-being scores for each combination of <code>male</code> and <code>hours_per_day</code>, and then create a scatterplot plot that includes separate regression lines for each gender.</li>
 <li>You may find it useful to refer to Chapter <a href="vis.html#vis">7</a>.</li>
 </ul>
 <div class="figure" style="text-align: center"><span id="fig:plots"></span>
@@ -982,7 +982,7 @@ Hint
 </ul>
 </div>
 <ul>
-<li><p>The interaction between smartphone use and gender is shown by the variable <select class='solveme' data-answer='["thours_c:male_c"]'> <option></option> <option>thours_c</option> <option>male_c</option> <option>thours_c:male_c</option></select>, and this interaction was <select class='solveme' data-answer='["significant"]'> <option></option> <option>significant</option> <option>nonsignificant</option></select> at the <span class="math inline">\(\alpha = .05\)</span> level.</p></li>
+<li><p>The interaction between smartphone use and gender is shown by the variable <select class='solveme' data-answer='["hours_c:male_c"]'> <option></option> <option>hours_c</option> <option>male_c</option> <option>hours_c:male_c</option></select>, and this interaction was <select class='solveme' data-answer='["significant"]'> <option></option> <option>significant</option> <option>nonsignificant</option></select> at the <span class="math inline">\(\alpha = .05\)</span> level.</p></li>
 <li><p>To 2 decimal places, what proportion of the variance in well-being scores does the overall model explain? <input class='solveme nospaces' size='4' data-answer='["9.38"]'/></p></li>
 <li><p>The p-value for the overall model fit is <code>&lt; 2.2e-16</code>. Is this significant? <select class='solveme' data-answer='["Yes"]'> <option></option> <option>Yes</option> <option>No</option></select></p></li>
 <li><p>What is the most reasonable interpretation of these results? <select class='solveme' data-answer='["smartphone use was more negatively associated with wellbeing for girls than for boys"]'> <option></option> <option>smartphone use harms girls more than boys</option> <option>smartphone use harms boys more than girls</option> <option>there is no evidence for gender differences in the relationship between smartphone use and well-being</option> <option>smartphone use was more negatively associated with wellbeing for girls than for boys</option></select></p></li>
@@ -1018,7 +1018,7 @@ Figure 9.5: Regression assumption plots
 <p>Finally, to check for multicollinearity we can use <code>vif()</code> to calculate the variance inflation factor. Essentially, this function estimates how much the variance of a coefficient is “inflated” because of linear dependence with other predictors, i.e., that a predictor isn’t actually adding any unique variance to the model, it’s just really strongly related to other predictors. <a href="https://statisticalhorizons.com/multicollinearity">You can read more about this here</a>. Thankfully, VIF is not affected by large samples like the other tests.</p>
 <p>There are various rules of thumb, but most converge on a VIF of above 2 - 2.5 for any one predictor being problematic.</p>
 <ul>
-<li>Run the below code. Do any of the predictors show evidence of multicollinearity? <select class='solveme' data-answer='["There is no evidence of multicollinearity"]'> <option></option> <option>thours_c</option> <option>male_c</option> <option>thours_c:male_c</option> <option>There is no evidence of multicollinearity</option></select></li>
+<li>Run the below code. Do any of the predictors show evidence of multicollinearity? <select class='solveme' data-answer='["There is no evidence of multicollinearity"]'> <option></option> <option>hours_c</option> <option>male_c</option> <option>hours_c:male_c</option> <option>There is no evidence of multicollinearity</option></select></li>
 </ul>
 <div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="rm2-regression.html#cb270-1"></a><span class="kw">vif</span>(mod)</span></code></pre></div>
 </div>
@@ -1071,10 +1071,10 @@ Activity 5
 <div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="rm2-regression.html#cb273-1"></a>smarttot &lt;-<span class="st"> </span>screen2 <span class="op">%&gt;%</span></span>
 <span id="cb273-2"><a href="rm2-regression.html#cb273-2"></a><span class="st">  </span><span class="kw">filter</span>(variable <span class="op">==</span><span class="st"> &quot;Using Smartphone&quot;</span>) <span class="op">%&gt;%</span></span>
 <span id="cb273-3"><a href="rm2-regression.html#cb273-3"></a><span class="st">  </span><span class="kw">group_by</span>(Serial) <span class="op">%&gt;%</span></span>
-<span id="cb273-4"><a href="rm2-regression.html#cb273-4"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">tothours =</span> <span class="kw">mean</span>(hours))</span>
+<span id="cb273-4"><a href="rm2-regression.html#cb273-4"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">hours_per_day =</span> <span class="kw">mean</span>(hours))</span>
 <span id="cb273-5"><a href="rm2-regression.html#cb273-5"></a></span>
 <span id="cb273-6"><a href="rm2-regression.html#cb273-6"></a>smart_wb &lt;-<span class="st"> </span>smarttot <span class="op">%&gt;%</span></span>
-<span id="cb273-7"><a href="rm2-regression.html#cb273-7"></a><span class="st">  </span><span class="kw">filter</span>(tothours <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>) <span class="op">%&gt;%</span></span>
+<span id="cb273-7"><a href="rm2-regression.html#cb273-7"></a><span class="st">  </span><span class="kw">filter</span>(hours_per_day <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>) <span class="op">%&gt;%</span></span>
 <span id="cb273-8"><a href="rm2-regression.html#cb273-8"></a><span class="st">  </span><span class="kw">inner_join</span>(wemwbs, <span class="st">&quot;Serial&quot;</span>) <span class="op">%&gt;%</span></span>
 <span id="cb273-9"><a href="rm2-regression.html#cb273-9"></a><span class="st">  </span><span class="kw">inner_join</span>(pinfo, <span class="st">&quot;Serial&quot;</span>) </span></code></pre></div>
 </div>
@@ -1086,10 +1086,10 @@ Activity 5
 Activity 7
 </button>
 <div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="rm2-regression.html#cb274-1"></a>smart_wb_gen &lt;-<span class="st"> </span>smart_wb <span class="op">%&gt;%</span></span>
-<span id="cb274-2"><a href="rm2-regression.html#cb274-2"></a><span class="st">  </span><span class="kw">group_by</span>(tothours, male) <span class="op">%&gt;%</span></span>
+<span id="cb274-2"><a href="rm2-regression.html#cb274-2"></a><span class="st">  </span><span class="kw">group_by</span>(hours_per_day, male) <span class="op">%&gt;%</span></span>
 <span id="cb274-3"><a href="rm2-regression.html#cb274-3"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mean_wellbeing =</span> <span class="kw">mean</span>(tot_wellbeing))</span>
 <span id="cb274-4"><a href="rm2-regression.html#cb274-4"></a></span>
-<span id="cb274-5"><a href="rm2-regression.html#cb274-5"></a><span class="kw">ggplot</span>(smart_wb_gen, <span class="kw">aes</span>(tothours, mean_wellbeing, <span class="dt">color =</span> male)) <span class="op">+</span></span>
+<span id="cb274-5"><a href="rm2-regression.html#cb274-5"></a><span class="kw">ggplot</span>(smart_wb_gen, <span class="kw">aes</span>(hours_per_day, mean_wellbeing, <span class="dt">color =</span> male)) <span class="op">+</span></span>
 <span id="cb274-6"><a href="rm2-regression.html#cb274-6"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
 <span id="cb274-7"><a href="rm2-regression.html#cb274-7"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="op">+</span></span>
 <span id="cb274-8"><a href="rm2-regression.html#cb274-8"></a><span class="st">  </span><span class="kw">scale_color_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;Gender&quot;</span>, <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Female&quot;</span>, <span class="st">&quot;Male&quot;</span>))<span class="op">+</span></span>
@@ -1103,9 +1103,9 @@ Activity 7
 <button>
 Activity 8
 </button>
-<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="rm2-regression.html#cb275-1"></a>mod &lt;-<span class="st"> </span><span class="kw">lm</span>(tot_wellbeing <span class="op">~</span><span class="st"> </span>thours_c <span class="op">*</span><span class="st"> </span>male_c, smart_wb)</span>
+<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="rm2-regression.html#cb275-1"></a>mod &lt;-<span class="st"> </span><span class="kw">lm</span>(tot_wellbeing <span class="op">~</span><span class="st"> </span>hours_c <span class="op">*</span><span class="st"> </span>male_c, smart_wb)</span>
 <span id="cb275-2"><a href="rm2-regression.html#cb275-2"></a><span class="co"># alternatively: </span></span>
-<span id="cb275-3"><a href="rm2-regression.html#cb275-3"></a><span class="co"># mod &lt;- lm(tot_wellbeing ~ thours_c + male_c + thours_c:male_c, smart_wb)</span></span>
+<span id="cb275-3"><a href="rm2-regression.html#cb275-3"></a><span class="co"># mod &lt;- lm(tot_wellbeing ~ hours_c + male_c + hours_c:male_c, smart_wb)</span></span>
 <span id="cb275-4"><a href="rm2-regression.html#cb275-4"></a></span>
 <span id="cb275-5"><a href="rm2-regression.html#cb275-5"></a>mod_summary &lt;-<span class="st"> </span><span class="kw">summary</span>(mod)</span></code></pre></div>
 </div>
